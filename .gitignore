@@ -1,0 +1,17 @@
+# IDEs
+.idea
+.vscode
+*.pdf
+
+# Linked files
+# But keep allegro for convenience
+*.dll
+!allegro_monolith-5.2.dll
+build/
+.cache/
+
+# MacOS
+.DS_Store
+
+# Others
+log.txt
