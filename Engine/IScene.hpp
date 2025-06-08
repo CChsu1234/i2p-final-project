@@ -42,7 +42,9 @@ namespace Engine {
         /// This is called when the game should redraw the window.
         /// Delegate the draw event to all visible objects.
         /// </summary>
+        void Project() override;
         void Draw() const override;
+        void CleanUp() override;
     };
 }
 #endif   // ISCENE_HPP

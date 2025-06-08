@@ -11,6 +11,7 @@
 #include "Scene/SettingsScene.hpp"
 #include "Scene/ScoreBoardScene.hpp"
 #include "Scene/RecordScene.hpp"
+#include "Scene/TestScene.hpp"
 #include "File/Settings.hpp"
 
 int main(int argc, char **argv) {
@@ -19,6 +20,7 @@ int main(int argc, char **argv) {
 	Engine::GameEngine& game = Engine::GameEngine::GetInstance();
 
     // DONE HACKATHON-2 (2/3): Register Scenes here
+    game.AddNewScene("test", new TestScene());
     game.AddNewScene("stage-select", new StageSelectScene());
     game.AddNewScene("start", new StartScene());
     game.AddNewScene("settings", new SettingsScene());
@@ -30,7 +32,7 @@ int main(int argc, char **argv) {
 
     // DONE HACKATHON-1 (1/1): Change the start scene
     Settings settings;
-	game.Start("start", 60, 1600, 832);
+	game.Start("test", 60, 1600, 832);
 
     settings.Save();
 	return 0;

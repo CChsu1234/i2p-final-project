@@ -5,16 +5,20 @@
 
 #include "IControl.hpp"
 #include "IObject.hpp"
+#include "IObject3D.hpp"
 
 namespace Engine {
     /// <summary>
     /// A ControlObject Group that can contain other objects or controls.
     /// </summary>
-    class Group : public IObject, public IControl {
+    class Group : public IObject, public IControl, public IObject3D {
     protected:
         // Stores all object pointers in the scene.
         // The first boolean indicates whether the scene should delete it.
         std::list<std::pair<bool, IObject *>> objects;
+        // Stores all object3D pointers in the scene.
+        // The first boolean indicates whether the scene should delete it.
+        std::list<std::pair<bool, IObject3D *>> object3ds;
         // Stores all control pointers in the scene.
         // The first boolean indicates whether the scene should delete it.
         std::list<std::pair<bool, IControl *>> controls;
@@ -28,6 +32,12 @@ namespace Engine {
         /// <param name="shouldDelete">Indicates whether the scene handle the Object deletion for you.</param>
         /// <param name="obj">The Object to add.</param>
         void addObject(bool shouldDelete, IObject *obj);
+        /// <summary>
+        /// Add Object3D to scene.
+        /// </summary>
+        /// <param name="shouldDelete">Indicates whether the scene handle the Object deletion for you.</param>
+        /// <param name="obj">The Object to add.</param>
+        void addObject3D(bool shouldDelete, IObject3D *obj);
         /// <summary>
         /// Add Control to scene.
         /// </summary>
@@ -75,7 +85,9 @@ namespace Engine {
         /// This is called when the game should redraw the window.
         /// Delegate the draw event to all visible objects.
         /// </summary>
+        void Project() override;
         void Draw() const override;
+        void CleanUp() override;
         /// <summary>
         /// Delegate the key down event to all controls.
         /// </summary>
@@ -119,6 +131,11 @@ namespace Engine {
         /// <param name="it">The iterator of the Object.</param>
         void RemoveObject(std::list<std::pair<bool, IObject *>>::iterator it);
         /// <summary>
+        /// Remove the Object3D from this scene.
+        /// </summary>
+        /// <param name="it">The iterator of the Object.</param>
+        void RemoveObject3D(std::list<std::pair<bool, IObject3D *>>::iterator it);
+        /// <summary>
         /// Remove the Control from this scene.
         /// </summary>
         /// <param name="it">The iterator of the Control.</param>
@@ -130,12 +147,25 @@ namespace Engine {
         /// <param name="objIt">The iterator of the Object.</param>
         void RemoveControlObject(std::list<std::pair<bool, IControl *>>::iterator ctrlIt, std::list<std::pair<bool, IObject *>>::iterator objIt);
         /// <summary>
+        /// Remove the ControlObject3D from this scene.
+        /// </summary>
+        /// <param name="ctrlIt">The iterator of the Control.</param>
+        /// <param name="objIt">The iterator of the Object.</param>
+        void RemoveControlObject3D(std::list<std::pair<bool, IControl *>>::iterator ctrlIt, std::list<std::pair<bool, IObject3D *>>::iterator objIt);
+        /// <summary>
         /// Add Object to scene.
         /// Use inline-new when adding Object in order to support polymorphism,
         /// The added objects will be deleted by Scene at remove or terminate.
         /// </summary>
         /// <param name="obj">The Object to add.</param>
         void AddNewObject(IObject *obj);
+        /// <summary>
+        /// Add Object to scene.
+        /// Use inline-new when adding Object in order to support polymorphism,
+        /// The added objects will be deleted by Scene at remove or terminate.
+        /// </summary>
+        /// <param name="obj">The Object to add.</param>
+        void AddNewObject3D(IObject3D *obj3d);
         /// <summary>
         /// Insert Object to scene before the iterator.
         /// Use inline-new when adding Object in order to support polymorphism,
@@ -159,12 +189,26 @@ namespace Engine {
         /// <param name="ctrl">The ControlObject to add.</param>
         void AddNewControlObject(IControl *ctrl);
         /// <summary>
+        /// Add ControlObject3D to scene.
+        /// Use inline-new when adding ControlObject in order to support polymorphism,
+        /// ControlObject means classes that inherit both Control and Object. (e.g. buttons)
+        /// </summary>
+        /// <param name="ctrl">The ControlObject to add.</param>
+        void AddNewControlObject3D(IControl *ctrl);
+        /// <summary>
         /// Add Object to scene.
         /// Use reference when adding Object. Make sure it won't be deconstructed due to out-of-scope.
         /// The added objects will not be deleted by Scene at remove or terminate.
         /// </summary>
         /// <param name="obj">The Object to add.</param>
         void AddRefObject(IObject &obj);
+        /// <summary>
+        /// Add Object to scene.
+        /// Use reference when adding Object. Make sure it won't be deconstructed due to out-of-scope.
+        /// The added objects will not be deleted by Scene at remove or terminate.
+        /// </summary>
+        /// <param name="obj">The Object to add.</param>
+        void AddRefObject3D(IObject3D &obj3d);
         /// <summary>
         /// Insert Object to scene before the iterator.
         /// Use reference when adding Object. Make sure it won't be deconstructed due to out-of-scope.
@@ -188,10 +232,22 @@ namespace Engine {
         /// <param name="ctrl">The ControlObject to add.</param>
         void AddRefControlObject(IControl &ctrl);
         /// <summary>
+        /// Add ControlObject to scene.
+        /// Use reference when adding ControlObject. Make sure it won't be deconstructed due to out-of-scope.
+        /// The added ControlObjects will not be deleted by Scene at remove or terminate.
+        /// </summary>
+        /// <param name="ctrl">The ControlObject to add.</param>
+        void AddRefControlObject3D(IControl &ctrl);
+        /// <summary>
         /// Get all objects.
         /// </summary>
         /// <returns>A linked-list of all objects contained.</returns>
         std::list<IObject *> GetObjects();
+        /// <summary>
+        /// Get all objects.
+        /// </summary>
+        /// <returns>A linked-list of all objects contained.</returns>
+        std::list<IObject3D *> GetObject3Ds();
         /// <summary>
         /// Get all controls.
         /// </summary>

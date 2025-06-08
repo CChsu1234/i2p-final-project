@@ -166,7 +166,9 @@ namespace Engine {
             deltaTime = deltaTimeThreshold;
         activeScene->Update(deltaTime);
     }
-    void GameEngine::draw() const {
+    void GameEngine::draw() {
+        activeScene->CleanUp();
+        activeScene->Project();
         activeScene->Draw();
         al_flip_display();
     }

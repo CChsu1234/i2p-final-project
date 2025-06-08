@@ -58,7 +58,7 @@ namespace Engine {
         /// <summary>
         /// Delegate the draw event to the active scene.
         /// </summary>
-        void draw() const;
+        void draw();
         /// <summary>
         /// Release Allegro5 resources, and free all allocated scenes.
         /// </summary>
