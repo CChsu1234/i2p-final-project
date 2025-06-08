@@ -64,10 +64,7 @@ add_executable(2025_I2P2_TowerDefense
     Engine/Resources.hpp
     Engine/Sprite.cpp
     Engine/Sprite.hpp
-    Engine/Projection.cpp
-    Engine/Projection.hpp
-    Engine/Object3D.cpp
-    Engine/Object3D.hpp    
+    
     # DONE HACKATHON-2 (3/3): Add the new scene source files here
     Scene/LoseScene.cpp
     Scene/LoseScene.hpp
@@ -85,8 +82,6 @@ add_executable(2025_I2P2_TowerDefense
     Scene/WinScene.hpp
     Scene/RecordScene.cpp
     Scene/RecordScene.hpp
-    Scene/Final_PlayScene.cpp
-    Scene/Final_PlayScene.hpp
 
     Turret/LaserTurret.cpp
     Turret/LaserTurret.hpp
