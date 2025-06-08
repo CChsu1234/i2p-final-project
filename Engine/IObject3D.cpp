@@ -1,6 +1,5 @@
 #include <list>
 #include <set>
-#include <iostream>
 
 #include "IObject3D.hpp"
 
@@ -10,11 +9,11 @@ namespace Engine {
     }
     void IObject3D::Project() {
         for (auto tris : Tris) {
-            Tris_Projected.insert(tris);
+            Tris_Projected.insert(tris.Project());
         }
     }
     void IObject3D::Draw() const {
-        std::cout << "Draw" << std::endl;
+
         for (auto it = Tris_Projected.begin(); it != Tris_Projected.end(); ++it) {
             it->Draw();
         }

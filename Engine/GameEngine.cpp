@@ -17,6 +17,7 @@
 #include "LOG.hpp"
 #include "Point.hpp"
 #include "Resources.hpp"
+#include "Projection.hpp"
 
 namespace Engine {
     void GameEngine::initAllegro5() {
@@ -167,6 +168,7 @@ namespace Engine {
         activeScene->Update(deltaTime);
     }
     void GameEngine::draw() {
+        SetProjectionMatrix(0, 0);
         activeScene->CleanUp();
         activeScene->Project();
         activeScene->Draw();
