@@ -2,7 +2,6 @@
 #define TRANSFORM_HPP
 
 #include "Resource/Eigen/Dense"
-#include "Engine/Projection.hpp"
 #include "Engine/ModelView.hpp"
 
 namespace Engine {
