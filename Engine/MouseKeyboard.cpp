@@ -15,22 +15,30 @@ namespace Engine {
     MouseKeyboard::MouseKeyboard() : IControl(), IObject() {
         v = 1.0f;
         Eye << 0, 0, 0, 1;
-        Target << 0, 0, -1, 1;
+        Dir << 1, 0, 0, 1;
+        thetaH = 90;
+        thetaV = 0;
         IObject::Visible = true;
         GameEngine::GetInstance().HideCursor();
         inControl = true;
     }
-    void MouseKeyboard::RotateH(float theta) {
+    void MouseKeyboard::RotateH() {
         Eigen::Matrix4f RotationMatrix {
-            {cos(-theta), 0.0f, sin(-theta), 0.0f},
+            {cos(-thetaH), 0.0f, sin(-thetaH), 0.0f},
             {0.0f, 1.0f, 0.0f, 0.0f},
-            {-sin(-theta), 0.0f, cos(-theta), 0.0f},
+            {-sin(-thetaH), 0.0f, cos(-thetaH), 0.0f},
             {0.0f, 0.0f, 0.0f, 1.0f}
         };
-        Target = Eye + RotationMatrix * (Target - Eye);
+        Dir = RotationMatrix * Dir;
     }
-    void MouseKeyboard::RotateV(float theta) {
-
+    void MouseKeyboard::RotateV() {
+        Eigen::Matrix4f RotationMatrix {
+            {1.0f, 0.0f, 0.0f, 0.0f},
+            {0.0f, cos(-thetaV), -sin(-thetaV), 0.0f},
+            {0.0f, sin(-thetaV), cos(-thetaV), 0.0f},
+            {0.0f, 0.0f, 0.0f, 1.0f}
+        };
+        Dir = RotationMatrix * Dir;
     }
     void MouseKeyboard::OnMouseDown(int Button, int mx, int my) {
         inControl = true;
@@ -41,10 +49,21 @@ namespace Engine {
             float dx = mx - GameEngine::GetInstance().GetScreenSize().x / 2;
             float dy = my - GameEngine::GetInstance().GetScreenSize().y / 2;
             GameEngine::GetInstance().ResetMousePos();
-            float thetaH = dx / GameEngine::GetInstance().GetScreenSize().x; // horizontal
-            float thetaV = dy / GameEngine::GetInstance().GetScreenSize().x; // vertical
-            RotateH(thetaH);
-            RotateV(thetaV);
+            thetaH += dx / GameEngine::GetInstance().GetScreenSize().x; // horizontal
+            thetaV += dy / GameEngine::GetInstance().GetScreenSize().x; // vertical
+            if (thetaV > 180.0f) {
+                thetaV = 180.0f;
+            } else if (thetaV < -180.0f) {
+                thetaV = -180.0f;
+            }
+            if (thetaH > 360.0f) {
+                thetaH -= 360.0f;
+            } else if (thetaH < 0.0f) {
+                thetaH += 360.0f;
+            }
+            Dir << 0, 0, 1, 1;
+            RotateV();
+            RotateH();
         }
         // TODO Move Target
     }
@@ -78,23 +97,34 @@ namespace Engine {
         }
     }
     void MouseKeyboard::Update(float deltaTime) {
+        float x = cos(thetaV);
+        float z = sin(thetaV);
         if (isKeyDown[UP]) {
-            // TODO Move towards Target
+            Eye(0) += x;
+            Eye(2) += z;
         }
         if (isKeyDown[DOWN]) {
-            // TODO Move towards Target
+            Eye(0) -= x;
+            Eye(2) -= z;
         }
         if (isKeyDown[LEFT]) {
-            // TODO Move towards Target
+            Eye(0) += z;
+            Eye(2) -= x;
         }
         if (isKeyDown[RIGHT]) {
-            // TODO Move towards Target
+            Eye(0) -= z;
+            Eye(2) += x;
         }
         // TODO SetModelViewMatrix
     }
     void MouseKeyboard::Draw() const {
         al_draw_line(
-            GameEngine::GetInstance().GetScreenSize().x * 0.5, GameEngine::GetInstance().GetScreenSize().y * 0.5, GameEngine::GetInstance().GetScreenSize().x * (0.5 + Target(0) * 0.5), GameEngine::GetInstance().GetScreenSize().y * (0.5 + Target(1) * 0.5),
+            GameEngine::GetInstance().GetScreenSize().x * 0.25, GameEngine::GetInstance().GetScreenSize().y * 0.25, GameEngine::GetInstance().GetScreenSize().x * (0.25 + Eye(0) * 0.05 * 0.25), GameEngine::GetInstance().GetScreenSize().y * (0.25 + Eye(2) * 0.05 * 0.25),
+            al_map_rgb(255, 255, 255),
+            1.0
+        );
+        al_draw_line(
+            GameEngine::GetInstance().GetScreenSize().x * 0.75, GameEngine::GetInstance().GetScreenSize().y * 0.75, GameEngine::GetInstance().GetScreenSize().x * (0.75 + Dir(0) * 0.25), GameEngine::GetInstance().GetScreenSize().y * (0.75 + Dir(1) * 0.25),
             al_map_rgb(255, 255, 255),
             1.0
         );
