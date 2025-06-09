@@ -8,17 +8,24 @@
 namespace Engine {
     class MouseKeyboard : public IControl, public IObject {
     private:
+        bool inControl;
         float v;
-        Eigen::Vector4f Eye, Target;
+        Eigen::Vector4f Eye, Dir;
+        float thetaH;
+        float thetaV;
         enum { UP, LEFT, DOWN, RIGHT };
         bool isKeyDown[4];
     public:
         MouseKeyboard();
         ~MouseKeyboard() = default;
+        void RotateH();
+        void RotateV();
+        void OnMouseDown(int Button, int mx, int my) override;
         void OnMouseMove(int mx, int my) override;
         void OnKeyDown(int keyCode) override;
         void OnKeyUp(int keyCode) override;
         void Update(float deltaTime) override;
+        void Draw() const override; // for testing
     };
 }
 
