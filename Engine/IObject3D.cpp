@@ -11,7 +11,7 @@ namespace Engine {
     void IObject3D::Transform() {
         for (auto tris : Tris) {
             Triangle3D Transformed = tris.Transform();
-            // Viewport Transform
+            // TODO Viewport Transform
             if (true) {
                 Tris_Transformed.insert(Transformed);
             }

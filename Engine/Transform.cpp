@@ -7,6 +7,7 @@
 
 namespace Engine {
     Eigen::Matrix4f GetTrasformMatrix() {
+        // TODO
         SetProjectionMatrix(90, GameEngine::GetInstance().GetScreenSize().x / GameEngine::GetInstance().GetScreenSize().y , 1.0f, 500.0f);
         SetModelViewMatrix();
         Eigen::Matrix4f transformMatrix;
@@ -18,7 +19,7 @@ namespace Engine {
     }
     Eigen::Vector4f Transform(Eigen::Vector4f Vec) {
         Vec = Vec.transpose() * TransformMatrix;
-        // Vec = Transform(Vec);
+        // Vec = ModelView(Vec);
         // Vec = Projection(Vec);
         // x /= w, y /= w, z /= w
         // Viewport Transform // in IObject3D

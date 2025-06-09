@@ -4,6 +4,9 @@
 
 namespace Engine {
     Eigen::Matrix4f GetModelIViewMatrix(void) {
+        // TODO 
+        // rotation 
+        
         Eigen::Matrix4f modelViewMatrix;
         modelViewMatrix << 1, 0, 0, 0,
                            0, 1, 0, 0,
