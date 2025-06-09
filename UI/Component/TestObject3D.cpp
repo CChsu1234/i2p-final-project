@@ -13,7 +13,7 @@ namespace Engine {
         Triangle3D New(A, B, C, 255, 255, 255);
         Tris.push_back(New);
     }
-    void TestObject3D::Project() {
-        IObject3D::Project();
+    void TestObject3D::Transform() {
+        IObject3D::Transform();
     }
 }

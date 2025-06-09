@@ -17,7 +17,7 @@
 #include "LOG.hpp"
 #include "Point.hpp"
 #include "Resources.hpp"
-#include "Projection.hpp"
+#include "Transform.hpp"
 
 namespace Engine {
     void GameEngine::initAllegro5() {
@@ -168,9 +168,9 @@ namespace Engine {
         activeScene->Update(deltaTime);
     }
     void GameEngine::draw() {
-        SetProjectionMatrix(0, 0);
+        SetTransformMatrix();
         activeScene->CleanUp();
-        activeScene->Project();
+        activeScene->Transform();
         activeScene->Draw();
         al_flip_display();
     }

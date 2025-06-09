@@ -52,9 +52,9 @@ namespace Engine {
                 preIt->second->Update(deltaTime);
         }
     }
-    void Group::Project() {
+    void Group::Transform() {
         for (auto &it : object3ds) {
-            it.second->Project();
+            it.second->Transform();
         }
     }
     void Group::Draw() const {
@@ -62,10 +62,7 @@ namespace Engine {
             if (it.second->Visible)
                 it.second->Draw();
         }
-        for (auto &it : object3ds) {
-            if (it.second->Visible)
-                it.second->Draw();
-        }
+        IObject3D::Draw();
     }
     void Group::CleanUp() {
         IObject3D::CleanUp();

@@ -2,8 +2,9 @@
 #define TRIANGLE3D_HPP
 
 #include <allegro5/allegro_color.h>
-
 #include "Resource/Eigen/Dense"
+
+#include "Engine/GameEngine.hpp"
 
 namespace Engine {
     class Triangle3D {
@@ -14,7 +15,7 @@ namespace Engine {
         Triangle3D(Eigen::Vector4f A, Eigen::Vector4f B, Eigen::Vector4f C, ALLEGRO_COLOR color);
         ~Triangle3D() = default;
         void Draw() const;
-        Triangle3D Project();
+        Triangle3D Transform();
         bool operator<(Triangle3D other) const;
     };
 }

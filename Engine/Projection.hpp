@@ -4,10 +4,10 @@
 #include "Resource/Eigen/Dense"
 
 namespace Engine {
-    Eigen::Matrix4f GetProjectionMatrix(float theta, float aspectRatio);
-    Eigen::Vector4f Projection(Eigen::Vector4f Vec, Eigen::Matrix4f ProjectionMatrix);
-    void SetProjectionMatrix(float theta, float aspectRatio);
-    static Eigen::Matrix4f ProjecitonMatrix;
+    Eigen::Matrix4f GetProjectionMatrix(float theta, float aspectRatio, float Zn, float Zf);
+    Eigen::Vector4f Projection(Eigen::Vector4f Vec);
+    void SetProjectionMatrix(float theta, float aspectRatio, float Zn, float Zf);
+    static Eigen::Matrix4f ProjectionMatrix;
 }
 
 #endif

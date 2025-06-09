@@ -16,13 +16,13 @@ namespace Engine {
 
     public:
         std::list<Triangle3D> Tris;
-        inline static std::set<Triangle3D> Tris_Projected{};
+        inline static std::set<Triangle3D> Tris_Transformed{};
         bool Visible = true;
         virtual ~IObject3D() = default;
         IObject3D(const IObject3D &other) = default;
         IObject3D &operator=(IObject3D const &) = default;
         std::list<std::pair<bool, IObject3D *>>::iterator GetObject3DIterator() const;
-        virtual void Project();
+        virtual void Transform();
         virtual void Draw() const;
         virtual void CleanUp();
         virtual void Update(float deltaTime);

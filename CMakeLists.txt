@@ -70,6 +70,10 @@ add_executable(2025_I2P2_TowerDefense
     Engine/Triangle3D.hpp
     Engine/Projection.cpp
     Engine/Projection.hpp
+    Engine/ModelView.cpp
+    Engine/ModelView.hpp
+    Engine/Transform.cpp
+    Engine/Transform.hpp
     
     # DONE HACKATHON-2 (3/3): Add the new scene source files here
     Scene/LoseScene.cpp

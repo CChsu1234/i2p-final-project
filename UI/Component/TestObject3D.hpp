@@ -9,7 +9,7 @@ namespace Engine {
     public:
         TestObject3D();
         ~TestObject3D() = default;
-        void Project() override;
+        void Transform() override;
     };
 }
 

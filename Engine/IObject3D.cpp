@@ -2,24 +2,29 @@
 #include <set>
 
 #include "IObject3D.hpp"
+#include "Engine/Triangle3D.hpp"
 
 namespace Engine {
     std::list<std::pair<bool, IObject3D *>>::iterator IObject3D::GetObject3DIterator() const {
         return object3DIterator;
     }
-    void IObject3D::Project() {
+    void IObject3D::Transform() {
         for (auto tris : Tris) {
-            Tris_Projected.insert(tris.Project());
+            Triangle3D Transformed = tris.Transform();
+            // Viewport Transform
+            if (true) {
+                Tris_Transformed.insert(Transformed);
+            }
         }
     }
     void IObject3D::Draw() const {
 
-        for (auto it = Tris_Projected.begin(); it != Tris_Projected.end(); ++it) {
+        for (auto it = Tris_Transformed.begin(); it != Tris_Transformed.end(); ++it) {
             it->Draw();
         }
     }
     void IObject3D::CleanUp() {
-        Tris_Projected.clear();
+        Tris_Transformed.clear();
     }
     void IObject3D::Update(float deltaTime) {}
 }
