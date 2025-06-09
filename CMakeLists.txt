@@ -68,8 +68,6 @@ add_executable(2025_I2P2_TowerDefense
     Engine/IObject3D.hpp
     Engine/Triangle3D.cpp
     Engine/Triangle3D.hpp
-    Engine/Projection.cpp
-    Engine/Projection.hpp
     Engine/ModelView.cpp
     Engine/ModelView.hpp
     Engine/Transform.cpp

@@ -15,7 +15,7 @@ namespace Engine {
         Triangle3D(Eigen::Vector4f A, Eigen::Vector4f B, Eigen::Vector4f C, ALLEGRO_COLOR color);
         ~Triangle3D() = default;
         void Draw() const;
-        Triangle3D Transform();
+        Triangle3D TriangleTransform() const;
         bool operator<(Triangle3D other) const;
     };
 }

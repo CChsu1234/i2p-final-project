@@ -2,16 +2,16 @@
 #define TRANSFORM_HPP
 
 #include "Resource/Eigen/Dense"
-#include "Engine/Projection.hpp"
 #include "Engine/ModelView.hpp"
 
 namespace Engine {
     // return transform matrix in order to complete Modeling viewing project with one matrix
-    Eigen::Matrix4f GetTrasformMatrix();
+    Eigen::Matrix4f GetTransformMatrix();
     // Transform world coordinate to NDC (normalize device coordinate)
     Eigen::Vector4f Transform(Eigen::Vector4f Vec);
+    // Set global TransformMatrix = Projection × ModelView
     void SetTransformMatrix();
-    static Eigen::Matrix4f TransformMatrix;
+    inline static Eigen::Matrix4f TransformMatrix;
 }
 
 #endif

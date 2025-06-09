@@ -3,18 +3,20 @@
 
 #include "IObject3D.hpp"
 #include "Engine/Triangle3D.hpp"
+#include "Engine/ModelView.hpp"
 
 namespace Engine {
     std::list<std::pair<bool, IObject3D *>>::iterator IObject3D::GetObject3DIterator() const {
         return object3DIterator;
     }
     void IObject3D::Transform() {
+        SetModelViewMatrix();
+        Eigen::Matrix4f MVP = ProjectionMatrix * ModelViewMatrix;
+
         for (auto tris : Tris) {
-            Triangle3D Transformed = tris.Transform();
+            Triangle3D transformed = tris.TriangleTransform();
             // TODO Complete Viewport Transform
-            if (true) {
-                Tris_Transformed.insert(Transformed);
-            }
+            Tris_Transformed.insert(transformed);
         }
     }
     void IObject3D::Draw() const {
