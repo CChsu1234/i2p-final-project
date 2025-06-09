@@ -13,6 +13,7 @@
 #include "Engine/Group.hpp"
 #include "Engine/LOG.hpp"
 #include "Engine/Resources.hpp"
+#include "Engine/MouseKeyboard.hpp"
 #include "TestScene.hpp"
 #include "UI/Animation/DirtyEffect.hpp"
 #include "UI/Animation/Plane.hpp"
@@ -24,6 +25,8 @@
 void TestScene::Initialize() {
     Engine::TestObject3D *test;
     AddNewObject3D(test = new Engine::TestObject3D());
+    Controller = new Engine::MouseKeyboard();
+    AddNewControlObject(Controller);
 }
 void TestScene::Terminate() {
     IScene::Terminate();

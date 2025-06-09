@@ -7,9 +7,8 @@
 #include <vector>
 
 #include "Engine/IScene.hpp"
-#include "Engine/Point.hpp"
+#include "Engine/MouseKeyboard.hpp"
 
-class Turret;
 namespace Engine {
     class Group;
     class Image;
@@ -46,6 +45,7 @@ public:
     Engine::Label *UILives;
     Engine::Image *imgTarget;
     Engine::Sprite *dangerIndicator;
+    Engine::MouseKeyboard *Controller;
     std::list<std::pair<int, float>> enemyWaveData;
     explicit TestScene() = default;
     void Initialize() override;
