@@ -1,9 +1,11 @@
 #include <allegro5/allegro.h>
+#include <iostream>
 
 #include "MouseKeyboard.hpp"
 #include "Engine/IControl.hpp"
 #include "Engine/IObject.hpp"
 #include "Engine/ModelView.hpp"
+#include "Engine/GameEngine.hpp"
 
 namespace Engine {
     MouseKeyboard::MouseKeyboard() : IControl(), IObject() {
@@ -11,18 +13,36 @@ namespace Engine {
         Eye << 0, 0, 0, 1;
         Target << 0, 0, -1, 1;
         IObject::Visible = false;
+        GameEngine::GetInstance().HideCursor();
+        inControl = true;
+    }
+    void MouseKeyboard::OnMouseDown(int Button, int mx, int my) {
+        inControl = true;
+        GameEngine::GetInstance().HideCursor();
     }
     void MouseKeyboard::OnMouseMove(int mx, int my) {
+        if (inControl) {
+            float dx = mx;
+            float dy = my;
+            GameEngine::GetInstance().ResetMousePos();
+        }
         // TODO Move Target
     }
     void MouseKeyboard::OnKeyDown(int keyCode) {
+        if (keyCode == ALLEGRO_KEY_ESCAPE) {
+            inControl = false;
+            GameEngine::GetInstance().ShowCursor();
+        }
         if (keyCode == ALLEGRO_KEY_W) {
             isKeyDown[UP] = true;
-        } else if (keyCode == ALLEGRO_KEY_A) {
+        }
+        if (keyCode == ALLEGRO_KEY_A) {
             isKeyDown[LEFT] = true;
-        } else if (keyCode == ALLEGRO_KEY_S) {
+        }
+        if (keyCode == ALLEGRO_KEY_S) {
             isKeyDown[DOWN] = true;
-        } else if (keyCode == ALLEGRO_KEY_D) {
+        }
+        if (keyCode == ALLEGRO_KEY_D) {
             isKeyDown[RIGHT] = true;
         }
     }

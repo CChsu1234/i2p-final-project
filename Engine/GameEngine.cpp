@@ -264,6 +264,15 @@ namespace Engine {
         al_get_keyboard_state(&state);
         return al_key_down(&state, keyCode);
     }
+    bool GameEngine::HideCursor() {
+        return al_hide_mouse_cursor(display);
+    }
+    bool GameEngine::ShowCursor() {
+        return al_show_mouse_cursor(display);
+    }
+    bool GameEngine::ResetMousePos() {
+        return al_set_mouse_xy(display, screenW * 0.5, screenH * 0.5);
+    }
     GameEngine &GameEngine::GetInstance() {
         // The classic way to lazy initialize a Singleton.
         static GameEngine instance;

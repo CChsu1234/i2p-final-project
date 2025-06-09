@@ -52,10 +52,6 @@ public:
     void Terminate() override;
     void Update(float deltaTime) override;
     void Draw() const override;
-    void OnMouseDown(int button, int mx, int my) override;
-    void OnMouseMove(int mx, int my) override;
-    void OnMouseUp(int button, int mx, int my) override;
-    void OnKeyDown(int keyCode) override;
     void Hit();
     int GetMoney() const;
     void EarnMoney(int money);

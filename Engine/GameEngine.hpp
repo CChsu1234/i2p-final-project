@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "Point.hpp"
+#include "Engine/MouseKeyboard.hpp" 
 
 /// <summary>
 /// All general classes are under this namespace for clarity.
@@ -150,6 +151,12 @@ namespace Engine {
         /// </summary>
         /// <returns>Returns whether key is down or not.</returns>
         bool IsKeyDown(int keyCode) const;
+        /// hide cursor for 3d scene
+        bool HideCursor();
+        /// show cursor for 3d scene
+        bool ShowCursor();
+        /// reset mouse position to the middle of the screen
+        bool ResetMousePos();
         /// <summary>
         /// Typical function to retrieve Singleton instance and supports lazy initialization.
         /// </summary>

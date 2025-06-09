@@ -32,22 +32,10 @@ void TestScene::Terminate() {
     IScene::Terminate();
 }
 void TestScene::Update(float deltaTime) {
-    
+    IScene::Update(deltaTime);
 }
 void TestScene::Draw() const {
     IScene::Draw();
-}
-void TestScene::OnMouseDown(int button, int mx, int my) {
-    
-}
-void TestScene::OnMouseMove(int mx, int my) {
-    
-}
-void TestScene::OnMouseUp(int button, int mx, int my) {
-    
-}
-void TestScene::OnKeyDown(int keyCode) {
-    
 }
 void TestScene::Hit() {
 
