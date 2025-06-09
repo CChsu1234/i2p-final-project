@@ -4,13 +4,18 @@
 #include "Resource/Eigen/Dense"
 
 namespace Engine {
-    // return Model View Matrix
-    Eigen::Matrix4f GetModelIviewMatrix(void);
-    // Model-viewing the world coordinate to eye coordinate
+    
+    Eigen::Matrix4f GetModelIViewMatrix(void);
+    Eigen::Matrix4f GetProjectionMatrix(float fovY, float aspect, float nearZ, float farZ);
     Eigen::Vector4f ModelView(Eigen::Vector4f Vec);
-    // Set Model View Matrix
+    Eigen::Vector4f Projection(Eigen::Vector4f Vec);
     void SetModelViewMatrix(void);
-    static Eigen::Matrix4f ModelViewMatrix;
+    void SetProjectionMatrix(float theta, float aspectRatio, float Zn, float Zf);
+
+    extern Eigen::Matrix4f ModelViewMatrix;
+    extern Eigen::Matrix4f ProjectionMatrix;
+    extern float yaw;
+    extern float pitch;
 }
 
 #endif
