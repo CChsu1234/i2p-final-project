@@ -4,7 +4,7 @@
 
 namespace Engine {
     Eigen::Matrix4f GetProjectionMatrix(float theta, float aspectRatio, float Znear, float Zfar) {
-        // TODO
+        // TODO Complete the matrix
         const float DEG2RAD = 0.0174532925f; // acos(-1.0f) / 180;
         float tangent = tan(theta/2 * DEG2RAD);    // tangent of half fovY
         float top = Znear * tangent;              // half height of near plane

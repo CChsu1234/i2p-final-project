@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Resource/Eigen/Dense"
 
 #include "Engine/Transform.hpp"
@@ -7,7 +8,7 @@
 
 namespace Engine {
     Eigen::Matrix4f GetTrasformMatrix() {
-        // TODO
+        // TODO Complete Transform Matrix
         SetProjectionMatrix(90, GameEngine::GetInstance().GetScreenSize().x / GameEngine::GetInstance().GetScreenSize().y , 1.0f, 500.0f);
         SetModelViewMatrix();
         Eigen::Matrix4f transformMatrix;
