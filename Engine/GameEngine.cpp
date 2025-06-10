@@ -27,7 +27,7 @@ namespace Engine {
         // initialize your light parameters:
         light->lightPos = Eigen::Vector3f(0, 50, 0);
         light->lightColor = Eigen::Vector3f(1.0f, 1.0f, 0.8f);
-        light->ambientLight = Eigen::Vector3f(0.2f, 0.2f, 0.2f);
+        light->ambientLight = Eigen::Vector3f(0.1f, 0.1f, 0.1f);
     }
 
     GameEngine::~GameEngine() {

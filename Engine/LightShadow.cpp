@@ -5,7 +5,7 @@ namespace Engine {
     LightShadow::LightShadow()
     : lightPos(0.0f, 10.0f, 0.0f),
       lightColor(1.0f, 1.0f, 0.8f),
-      ambientLight(0.2f, 0.2f, 0.2f),
+      ambientLight(0.1f, 0.1f, 0.1f),
       roomMin(-1.0f, -1.0f, -1.0f),
       roomMax(1.0f, 1.0f, 1.0f){}
 
