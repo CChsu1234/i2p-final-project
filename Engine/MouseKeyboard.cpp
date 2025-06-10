@@ -17,7 +17,7 @@ namespace Engine {
         v = 1.0f;
         Eye << 0, 0, 0, 1;
         Dir << 1, 0, 0, 1;
-        thetaH = 90;
+        thetaH = 0;
         thetaV = 0;
         IObject::Visible = true;
         GameEngine::GetInstance().HideCursor();
@@ -35,8 +35,8 @@ namespace Engine {
             float dx = mx - GameEngine::GetInstance().GetScreenSize().x / 2;
             float dy = my - GameEngine::GetInstance().GetScreenSize().y / 2;
             GameEngine::GetInstance().ResetMousePos();
-            thetaH += dx / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // horizontal
-            thetaV += dy / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // vertical
+            thetaH -= dx / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // horizontal
+            thetaV -= dy / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // vertical
             if (thetaV > 90.0f) {
                 thetaV = 90.0f;
             } else if (thetaV < -90.0f) {

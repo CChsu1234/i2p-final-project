@@ -30,7 +30,8 @@ namespace Engine {
         Normal = e1.cross(e2);
     }
     void Triangle3D::Draw() const {
-        al_draw_triangle(P[0](0), P[0](1), P[1](0), P[1](1), P[2](0), P[2](1), Color, 1.0);
+        al_draw_filled_triangle(P[0](0), P[0](1), P[1](0), P[1](1), P[2](0), P[2](1), Color);
+        al_draw_triangle(P[0](0), P[0](1), P[1](0), P[1](1), P[2](0), P[2](1), al_map_rgb(0, 0, 0) , 1.0f);
     }
     Triangle3D Triangle3D::TriangleTransform() const {
         Eigen::Vector4f A = Engine::Transform(P[0]);

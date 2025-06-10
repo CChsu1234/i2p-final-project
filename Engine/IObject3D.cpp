@@ -19,7 +19,7 @@ namespace Engine {
             Triangle3D transformed = tris.TriangleTransform();
 
             Eigen::Vector3f test(0.0f, 0.0f, 1.0f);
-            if (transformed.Normal.dot(test) > 0) {
+            if (transformed.Normal.dot(test) < 0) {
                 Tris_Transformed.insert(transformed);
             }
             // TODO Complete Viewport Transform
