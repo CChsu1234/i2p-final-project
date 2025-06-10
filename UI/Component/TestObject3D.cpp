@@ -1,10 +1,13 @@
 #include "Resource/Eigen/Dense"
 #include <iostream>
+#include <cmath>
 
 #include "TestObject3D.hpp"
 #include "Engine/IObject3D.hpp"
 #include "Engine/Triangle3D.hpp"
+
 #define M_PI 3.14159265358979323846
+
 namespace Engine {
     TestObject3D::TestObject3D() {
         float halfSize = 0.5f;
@@ -45,36 +48,42 @@ namespace Engine {
             vertices[i][2] -= 3.0f;
         }
 
-        // Step 3: Define 12 triangles (2 per face × 6 faces)
+        // Step 3: Define distinct colors for lighting test
+        ALLEGRO_COLOR frontColor = al_map_rgb(255, 0, 0);    // Red
+        ALLEGRO_COLOR backColor = al_map_rgb(0, 255, 0);     // Green
+        ALLEGRO_COLOR leftColor = al_map_rgb(0, 0, 255);     // Blue
+        ALLEGRO_COLOR rightColor = al_map_rgb(255, 255, 0);  // Yellow
+        ALLEGRO_COLOR topColor = al_map_rgb(0, 255, 255);    // Cyan
+        ALLEGRO_COLOR bottomColor = al_map_rgb(255, 0, 255); // Magenta
+
+        // Step 4: Define triangles using the transformed vertices
         auto addTriangle = [&vertices, this](int a, int b, int c, ALLEGRO_COLOR color) {
             Tris.emplace_back(vertices[a], vertices[b], vertices[c], color);
         };
 
-        ALLEGRO_COLOR color = al_map_rgb(255, 255, 255);
-
         // Front face
-        addTriangle(0, 1, 2, color);
-        addTriangle(2, 3, 0, color);
+        addTriangle(0, 1, 2, frontColor);
+        addTriangle(2, 3, 0, frontColor);
 
         // Back face
-        addTriangle(5, 4, 7, color);
-        addTriangle(7, 6, 5, color);
+        addTriangle(5, 4, 7, backColor);
+        addTriangle(7, 6, 5, backColor);
 
         // Left face
-        addTriangle(4, 0, 3, color);
-        addTriangle(3, 7, 4, color);
+        addTriangle(4, 0, 3, leftColor);
+        addTriangle(3, 7, 4, leftColor);
 
         // Right face
-        addTriangle(1, 5, 6, color);
-        addTriangle(6, 2, 1, color);
+        addTriangle(1, 5, 6, rightColor);
+        addTriangle(6, 2, 1, rightColor);
 
         // Top face
-        addTriangle(3, 2, 6, color);
-        addTriangle(6, 7, 3, color);
+        addTriangle(3, 2, 6, topColor);
+        addTriangle(6, 7, 3, topColor);
 
         // Bottom face
-        addTriangle(4, 5, 1, color);
-        addTriangle(1, 0, 4, color);
+        addTriangle(4, 5, 1, bottomColor);
+        addTriangle(1, 0, 4, bottomColor);
     }
 
     void TestObject3D::Transform() {

@@ -6,12 +6,14 @@
 
 #include "Point.hpp"
 #include "Engine/MouseKeyboard.hpp" 
+#include "Engine/LightShadow.hpp"
 
 /// <summary>
 /// All general classes are under this namespace for clarity.
 /// </summary>
 namespace Engine {
     class IScene;
+    class LightShadow;
     /// <summary>
     /// The one and only GameEngine for the entire program. Responsible for low-level initialization and window events.
     /// </summary>
@@ -69,7 +71,7 @@ namespace Engine {
         /// Note: Singleton is a class that will only be instantiated once (single instance).
         /// Reference: Design Patterns - Singleton.
         /// </summary>
-        explicit GameEngine() = default;
+        //explicit GameEngine() = default;
         /// <summary>
         /// Change to another scene. Must return immediately and stop using anything initialized in
         /// the scene. Since this call destroys everything initialized.
@@ -78,6 +80,8 @@ namespace Engine {
         void changeScene(const std::string &name);
 
     public:
+        GameEngine();
+        ~GameEngine();
         // Note: We'll ignore C++11's move constructor, move assignment operator in this project for simplicity.
         /// <summary>
         /// Copy constructor is deleted, no copying allowed.
@@ -162,6 +166,7 @@ namespace Engine {
         /// </summary>
         /// <returns>The Singleton instance of GameEngine.</returns>
         static GameEngine &GetInstance();
+        LightShadow* light;
     };
 }
 #endif   // GAMEENGINE_HPP
