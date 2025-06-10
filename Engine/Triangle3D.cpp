@@ -58,12 +58,14 @@ namespace Engine {
             drawColor
         );
 
+        /*
         al_draw_triangle(
             P[0].x(), P[0].y(),
             P[1].x(), P[1].y(),
             P[2].x(), P[2].y(),
             al_map_rgb(0, 0, 0), 1.0f
         );
+        */
 
         // Shadow
         Eigen::Vector4f sP[3];

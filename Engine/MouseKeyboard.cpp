@@ -99,7 +99,7 @@ namespace Engine {
             Eye(0) -= z;
             Eye(2) += x;
         }
-        std::cout << thetaH << std::endl;
+        // std::cout << thetaH << std::endl;
         SetModelViewMatrix(thetaH, thetaV, Eye);
         // TODO SetModelViewMatrix
 
