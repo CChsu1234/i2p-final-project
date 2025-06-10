@@ -13,11 +13,21 @@ namespace Engine {
         P[0] = A;
         P[1] = B;
         P[2] = C;
+        
+        Eigen::Vector3f e1(P[2](0) - P[0](0), P[2](1) - P[0](1), P[2](2) - P[0](2));
+        Eigen::Vector3f e2(P[1](0) - P[0](0), P[1](1) - P[0](1), P[1](2) - P[0](2));
+
+        Normal = e1.cross(e2);
     }
     Triangle3D::Triangle3D(Eigen::Vector4f A, Eigen::Vector4f B, Eigen::Vector4f C, ALLEGRO_COLOR color) : Color(color) {
         P[0] = A;
         P[1] = B;
         P[2] = C;
+        
+        Eigen::Vector3f e1(P[2](0) - P[0](0), P[2](1) - P[0](1), P[2](2) - P[0](2));
+        Eigen::Vector3f e2(P[1](0) - P[0](0), P[1](1) - P[0](1), P[1](2) - P[0](2));
+
+        Normal = e1.cross(e2);
     }
     void Triangle3D::Draw() const {
         al_draw_triangle(P[0](0), P[0](1), P[1](0), P[1](1), P[2](0), P[2](1), Color, 1.0);

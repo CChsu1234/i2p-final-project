@@ -1,7 +1,9 @@
 #include <list>
 #include <set>
+#include <iostream>
 
 #include "IObject3D.hpp"
+#include "Resource/Eigen/Dense"
 #include "Engine/Triangle3D.hpp"
 #include "Engine/ModelView.hpp"
 
@@ -10,13 +12,17 @@ namespace Engine {
         return object3DIterator;
     }
     void IObject3D::Transform() {
-        SetModelViewMatrix();
+        // SetModelViewMatrix();
         Eigen::Matrix4f MVP = ProjectionMatrix * ModelViewMatrix;
 
         for (auto tris : Tris) {
             Triangle3D transformed = tris.TriangleTransform();
+
+            Eigen::Vector3f test(0.0f, 0.0f, 1.0f);
+            if (transformed.Normal.dot(test) > 0) {
+                Tris_Transformed.insert(transformed);
+            }
             // TODO Complete Viewport Transform
-            Tris_Transformed.insert(transformed);
         }
     }
     void IObject3D::Draw() const {

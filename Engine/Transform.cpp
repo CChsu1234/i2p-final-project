@@ -10,9 +10,9 @@ namespace Engine {
     Eigen::Matrix4f GetTransformMatrix() {
         // TODO Complete Transform Matrix
         float aspect =  static_cast<float> (GameEngine::GetInstance().GetScreenSize().x) / static_cast<float> (GameEngine::GetInstance().GetScreenSize().y);
-        SetProjectionMatrix(90.0f * M_PI / 180.0f, aspect, 1.0f, 500.0f);
-        SetModelViewMatrix();
-        return ProjectionMatrix * ModelViewMatrix;;
+        SetProjectionMatrix(90.0f, aspect, -1.0f, -500.0f);
+        // SetModelViewMatrix();
+        return ProjectionMatrix * ModelViewMatrix;
     }
     Eigen::Vector4f Transform(Eigen::Vector4f Vec) {
         Vec = Vec.transpose() * TransformMatrix;

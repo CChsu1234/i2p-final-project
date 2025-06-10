@@ -9,7 +9,8 @@
 namespace Engine {
     class Triangle3D {
     public:
-        Eigen::Vector4f P[3]; // p1->p2->p3->p1 is counter clockwise
+        Eigen::Vector4f P[3]; // p1->p2->p3->p1 is clockwise
+        Eigen::Vector3f Normal;
         ALLEGRO_COLOR Color;
         Triangle3D(Eigen::Vector4f A, Eigen::Vector4f B, Eigen::Vector4f C, unsigned char r, unsigned char g, unsigned char b);
         Triangle3D(Eigen::Vector4f A, Eigen::Vector4f B, Eigen::Vector4f C, ALLEGRO_COLOR color);
