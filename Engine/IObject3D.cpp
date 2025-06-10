@@ -19,7 +19,17 @@ namespace Engine {
             Triangle3D transformed = tris.TriangleTransform();
 
             Eigen::Vector3f test(0.0f, 0.0f, 1.0f);
+            bool should_Draw = true;
             if (transformed.Normal.dot(test) < 0) {
+                should_Draw = false;
+            } else {
+                for (int i = 0; i < 3; i++) {
+                    if (transformed.P[i](2) < Zfar || transformed.P[i](2) > Znear) {
+                        should_Draw = false;
+                    }
+                }
+            }
+            if (should_Draw) {
                 Tris_Transformed.insert(transformed);
             }
             // TODO Complete Viewport Transform

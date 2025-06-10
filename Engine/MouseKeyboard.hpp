@@ -10,7 +10,7 @@ namespace Engine {
     private:
         bool inControl;
         float v;
-        Eigen::Vector4f Eye, Dir;
+        Eigen::Vector4f Eye;
         float thetaH;
         float thetaV;
         enum { UP, LEFT, DOWN, RIGHT };

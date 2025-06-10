@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include "Resource/Eigen/Dense"
 
 #include "Engine/Transform.hpp"
@@ -15,16 +16,19 @@ namespace Engine {
         return ProjectionMatrix * ModelViewMatrix;
     }
     Eigen::Vector4f Transform(Eigen::Vector4f Vec) {
-        Vec = Vec.transpose() * TransformMatrix;
-        Vec[0] /= Vec[3];
-        Vec[1] /= Vec[3];
-        Vec[2] /= Vec[3];
+        Vec = TransformMatrix * Vec;
+        Vec(0) /= Vec(3);
+        Vec(1) /= Vec(3);
+        Vec(2) /= Vec(3);
         
         float screenWidth = GameEngine::GetInstance().GetScreenSize().x;
         float screenHeight = GameEngine::GetInstance().GetScreenSize().y;
 
-        Vec[0] = (Vec[0] + 1) * 0.5f * screenWidth;
-        Vec[1] = (1 - Vec[1]) * 0.5f * screenHeight;
+        Vec(0) = (Vec(0) + 1) * 0.5f * screenWidth;
+        Vec(1) = (1 - Vec(1)) * 0.5f * screenHeight;
+        std::cout << Vec(2) << " ";
+        Vec(2) = (Zfar - Znear) * Vec(2) / 2.0f + (Zfar + Znear) / 2.0f;
+        std::cout << Vec(2) << std::endl;
 
         return Vec;
         // Vec = ModelView(Vec);
