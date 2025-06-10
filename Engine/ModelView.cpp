@@ -31,26 +31,21 @@ namespace Engine {
                        0.0f, -sinPitch, cosPitch, 0.0f,
                        0.0f, 0.0f, 0.0f, 1.0f;
 
-        return yawMatrix * pitchMatrix;
+        return  pitchMatrix * yawMatrix;
     }
-    Eigen::Matrix4f GetProjectionMatrix(float fovY, float aspect, float nearZ, float farZ) {
-        float f = 1.0f / tan(fovY / 2.0f);
-        float rangeInv = 1.0f / (nearZ - farZ);
-        float right = nearZ * f;
-        float top = right / aspect;
+    Eigen::Matrix4f GetProjectionMatrix(float fovX, float aspectRatio, float front, float back) {
+        const float DEG2RAD = acos(-1.0f) / 180;
+
+        float tangent = tan(fovX/2 * DEG2RAD);    // tangent of half fovX
+        float right = front * tangent;            // half width of near plane
+        float top = right / aspectRatio;  
 
         Eigen::Matrix4f proj;
-        /*
-        proj << f / aspect, 0.0f, 0.0f, 0.0f,
-                0.0f, f, 0.0f, 0.0f,
-                0.0f, 0.0f, (nearZ + farZ) * rangeInv, 2 * nearZ * farZ * rangeInv,
-                0.0f, 0.0f, -1.0f, 0.0f;
-        */
-        proj << nearZ / right, 0.0f, 0.0f, 0.0f,
-                0.0f, nearZ / f, 0.0f, 0.0f,
-                0.0f, 0.0f, -(farZ + nearZ) / (farZ - nearZ), -(2 * farZ  * nearZ) / (farZ - nearZ),
-                0.0f, 0.0f, -1.0f, 0.0f;
-
+        proj << front / right, 0.0f, 0.0f, 0.0f,
+                0.0f, front / top, 0.0f, 0.0f,
+                0.0f, 0.0f, -(back + front) / (back - front), -1,
+                0.0f, 0.0f, -(2 * back * front) / (back - front), 0.0f;
+            
         return proj;
     }
     Eigen::Vector4f ModelView(Eigen::Vector4f Vec) {
