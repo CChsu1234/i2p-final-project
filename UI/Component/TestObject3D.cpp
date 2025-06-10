@@ -49,12 +49,12 @@ namespace Engine {
         }
 
         // Step 3: Define distinct colors for lighting test
-        ALLEGRO_COLOR frontColor = al_map_rgb(255, 0, 0);    // Red
-        ALLEGRO_COLOR backColor = al_map_rgb(0, 255, 0);     // Green
-        ALLEGRO_COLOR leftColor = al_map_rgb(0, 0, 255);     // Blue
-        ALLEGRO_COLOR rightColor = al_map_rgb(255, 255, 0);  // Yellow
-        ALLEGRO_COLOR topColor = al_map_rgb(0, 255, 255);    // Cyan
-        ALLEGRO_COLOR bottomColor = al_map_rgb(255, 0, 255); // Magenta
+        ALLEGRO_COLOR frontColor = al_map_rgb(255, 255, 255);// Red
+        ALLEGRO_COLOR backColor = al_map_rgb(255, 255, 255); // Green
+        ALLEGRO_COLOR leftColor = al_map_rgb(255, 255, 255);     // Blue
+        ALLEGRO_COLOR rightColor = al_map_rgb(255, 255, 255);  // Yellow
+        ALLEGRO_COLOR topColor = al_map_rgb(255, 255, 255);    // Cyan
+        ALLEGRO_COLOR bottomColor = al_map_rgb(255, 255, 255); // Magenta
 
         // Step 4: Define triangles using the transformed vertices
         auto addTriangle = [&vertices, this](int a, int b, int c, ALLEGRO_COLOR color) {

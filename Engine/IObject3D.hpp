@@ -28,4 +28,4 @@ namespace Engine {
         virtual void Update(float deltaTime);
     };
 }
-#endif   // IOBJECT3D_HPP
+#endif   // IOBJECT_HPP

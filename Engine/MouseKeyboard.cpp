@@ -3,14 +3,11 @@
 #include <allegro5/allegro_color.h>
 #include <iostream>
 #include <cmath>
-#include <list>
 #include "Resource/Eigen/Dense"
 
 #include "MouseKeyboard.hpp"
-#include "Engine/IObject3D.hpp"
 #include "Engine/IControl.hpp"
 #include "Engine/IObject.hpp"
-#include "Engine/IScene.hpp"
 #include "Engine/ModelView.hpp"
 #include "Engine/Transform.hpp"
 #include "Engine/GameEngine.hpp"
@@ -31,13 +28,10 @@ namespace Engine {
         }
     }
     void MouseKeyboard::OnMouseDown(int Button, int mx, int my) {
-        // Get Mouse Control
         inControl = true;
         GameEngine::GetInstance().HideCursor();
-        // Click Object
     }
     void MouseKeyboard::OnMouseMove(int mx, int my) {
-        // Mouse Camera
         if (inControl) {
             float dx = mx - GameEngine::GetInstance().GetScreenSize().x / 2;
             float dy = my - GameEngine::GetInstance().GetScreenSize().y / 2;
@@ -55,7 +49,7 @@ namespace Engine {
                 thetaH += 360.0f;
             }
         }
-        // Select Object
+        // TODO Move Target
     }
     void MouseKeyboard::OnKeyDown(int keyCode) {
         if (keyCode == ALLEGRO_KEY_ESCAPE) {
