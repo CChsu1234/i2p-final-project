@@ -12,14 +12,28 @@
 #include <utility>
 
 #include "Allegro5Exception.hpp"
+
 #include "GameEngine.hpp"
 #include "IScene.hpp"
 #include "LOG.hpp"
 #include "Point.hpp"
 #include "Resources.hpp"
 #include "Transform.hpp"
+#include "Engine/LightShadow.hpp"
 
 namespace Engine {
+    GameEngine::GameEngine() {
+        light = new LightShadow();
+        // initialize your light parameters:
+        light->lightPos = Eigen::Vector3f(0, 50, 0);
+        light->lightColor = Eigen::Vector3f(1.0f, 1.0f, 0.8f);
+        light->ambientLight = Eigen::Vector3f(0.2f, 0.2f, 0.2f);
+    }
+
+    GameEngine::~GameEngine() {
+        delete light; 
+    }
+
     void GameEngine::initAllegro5() {
         if (!al_init()) throw Allegro5Exception("failed to initialize allegro");
 

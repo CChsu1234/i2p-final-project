@@ -56,6 +56,8 @@ add_executable(2025_I2P2_TowerDefense
     Engine/IObject.hpp
     Engine/IScene.cpp
     Engine/IScene.hpp
+    Engine/LightShadow.cpp
+    Engine/LightShadow.hpp
     Engine/LOG.cpp
     Engine/LOG.hpp
     Engine/Point.cpp
