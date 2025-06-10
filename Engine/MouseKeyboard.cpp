@@ -12,6 +12,8 @@
 #include "Engine/Transform.hpp"
 #include "Engine/GameEngine.hpp"
 
+#define M_PI 3.14159265358979323846
+
 namespace Engine {
     MouseKeyboard::MouseKeyboard() : IControl(), IObject() {
         v = 1.0f;
@@ -80,8 +82,8 @@ namespace Engine {
         }
     }
     void MouseKeyboard::Update(float deltaTime) {
-        float x = cos(thetaV);
-        float z = sin(thetaV);
+        float x = cos((thetaV + 90.0f) * M_PI / 180.0f);
+        float z = sin((thetaV + 90.0f) * M_PI / 180.0f);
         if (isKeyDown[UP]) {
             Eye(0) += x;
             Eye(2) += z;
