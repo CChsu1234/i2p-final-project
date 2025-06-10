@@ -18,7 +18,7 @@ namespace Engine {
     MouseKeyboard::MouseKeyboard() : IControl(), IObject() {
         v = 0.05f;
         Eye << 0.0f, 0.0f, 0.0f, 1.0f;
-        thetaH = 0.0f;
+        thetaH = 180.0f;
         thetaV = 0.0f;
         IObject::Visible = true;
         GameEngine::GetInstance().HideCursor();
@@ -81,8 +81,8 @@ namespace Engine {
         }
     }
     void MouseKeyboard::Update(float deltaTime) {
-        float x = cos((thetaH) * M_PI / 180.0f) * v;
-        float z = sin((thetaH) * M_PI / 180.0f) * v;
+        float x = sin((thetaH) * M_PI / 180.0f) * v;
+        float z = cos((thetaH) * M_PI / 180.0f) * v;
         if (isKeyDown[UP]) {
             Eye(0) += x;
             Eye(2) += z;
@@ -99,7 +99,7 @@ namespace Engine {
             Eye(0) -= z;
             Eye(2) += x;
         }
-        // std::cout << thetaH << std::endl;
+        std::cout << thetaH << std::endl;
         SetModelViewMatrix(thetaH, thetaV, Eye);
         // TODO SetModelViewMatrix
 
