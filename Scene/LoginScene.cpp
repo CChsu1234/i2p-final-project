@@ -24,7 +24,8 @@ User *currentUser = Engine::GameEngine::GetInstance().GetCurrentUser();
 Engine::TextEditor *username;
 Engine::TextEditor *userpwd;
 Engine::Label *LoginLog;
-Engine::Label *signup_login;
+Engine::Label *switchmode;
+Engine::Label *action;
 Engine::Label *title;
 
 void LoginScene::Initialize() {
@@ -51,7 +52,18 @@ void LoginScene::Initialize() {
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", w - 400 - 100, 35 - 25, 200, 50);
     btn->SetOnClickCallback(std::bind(&LoginScene::ToggleSignupLogin, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(signup_login =  new Engine::Label("SIGNUP", "pirulen.ttf", 24, w - 400, 35, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(switchmode =  new Engine::Label("SIGNUP", "pirulen.ttf", 24, w - 400, 35, 0, 0, 0, 255, 0.5, 0.5));
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 250 - 200, halfH * 5 / 3 - 50, 400, 100);
+    btn->SetOnClickCallback(std::bind(&LoginScene::LoginSignupOnClick, this, 1));
+    AddNewControlObject(btn);
+    AddNewObject(action = new Engine::Label("LOGIN", "pirulen.ttf", 48, halfW - 250, halfH * 5 / 3, 0, 0, 0, 255, 0.5, 0.5));
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW + 250 - 200, halfH * 5 / 3 - 50, 400, 100);
+    btn->SetOnClickCallback(std::bind(&LoginScene::LogoutOnClick, this, 1));
+    AddNewControlObject(btn);
+    AddNewObject(new Engine::Label("LOGIN OUT", "pirulen.ttf", 48, halfW + 250, halfH * 5 / 3, 0, 0, 0, 255, 0.5, 0.5));
+
     AddNewControlObject(new Engine::UserInfo());
 
     bgmInstance = AudioHelper::PlaySample("scoreboard.ogg", true, AudioHelper::BGMVolume);
@@ -68,10 +80,12 @@ void LoginScene::BackOnClick(int stage) {
 void LoginScene::ToggleSignupLogin(int stage) {
     Mode = (Mode + 1) % 2;
     if (Mode == LOGIN) {
-        signup_login->Text = "SIGNUP";
+        switchmode->Text = "SIGN UP";
+        action->Text = "LOGIN";
         title->Text = "Login";
     } else if (Mode == SIGNUP) {
-        signup_login->Text = "LOGIN";
+        switchmode->Text = "LOGIN";
+        action->Text = "SIGN UP";
         title->Text = "Sign up";
     }
     username->ClearText();
@@ -149,7 +163,30 @@ User *LoginScene::Signup() {
 
     return nullptr;
 }
-User *LoginScene::Logout() {
+void LoginScene::LogoutOnClick(int stage) {
     Engine::GameEngine::GetInstance().SetCurrentUser(nullptr);
-    return nullptr;
+}
+void LoginScene::LoginSignupOnClick(int stage) {
+    if (Mode == LOGIN) {
+        User *loginUser = Login();
+        if (loginUser) {
+            username->ClearText();
+            userpwd->ClearText();
+            LoginLog->Text = "Login as " + loginUser->Name;
+            Engine::GameEngine::GetInstance().SetCurrentUser(loginUser);
+        } else {
+            LoginLog->Text = "Login fail";
+        }
+        LoginLogCountDown = 3.0f;
+    } else if(Mode == SIGNUP) {
+        User *signupuser = Signup();
+        if (!signupuser) {
+            LoginLog->Text = "User already exist!";
+        } else {
+            LoginLog->Text = "Sign up success: " + signupuser->Name + ", Pleaes Login Again";
+            LoginLogCountDown = 3.0f;
+            ToggleSignupLogin(1);
+        }
+        LoginLogCountDown = 3.0f;
+    }
 }

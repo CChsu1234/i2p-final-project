@@ -23,14 +23,12 @@ public:
     void Terminate() override;
     void BackOnClick(int stage);
     void ToggleSignupLogin(int stage);
-    void MovePage(int line);
-    void UpOnClick(int line);
-    void DownOnClick(int line);
+    void LoginSignupOnClick(int stage);
+    void LogoutOnClick(int stage);
     void OnKeyDown(int keycode) override;
     void Update(float deltaTime) override;
     User *Login();
     User *Signup();
-    User *Logout();
 };
 
 #endif
