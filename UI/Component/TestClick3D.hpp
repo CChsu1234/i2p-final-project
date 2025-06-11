@@ -10,7 +10,8 @@ namespace Engine {
     public:
         TestClick3D();
         ~TestClick3D() = default;
-        void OnMouseDown(int Button, int mx, int my) override;
+        virtual void updateDraw(const Eigen::Vector3f&);
+        virtual void OnMouseDown(int Button, int mx, int my) override;
     };
 }
 

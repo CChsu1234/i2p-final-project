@@ -8,6 +8,7 @@
 namespace Engine {
     class MouseKeyboard : public IControl, public IObject {
     private:
+        bool Enable;
         bool inControl;
         float v;
         Eigen::Vector4f Eye;
@@ -16,7 +17,7 @@ namespace Engine {
         enum { UP, LEFT, DOWN, RIGHT };
         bool isKeyDown[4];
     public:
-        MouseKeyboard();
+        MouseKeyboard(bool enable = true);
         ~MouseKeyboard() = default;
         void OnMouseDown(int Button, int mx, int my) override;
         void OnMouseMove(int mx, int my) override;

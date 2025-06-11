@@ -58,6 +58,11 @@ public:
     void ReadEnemyWave();
     void ConstructUI();
     void UIBtnClicked(int id);
+<<<<<<< HEAD
     // void ModifyReadMapTiles();
+=======
+    void RespawnTarget(int i);
+    void OnMouseDown(int button, int x, int y) override;
+>>>>>>> fc1b24d (Scene BackGround)
 };
 #endif   // PLAYSCENE_HPP
