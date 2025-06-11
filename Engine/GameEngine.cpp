@@ -254,6 +254,12 @@ namespace Engine {
     IScene *GameEngine::GetActiveScene() const {
         return activeScene;
     }
+    UserTable GameEngine::GetUserTable() const {
+        return table;
+    }
+    User *GameEngine::GetCurrentUser() const {
+        return user;
+    }
     IScene *GameEngine::GetScene(const std::string &name) {
         if (scenes.count(name) == 0)
             throw std::invalid_argument("Cannot get scenes that aren't added.");

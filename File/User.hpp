@@ -5,13 +5,31 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <variant>
 
 
-typedef struct _User {
-    int score;
-    std::string name;
-    std::string time;
-} User;
+struct User {
+    int Score;
+    std::string Name;
+    std::size_t Hash;
+    std::string Time;
+
+    User() {}
+
+    User(int score, std::string name, std::string password, std::string time) {
+        Score = score;
+        Name = name;
+        Time = time;
+        std::size_t hname = std::hash<std::string>{}(name);
+        std::size_t hpwd = std::hash<std::string>{}(password);
+        Hash = hname ^ (hpwd << 1);
+    }
+
+    bool operator==(const User& rhs) {
+        return (Name == rhs.Name && Hash == rhs.Hash);
+    }
+
+};
 
 class UserTable {
 private:

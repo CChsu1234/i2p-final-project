@@ -16,7 +16,7 @@
 
 namespace Engine {
     MouseKeyboard::MouseKeyboard() : IControl(), IObject() {
-        v = 0.05f;
+        v = 1.0f;
         Eye << 0.0f, 0.0f, 0.0f, 1.0f;
         thetaH = 180.0f;
         thetaV = 0.0f;
@@ -81,8 +81,8 @@ namespace Engine {
         }
     }
     void MouseKeyboard::Update(float deltaTime) {
-        float x = sin((thetaH) * M_PI / 180.0f) * v;
-        float z = cos((thetaH) * M_PI / 180.0f) * v;
+        float x = sin((thetaH) * M_PI / 180.0f) * v * deltaTime;
+        float z = cos((thetaH) * M_PI / 180.0f) * v * deltaTime;
         if (isKeyDown[UP]) {
             Eye(0) += x;
             Eye(2) += z;

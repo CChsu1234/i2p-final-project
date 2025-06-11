@@ -5,7 +5,7 @@
 #include <unordered_map>
 
 #include "Point.hpp"
-#include "Engine/MouseKeyboard.hpp" 
+#include "File/User.hpp"
 #include "Engine/LightShadow.hpp"
 
 /// <summary>
@@ -42,6 +42,9 @@ namespace Engine {
         const char *icon{};
         // The scene to change to at next update.
         std::string nextScene{};
+        // User
+        UserTable table;
+        User *user = nullptr;
 
         /// <summary>
         /// Initialize allegro5 library. Creates game window & event queue,
@@ -124,6 +127,16 @@ namespace Engine {
         /// </summary>
         /// <returns>Pointer to active scene.</returns>
         IScene *GetActiveScene() const;
+        /// <summary>
+        /// Get user table.
+        /// </summary>
+        /// <returns>user table.</returns>
+        UserTable GetUserTable() const;
+        /// <summary>
+        /// Get current user.
+        /// </summary>
+        /// <returns>Pointer to current user.</returns>
+        User *GetCurrentUser() const;
         /// <summary>
         /// Get scene by name.
         /// </summary>
