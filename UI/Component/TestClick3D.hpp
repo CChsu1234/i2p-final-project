@@ -8,8 +8,11 @@
 namespace Engine {
     class TestClick3D : public IObject3D, public IControl {
     public:
-        TestClick3D();
+        Eigen::Vector3f Position;
+        ALLEGRO_COLOR Color;
+        TestClick3D(const Eigen::Vector3f&, float halfSize, ALLEGRO_COLOR);
         ~TestClick3D() = default;
+        void updateDraw(const Eigen::Vector3f&);
         void OnMouseDown(int Button, int mx, int my) override;
     };
 }
