@@ -58,11 +58,11 @@ namespace Engine {
         }
     }
     void Group::Draw() const {
+        IObject3D::Draw();
         for (auto &it : objects) {
             if (it.second->Visible)
                 it.second->Draw();
         }
-        IObject3D::Draw();
     }
     void Group::CleanUp() {
         IObject3D::CleanUp();

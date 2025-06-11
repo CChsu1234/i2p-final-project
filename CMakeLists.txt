@@ -131,6 +131,8 @@ add_executable(2025_I2P2_TowerDefense
     UI/Component/Testobject3D.hpp
     UI/Component/TestClick3D.cpp
     UI/Component/TestClick3D.hpp
+    UI/Component/CrossHair.cpp
+    UI/Component/CrossHair.hpp
     
     main.cpp
 )

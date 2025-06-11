@@ -88,7 +88,7 @@ namespace Engine {
 
     void TestClick3D::OnMouseDown(int Button, int mx, int my) {
         if (Selected) {
-            std::cout << "Clicked" << std::endl;
+            // std::cout << "Clicked" << std::endl;
         }
     }
 }

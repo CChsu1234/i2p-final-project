@@ -21,6 +21,7 @@
 #include "UI/Component/Label.hpp"
 #include "UI/Component/TestObject3D.hpp"
 #include "UI/Component/TestClick3D.hpp"
+#include "UI/Component/CrossHair.hpp"
 #include "File/User.hpp"
 
 
@@ -29,6 +30,8 @@ void TestScene::Initialize() {
     AddNewControlObject3D(test = new Engine::TestClick3D());
     Controller = new Engine::MouseKeyboard();
     AddNewControlObject(Controller);
+    Engine::CrossHair *crosshair;
+    AddNewObject(crosshair = new Engine::CrossHair());
 }
 void TestScene::Terminate() {
     IScene::Terminate();
@@ -38,10 +41,6 @@ void TestScene::Update(float deltaTime) {
 }
 void TestScene::Draw() const {
     IScene::Draw();
-    al_draw_filled_rectangle(
-        Engine::GameEngine::GetInstance().GetScreenSize().x * 0.5f + 1, Engine::GameEngine::GetInstance().GetScreenSize().y * 0.5f + 1, Engine::GameEngine::GetInstance().GetScreenSize().x * 0.5f, Engine::GameEngine::GetInstance().GetScreenSize().y * 0.5f,
-        al_map_rgb(255, 0, 0)
-    );
 }
 void TestScene::Hit() {
 

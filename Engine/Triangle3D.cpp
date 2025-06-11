@@ -105,6 +105,7 @@ namespace Engine {
             0.0f;
         return retVec;
     }
+    // https://blackpawn.com/texts/pointinpoly/
     bool SameSide(Eigen::Vector4f p1, Eigen::Vector4f p2, Eigen::Vector4f a, Eigen::Vector4f b) {
         Eigen::Vector4f cp1 = Cross(b - a, p1 - a);
         Eigen::Vector4f cp2 = Cross(b - a, p2 - a);
@@ -125,17 +126,8 @@ namespace Engine {
         float A3 = Area(P[0](0), P[0](1), P[1](0), P[1](1), midX, midY);
         return (Atotal == A1 + A2 + A3);
         */
-        Eigen::Vector4f Origin(
-            midX,
-            midY,
-            0.0f,
-            0.0f
-        );
-        if (SameSide(Origin, P[0], P[1], P[2]) && SameSide(Origin,  P[1], P[0], P[2]) && SameSide(Origin, P[2], P[0],  P[1])) {
-            return true;
-        } else {
-            return false;
-        }
+        Eigen::Vector4f Origin(midX, midY, 0.0f, 0.0f);
+        return (SameSide(Origin, P[0], P[1], P[2]) && SameSide(Origin,  P[1], P[0], P[2]) && SameSide(Origin, P[2], P[0],  P[1]));
     }
     bool Triangle3D::operator<(Triangle3D other) const {
         return (
