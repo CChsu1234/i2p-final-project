@@ -15,13 +15,8 @@
 #define M_PI 3.14159265358979323846
 
 namespace Engine {
-<<<<<<< HEAD
-    MouseKeyboard::MouseKeyboard() : IControl(), IObject() {
-        v = 1.0f;
-=======
     MouseKeyboard::MouseKeyboard(bool enable) : IControl(), IObject(), Enable(enable) {
         v = 0.05f;
->>>>>>> fc1b24d (Scene BackGround)
         Eye << 0.0f, 0.0f, 0.0f, 1.0f;
         thetaH = 180.0f;
         thetaV = 0.0f;
@@ -98,16 +93,11 @@ namespace Engine {
         }
     }
     void MouseKeyboard::Update(float deltaTime) {
-<<<<<<< HEAD
-        float x = sin((thetaH) * M_PI / 180.0f) * v * deltaTime;
-        float z = cos((thetaH) * M_PI / 180.0f) * v * deltaTime;
-=======
         if (!Enable) {
             return;
         }
         float x = sin((thetaH) * M_PI / 180.0f) * v;
         float z = cos((thetaH) * M_PI / 180.0f) * v;
->>>>>>> fc1b24d (Scene BackGround)
         if (isKeyDown[UP]) {
             Eye(0) += x;
             Eye(2) += z;
