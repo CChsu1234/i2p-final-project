@@ -43,14 +43,15 @@ void LoginScene::Initialize() {
 
     AddNewObject(title = new Engine::Label("Login", "pirulen.ttf", 48, halfW, halfH / 4 - 10, 255, 255, 255, 255, 0.5, 0.5));
 
-    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 200 - 300, halfH * 5 / 3 - 50, 400, 100);
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", w - 150 - 100, 35 - 25, 200, 50);
     btn->SetOnClickCallback(std::bind(&LoginScene::BackOnClick, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW - 300, halfH * 5 / 3, 0, 0, 0, 255, 0.5, 0.5));
-    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 200 + 300, halfH * 5 / 3 - 50, 400, 100);
+    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 24, w - 150, 35, 0, 0, 0, 255, 0.5, 0.5));
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", w - 400 - 100, 35 - 25, 200, 50);
     btn->SetOnClickCallback(std::bind(&LoginScene::ToggleSignupLogin, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(signup_login =  new Engine::Label("SIGNUP", "pirulen.ttf", 48, halfW + 300, halfH * 5 / 3, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(signup_login =  new Engine::Label("SIGNUP", "pirulen.ttf", 24, w - 400, 35, 0, 0, 0, 255, 0.5, 0.5));
     AddNewControlObject(new Engine::UserInfo());
 
     bgmInstance = AudioHelper::PlaySample("scoreboard.ogg", true, AudioHelper::BGMVolume);
@@ -145,4 +146,10 @@ User *LoginScene::Signup() {
             return &table[i];
         }
     }
+
+    return nullptr;
+}
+User *LoginScene::Logout() {
+    Engine::GameEngine::GetInstance().SetCurrentUser(nullptr);
+    return nullptr;
 }

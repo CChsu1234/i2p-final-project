@@ -30,6 +30,7 @@ public:
     void Update(float deltaTime) override;
     User *Login();
     User *Signup();
+    User *Logout();
 };
 
 #endif
