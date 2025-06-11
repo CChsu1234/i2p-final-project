@@ -21,6 +21,7 @@ namespace Engine {
         thetaH = 180.0f;
         thetaV = 0.0f;
         IObject::Visible = true;
+        // TODO change Visible to false
         GameEngine::GetInstance().HideCursor();
         inControl = true;
         for (int i = 0; i < 4; i++) {
