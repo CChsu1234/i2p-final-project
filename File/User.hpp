@@ -23,6 +23,8 @@ struct User {
         std::size_t hname = std::hash<std::string>{}(name);
         std::size_t hpwd = std::hash<std::string>{}(password);
         Hash = hname ^ (hpwd << 1);
+        std::time_t cur_time = std::time(nullptr);
+        Time = std::asctime(std::localtime(&cur_time));
     }
 
     bool operator==(const User& rhs) {

@@ -133,6 +133,10 @@ namespace Engine {
         /// <returns>user table.</returns>
         UserTable GetUserTable() const;
         /// <summary>
+        /// Add new user to table
+        /// </summary>
+        void AddNewUser(User newUser);
+        /// <summary>
         /// Get current user.
         /// </summary>
         /// <returns>Pointer to current user.</returns>

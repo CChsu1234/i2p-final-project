@@ -74,7 +74,7 @@ void UserTable::Update(void) {
 void UserTable::Save(bool dontchange) {
 
     std::ofstream out;
-    out.open("Resource/scoreboard.txt");
+    out.open("Resource/finalscoreboard.txt");
 
     out << total_user << '\n';
 

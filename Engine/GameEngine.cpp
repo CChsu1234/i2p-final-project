@@ -257,6 +257,11 @@ namespace Engine {
     UserTable GameEngine::GetUserTable() const {
         return table;
     }
+    void GameEngine::AddNewUser(User newUser) {
+        table.AddNewUser(newUser);
+        table.Sort();
+        table.Save();
+    }
     User *GameEngine::GetCurrentUser() const {
         return user;
     }

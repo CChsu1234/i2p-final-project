@@ -14,18 +14,22 @@ class LoginScene final : public Engine::IScene {
 private:
     std::shared_ptr<ALLEGRO_SAMPLE_INSTANCE> bgmInstance;
     float LoginLogCountDown;
+    enum MODE { LOGIN, SIGNUP };
+    int Mode;
 
 public:
     explicit LoginScene() = default;
     void Initialize() override;
     void Terminate() override;
     void BackOnClick(int stage);
+    void ToggleSignupLogin(int stage);
     void MovePage(int line);
     void UpOnClick(int line);
     void DownOnClick(int line);
     void OnKeyDown(int keycode) override;
     void Update(float deltaTime) override;
     User *Login();
+    User *Signup();
 };
 
 #endif
