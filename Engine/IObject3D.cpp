@@ -13,10 +13,18 @@ namespace Engine {
     }
     void IObject3D::Transform() {
         // SetModelViewMatrix();
+        Selected = false;
+        Touched = false;
         Eigen::Matrix4f MVP = ProjectionMatrix * ModelViewMatrix;
 
         for (auto tris : Tris) {
+            // TODO Complete Viewport Transform
             Triangle3D transformed = tris.TriangleTransform();
+
+            if (transformed.Origin_in_Triangle()) {
+                Selected = true;
+                Touched = true;
+            }
 
             Eigen::Vector3f test(0.0f, 0.0f, 1.0f);
             bool should_Draw = true;
@@ -32,7 +40,6 @@ namespace Engine {
             if (should_Draw) {
                 Tris_Transformed.insert(transformed);
             }
-            // TODO Complete Viewport Transform
         }
     }
     void IObject3D::Draw() const {

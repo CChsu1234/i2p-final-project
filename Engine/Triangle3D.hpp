@@ -18,6 +18,7 @@ namespace Engine {
         void Draw() const;
         Triangle3D TriangleTransform() const;
         bool operator<(Triangle3D other) const;
+        bool Origin_in_Triangle() const;
     };
 }
 #endif
