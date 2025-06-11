@@ -51,6 +51,10 @@ namespace Engine {
 
         ALLEGRO_COLOR drawColor = al_map_rgb_f(shadedColor.x(), shadedColor.y(), shadedColor.z());
 
+        if (Origin_in_Triangle()) {
+            drawColor = al_map_rgb(0, 255, 0);
+        }
+
         al_draw_filled_triangle(
             P[0].x(), P[0].y(),
             P[1].x(), P[1].y(),
@@ -91,6 +95,47 @@ namespace Engine {
         Eigen::Vector4f C = Engine::Transform(P[2]);
 
         return Triangle3D(A, B, C, Color);
+    }
+    Eigen::Vector4f Cross(Eigen::Vector4f u, Eigen::Vector4f v) {
+        Eigen::Vector4f retVec;
+        retVec <<
+            u(0) * v(1) - u(1) * v(0),
+            u(1) * v(0) - u(0) * v(1),
+            0.0f,
+            0.0f;
+        return retVec;
+    }
+    bool SameSide(Eigen::Vector4f p1, Eigen::Vector4f p2, Eigen::Vector4f a, Eigen::Vector4f b) {
+        Eigen::Vector4f cp1 = Cross(b - a, p1 - a);
+        Eigen::Vector4f cp2 = Cross(b - a, p2 - a);
+        
+        return (cp1.dot(cp2) >= 0);
+    }
+    // https://www.geeksforgeeks.org/check-whether-a-given-point-lies-inside-a-triangle-or-not/
+    float Area(float x1, float y1, float x2, float y2, float x3, float y3) {
+        return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0f);
+    }
+    bool Triangle3D::Origin_in_Triangle() const {
+        float midX = GameEngine::GetInstance().GetScreenSize().x * 0.5;
+        float midY = GameEngine::GetInstance().GetScreenSize().y * 0.5;
+        /*
+        float Atotal = Area(P[0](0), P[0](1), P[1](0), P[1](1), P[2](0), P[2](1));
+        float A1 = Area(midX, midY, P[1](0), P[1](1), P[2](0), P[2](1));
+        float A2 = Area(P[0](0), P[0](1), midX, midY, P[2](0), P[2](1));
+        float A3 = Area(P[0](0), P[0](1), P[1](0), P[1](1), midX, midY);
+        return (Atotal == A1 + A2 + A3);
+        */
+        Eigen::Vector4f Origin(
+            midX,
+            midY,
+            0.0f,
+            0.0f
+        );
+        if (SameSide(Origin, P[0], P[1], P[2]) && SameSide(Origin,  P[1], P[0], P[2]) && SameSide(Origin, P[2], P[0],  P[1])) {
+            return true;
+        } else {
+            return false;
+        }
     }
     bool Triangle3D::operator<(Triangle3D other) const {
         return (

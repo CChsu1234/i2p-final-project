@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <cmath>
 #include <fstream>
 #include <functional>
@@ -19,12 +20,13 @@
 #include "UI/Animation/Plane.hpp"
 #include "UI/Component/Label.hpp"
 #include "UI/Component/TestObject3D.hpp"
+#include "UI/Component/TestClick3D.hpp"
 #include "File/User.hpp"
 
 
 void TestScene::Initialize() {
-    Engine::TestObject3D *test;
-    AddNewObject3D(test = new Engine::TestObject3D());
+    Engine::TestClick3D *test;
+    AddNewControlObject3D(test = new Engine::TestClick3D());
     Controller = new Engine::MouseKeyboard();
     AddNewControlObject(Controller);
 }
@@ -36,6 +38,10 @@ void TestScene::Update(float deltaTime) {
 }
 void TestScene::Draw() const {
     IScene::Draw();
+    al_draw_filled_rectangle(
+        Engine::GameEngine::GetInstance().GetScreenSize().x * 0.5f + 1, Engine::GameEngine::GetInstance().GetScreenSize().y * 0.5f + 1, Engine::GameEngine::GetInstance().GetScreenSize().x * 0.5f, Engine::GameEngine::GetInstance().GetScreenSize().y * 0.5f,
+        al_map_rgb(255, 0, 0)
+    );
 }
 void TestScene::Hit() {
 
