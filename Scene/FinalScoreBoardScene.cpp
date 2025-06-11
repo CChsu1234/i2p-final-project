@@ -13,6 +13,7 @@
 #include "Scene/FinalScoreBoardScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"
+#include "UI/Component/UserInfo.hpp"
 
 #define table Engine::GameEngine::GetInstance().GetUserTable()
 
@@ -51,14 +52,7 @@ void FinalScoreBoardScene::Initialize() {
     btn->SetOnClickCallback(std::bind(&FinalScoreBoardScene::UpOnClick, this, 1));
     AddNewControlObject(btn);
     AddNewObject(new Engine::Label("PAGE UP", "pirulen.ttf", 12, halfW * 1 / 2 - 100, halfH * 3 / 2 - 37.5, 0, 0, 0, 255, 0.5, 0.5));
-    /*
-    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 200, halfH * 3 / 2 - 50, 400, 100);
-    btn->SetOnClickCallback(std::bind(&ScoreBoardScene::BackOnClick, this, 1));
-    AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 3 / 2, 0, 0, 0, 255, 0.5, 0.5));
-    */
-
-    // Not safe if release resource while playing, however we only free while change scene, so it's fine.
+    AddNewObject(new Engine::UserInfo());
     bgmInstance = AudioHelper::PlaySample("scoreboard.ogg", true, AudioHelper::BGMVolume);
 }
 void FinalScoreBoardScene::Terminate() {
@@ -68,7 +62,7 @@ void FinalScoreBoardScene::Terminate() {
     IScene::Terminate();
 }
 void FinalScoreBoardScene::BackOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("start");
+    Engine::GameEngine::GetInstance().ChangeScene("login");
 }
 void FinalScoreBoardScene::MovePage(int line) {
     if (total_line < PAGE_LINE) {

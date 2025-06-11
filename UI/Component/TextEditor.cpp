@@ -14,10 +14,10 @@ namespace Engine {
             Editting = false;
             OnClickCallback = std::bind(&TextEditor::ToggleEditting, this);
         }
-/*
-        explicit ImageButton(std::string img, std::string imgIn, float x, float y, float w = 0, float h = 0, float anchorX = 0, float anchorY = 0);
-        explicit Label(const std::string &text, const std::string &font, int fontSize, float x, float y, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255, float anchorX = 0, float anchorY = 0, int flag = 0);
-*/
+    void TextEditor::ClearText() {
+        TextLine = "";
+        label.Text = "";
+    }
     void TextEditor::AddText(char text) {
         TextLine.push_back(text);
     }
@@ -26,6 +26,12 @@ namespace Engine {
     }
     void TextEditor::ToggleEditting(void) { Editting = !Editting; }
     void TextEditor::OnKeyDown(int keycode) {
+        if (!Editting) {
+            return;
+        }
+        if (keycode == ALLEGRO_KEY_ENTER) {
+            Editting = false;
+        }
         if (keycode == ALLEGRO_KEY_LSHIFT || keycode == ALLEGRO_KEY_RSHIFT) {
             ShiftPressed = true;
         } else if (keycode >= ALLEGRO_KEY_A && keycode <= ALLEGRO_KEY_Z) {
@@ -104,6 +110,11 @@ namespace Engine {
     }
     std::string TextEditor::getTextLine(void) {
         return TextLine;
+    }
+    void TextEditor::OnMouseDown(int button, int mx, int my) {
+        if ((button & 1)) {
+            Editting = mouseIn;
+        }
     }
 }
 

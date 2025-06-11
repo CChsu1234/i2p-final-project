@@ -5,21 +5,27 @@
 #include <memory>
 
 #include "Engine/IScene.hpp"
+#include "File/User.hpp"
+#include "UI/Component/TextEditor.hpp"
 #include "UI/Component/Label.hpp"
 #include "File/User.hpp"
 
-class FinalScoreBoardScene final : public Engine::IScene {
+class LoginScene final : public Engine::IScene {
 private:
     std::shared_ptr<ALLEGRO_SAMPLE_INSTANCE> bgmInstance;
+    float LoginLogCountDown;
 
 public:
-    explicit FinalScoreBoardScene() = default;
+    explicit LoginScene() = default;
     void Initialize() override;
     void Terminate() override;
     void BackOnClick(int stage);
     void MovePage(int line);
     void UpOnClick(int line);
     void DownOnClick(int line);
+    void OnKeyDown(int keycode) override;
+    void Update(float deltaTime) override;
+    User *Login();
 };
 
 #endif

@@ -137,6 +137,7 @@ namespace Engine {
         /// </summary>
         /// <returns>Pointer to current user.</returns>
         User *GetCurrentUser() const;
+        void SetCurrentUser(User *loginuser);
         /// <summary>
         /// Get scene by name.
         /// </summary>

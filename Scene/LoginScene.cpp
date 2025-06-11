@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "LoginScene.hpp"
+#include "File/User.hpp"
 #include "Engine/AudioHelper.hpp"
 #include "Engine/GameEngine.hpp"
 #include "Engine/Point.hpp"
@@ -14,60 +15,80 @@
 #include "Scene/FinalScoreBoardScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"
+#include "UI/Component/TextEditor.hpp"
+#include "UI/Component/UserInfo.hpp"
 
 #define table Engine::GameEngine::GetInstance().GetUserTable()
 
-void FinalScoreBoardScene::Initialize() {
+Engine::TextEditor *username;
+Engine::TextEditor *userpwd;
+Engine::Label *LoginLog;
+
+void LoginScene::Initialize() {
+    table.Update();
+    LoginLogCountDown = 0.0f;
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
     int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
     int halfW = w / 2;
     int halfH = h / 2;
     Engine::ImageButton *btn;
+    AddNewControlObject(username = new Engine::TextEditor("win/dirt.png", "win/floor.png", "pirulen.ttf", 32, halfW - 400, halfH - 200, 800, 100, 0, 0, 0, 255, 0, 0.5));
+     AddNewControlObject(userpwd = new Engine::TextEditor("win/dirt.png", "win/floor.png", "pirulen.ttf", 32, halfW - 400, halfH, 800, 100, 0, 0, 0, 255, 0, 0.5));
+    AddNewObject(LoginLog = new Engine::Label("", "pirulen.ttf", 48, halfW, halfH + 150, 255, 255, 255, 225, 0.5, 0.5));
 
-    table.Update();
 
-    AddNewObject(new Engine::Label("Score Board", "pirulen.ttf", 48, halfW, halfH / 4 - 10, 255, 255, 255, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Login", "pirulen.ttf", 48, halfW, halfH / 4 - 10, 255, 255, 255, 255, 0.5, 0.5));
 
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 200, halfH * 5 / 3 - 50, 400, 100);
-    btn->SetOnClickCallback(std::bind(&FinalScoreBoardScene::BackOnClick, this, 1));
+    btn->SetOnClickCallback(std::bind(&LoginScene::BackOnClick, this, 1));
     AddNewControlObject(btn);
     AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 5 / 3, 0, 0, 0, 255, 0.5, 0.5));
-    
+    AddNewObject(new Engine::UserInfo());
+
     bgmInstance = AudioHelper::PlaySample("scoreboard.ogg", true, AudioHelper::BGMVolume);
 }
-void FinalScoreBoardScene::Terminate() {
+void LoginScene::Terminate() {
     table.Save();
     AudioHelper::StopSample(bgmInstance);
     bgmInstance = std::shared_ptr<ALLEGRO_SAMPLE_INSTANCE>();
     IScene::Terminate();
 }
-void FinalScoreBoardScene::BackOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("start");
+void LoginScene::BackOnClick(int stage) {
+    Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
 }
-void FinalScoreBoardScene::MovePage(int line) {
-    if (total_line < PAGE_LINE) {
-        return;
+void LoginScene::OnKeyDown(int keycode) {
+    IScene::OnKeyDown(keycode);
+    if (keycode == ALLEGRO_KEY_ENTER) {
+        User *loginUser = Login();
+        if (loginUser) {
+            username->ClearText();
+            userpwd->ClearText();
+            LoginLog->Text = "Login as " + loginUser->Name;
+            Engine::GameEngine::GetInstance().SetCurrentUser(loginUser);
+        } else {
+            LoginLog->Text = "Login fail";
+        }
+        LoginLogCountDown = 3.0f;
     }
-    if ( ((line < 0) && current_head_line == 0 ) || ((line > 0) && current_head_line == total_line - 1) ) {
-        return;
-    }
-
-    if (current_head_line + line >= total_line) {
-        current_head_line = total_line - 1;
-    } else if (current_head_line + line < 0) {
-        current_head_line = 0;
+}
+void LoginScene::Update(float deltaTime) {
+    IScene::Update(deltaTime);
+    if (LoginLogCountDown > 0.0f) {
+        LoginLogCountDown -= deltaTime;
     } else {
-        current_head_line += line;
+        LoginLog->Text = "";
     }
+}
+User *LoginScene::Login() {
+    std::string name = username->getTextLine();
+    std::string pwd = userpwd->getTextLine();
 
-    for (int i = current_head_line; i < current_head_line + PAGE_LINE; i++) {
-        scoreboard[i - current_head_line][0]->Text = (i < total_line) ? std::to_string(i + 1) + ". "+ table[i].Name : "" ;
-        scoreboard[i - current_head_line][1]->Text = (i < total_line) ? std::to_string(table[i].Score) : "" ;
+    User loginuser(name, pwd);
+
+    for (int i = 0; i < table.size(); i++) {
+        if (loginuser == table[i]) {
+            return &table[i];
+        }
     }
-}
-void FinalScoreBoardScene::UpOnClick(int line) {
-    MovePage(-line);
-}
-void FinalScoreBoardScene::DownOnClick(int line) {
-    MovePage(line);
+    return nullptr;
 }
