@@ -76,7 +76,8 @@ public:
     void ReadEnemyWave();
     void ConstructUI();
     void UIBtnClicked(int id);
-   
+    void RespawnTarget(int i);
+    void OnMouseDown(int button, int x, int y);
 };
 
 #endif // TESTSCENE_HPP
