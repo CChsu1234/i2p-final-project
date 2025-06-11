@@ -18,7 +18,8 @@
 #include "UI/Component/TextEditor.hpp"
 #include "UI/Component/UserInfo.hpp"
 
-#define table Engine::GameEngine::GetInstance().GetUserTable()
+UserTable table = Engine::GameEngine::GetInstance().GetUserTable();
+User *currentUser = Engine::GameEngine::GetInstance().GetCurrentUser();
 
 Engine::TextEditor *username;
 Engine::TextEditor *userpwd;
