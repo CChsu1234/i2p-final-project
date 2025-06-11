@@ -102,6 +102,8 @@ add_executable(2025_I2P2_TowerDefense
     Scene/TestScene.hpp
     Scene/LoginScene.cpp
     Scene/LoginScene.hpp
+    Scene/SixtySecond.cpp
+    Scene/SixtySecond.hpp
 
     Scene/EndScene.cpp
     Scene/EndScene.hpp
@@ -147,9 +149,6 @@ add_executable(2025_I2P2_TowerDefense
     UI/Component/CrossHair.hpp
     UI/Component/Userinfo.cpp
     UI/Component/UserInfo.hpp
-    
-    UI/Component/TargetBall.cpp
-    UI/Component/TargetBall.hpp
     UI/Component/RotatingCube.cpp
     UI/Component/RotatingCube.hpp
  

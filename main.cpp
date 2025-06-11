@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 
     // DONE HACKATHON-1 (1/1): Change the start scene
     Settings settings;
-	game.Start("finalStart", 60, 1600, 832);
+	game.Start("test", 60, 1600, 832);
 
     settings.Save();
 	return 0;

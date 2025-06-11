@@ -13,10 +13,11 @@ namespace Engine {
     protected:
         std::list<std::pair<bool, IObject3D *>>::iterator object3DIterator{};
         explicit IObject3D() = default;
-        bool Selected;
+       
         bool Touched;
 
     public:
+        bool Selected;
         std::list<Triangle3D> Tris;
         inline static std::set<Triangle3D> Tris_Transformed{};
         bool Visible = true;
