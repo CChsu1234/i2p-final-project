@@ -75,7 +75,7 @@ void TestScene::Terminate() {
     IScene::Terminate();
 }
 void TestScene::Update(float deltaTime) {
-    // std::cout<<"update"<<std::endl;
+    std::cout<<"update"<<std::endl;
     IScene::Update(deltaTime);
     accumalateTime += deltaTime;
     if (accumalateTime >= 1.0f) {
