@@ -18,7 +18,7 @@ namespace Engine {
             Position = center;
             Tris.clear();  // Step 1: Clear previous triangles
 
-            float halfSize = 3.0f; // Or store `halfSize` as a member variable if needed
+            float halfSize = 2.0f; // Or store `halfSize` as a member variable if needed
 
             // Step 2: Define cube vertices at origin
             Eigen::Vector4f vertices[8] = {
@@ -80,6 +80,7 @@ namespace Engine {
 
 
     void TestClick3D::OnMouseDown(int Button, int mx, int my) {
+        /*
         TestScene *currentScene = dynamic_cast<TestScene *>(GameEngine::GetInstance().GetScene("test"));
         if (Selected) {
             // std::cout << "Clicked" << std::endl;
@@ -88,5 +89,6 @@ namespace Engine {
             currentScene->hit = 1;
         }
         else currentScene->hit = 2;
+        */
     }
 }

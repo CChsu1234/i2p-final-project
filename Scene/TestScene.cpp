@@ -65,7 +65,8 @@ void TestScene::Initialize() {
    
     AddNewControlObject3D(target[0] = new Engine::TestClick3D(Eigen::Vector3f(posX0, posY0, -30), 2.0f, light_blue));
     AddNewControlObject3D(target[1] = new Engine::TestClick3D(Eigen::Vector3f(posX1, posY1, -30), 2.0f, light_green));
-    AddNewControlObject3D(target[2] = new Engine::TestClick3D(Eigen::Vector3f(posX1, posY1, -30), 2.0f, light_pink));
+    AddNewControlObject3D(target[2] = new Engine::TestClick3D(Eigen::Vector3f(posX2, posY2, -30), 2.0f, light_pink));
+
 
     hitCount = 0;
     totalShots = 0;
@@ -89,45 +90,53 @@ void TestScene::Update(float deltaTime) {
         hasEnded = true;
         EndGame();
     }
-    if (hit == 1){
-        for (int i = 0; i < 3; i++){
-            if (target[i]->Selected) {
-                double posX0, posY0;
-                bool valid = false;
-                int attempts = 0;
-
-                // Try up to 100 times to find a non-colliding position
-                while (!valid && attempts < 100) {
-                    posX0 = -20.0f + 40.0f * ((double)rand() / RAND_MAX);
-                    posY0 = -10.0f + 20.0f * ((double)rand() / RAND_MAX);
-                    Eigen::Vector2f newPos(posX0, posY0);
-                    valid = true;
-                    for (int j = 0; j < 3; j++) {
-                        if (i == j) continue; // skip self
-                        Eigen::Vector3f otherPos = target[j]->Position;
-                        Eigen::Vector2f other2D(otherPos.x(), otherPos.y());
-                        if ((newPos - other2D).norm() < 4.0f) { // 4.0f is min allowed distance
-                            valid = false;
-                            break;
-                        }
-                    }
-                    attempts++;
-                }
-
-                target[i]->updateDraw(Eigen::Vector3f(posX0, posY0, -30));
-                break;
-            }
-        }
-        hit = 0;
-    }
-    else if (hit == 2) {
-        totalShots++;
-        score--;
-        hit = 0;
-    }
     ShowTimer->Text = "Time: " + std::to_string(timeLeft) ;
     ShowScore->Text = "Score: " + std::to_string(score);
     if (totalShots) ShowHitRate ->Text = "Hit Rate: " + std::to_string((int) 100 * hitCount / totalShots);
+}
+
+void TestScene::OnMouseDown(int button, int mx, int my) {
+    bool foundHit = false;
+    for (int i = 0; i < 3; ++i) {
+        if (target[i]->Selected) {
+            score += 1;
+            hitCount++;
+            totalShots++;
+            
+            RespawnTarget(i);
+            foundHit = true;
+            break;
+        }
+    }
+    if (!foundHit) {
+        score -= 1;
+        totalShots++;
+    }
+    IScene::OnMouseDown(button, mx, my);
+}
+void TestScene::RespawnTarget(int i) {
+    double posX0, posY0;
+    bool valid = false;
+    int attempts = 0;
+
+    while (!valid && attempts < 100) {
+        posX0 = -20.0f + 40.0f * ((double)rand() / RAND_MAX);
+        posY0 = -10.0f + 20.0f * ((double)rand() / RAND_MAX);
+        Eigen::Vector2f newPos(posX0, posY0);
+        valid = true;
+        for (int j = 0; j < 3; j++) {
+            if (i == j) continue;
+            Eigen::Vector3f otherPos = target[j]->Position;
+            Eigen::Vector2f other2D(otherPos.x(), otherPos.y());
+            if ((newPos - other2D).norm() < 4.0f) {
+                valid = false;
+                break;
+            }
+        }
+        attempts++;
+    }
+
+    target[i]->updateDraw(Eigen::Vector3f(posX0, posY0, -30));
 }
 
 void TestScene::Draw() const {
