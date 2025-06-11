@@ -26,6 +26,12 @@ namespace Engine {
     }
     void TextEditor::ToggleEditting(void) { Editting = !Editting; }
     void TextEditor::OnKeyDown(int keycode) {
+        if (!Editting) {
+            return;
+        }
+        if (keycode == ALLEGRO_KEY_ENTER) {
+            Editting = false;
+        }
         if (keycode == ALLEGRO_KEY_LSHIFT || keycode == ALLEGRO_KEY_RSHIFT) {
             ShiftPressed = true;
         } else if (keycode >= ALLEGRO_KEY_A && keycode <= ALLEGRO_KEY_Z) {
@@ -104,6 +110,11 @@ namespace Engine {
     }
     std::string TextEditor::getTextLine(void) {
         return TextLine;
+    }
+    void TextEditor::OnMouseDown(int button, int mx, int my) {
+        if ((button & 1)) {
+            Editting = mouseIn;
+        }
     }
 }
 

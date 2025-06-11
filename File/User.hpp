@@ -16,10 +16,10 @@ struct User {
 
     User() {}
 
-    User(int score, std::string name, std::string password, std::string time) {
-        Score = score;
+    User(std::string name, std::string password) {
+        Score = 0;
         Name = name;
-        Time = time;
+        Time = "";
         std::size_t hname = std::hash<std::string>{}(name);
         std::size_t hpwd = std::hash<std::string>{}(password);
         Hash = hname ^ (hpwd << 1);
@@ -28,7 +28,8 @@ struct User {
     bool operator==(const User& rhs) {
         return (Name == rhs.Name && Hash == rhs.Hash);
     }
-
+    friend std::istream &operator>>(std::istream &in, User &user);
+    friend std::ostream &operator<<(std::ostream &out, User &user);
 };
 
 class UserTable {

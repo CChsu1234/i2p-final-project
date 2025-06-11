@@ -13,6 +13,7 @@
 #include "Scene/FinalScoreBoardScene.hpp"
 #include "Scene/RecordScene.hpp"
 #include "Scene/TestScene.hpp"
+#include "Scene/LoginScene.hpp"
 #include "File/Settings.hpp"
 
 int main(int argc, char **argv) {
@@ -27,6 +28,7 @@ int main(int argc, char **argv) {
     game.AddNewScene("settings", new SettingsScene());
     game.AddNewScene("scoreboard", new ScoreBoardScene());
     game.AddNewScene("finalscoreboard", new FinalScoreBoardScene());
+    game.AddNewScene("login", new LoginScene());
     game.AddNewScene("record", new RecordScene());
 	game.AddNewScene("play", new PlayScene());
 	game.AddNewScene("lose", new LoseScene());

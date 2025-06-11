@@ -15,6 +15,7 @@ namespace Engine {
         explicit TextEditor(std::string img, std::string imaIn, const std::string &font, int fontsize, float x, float y, float w = 0, float h = 0, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255, float anchorX = 0, float anchorY = 0.5, const std::string &text = "", int flag = 0);
         void AddText(char text);
         void DeleteText(void);
+        void OnMouseDown(int Button, int mx, int my) override;
         void OnKeyDown(int keycode) override;
         void OnKeyUp(int keycode) override;
         void Draw(void) const override;
