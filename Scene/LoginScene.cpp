@@ -43,7 +43,7 @@ void LoginScene::Initialize() {
     btn->SetOnClickCallback(std::bind(&LoginScene::BackOnClick, this, 1));
     AddNewControlObject(btn);
     AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 5 / 3, 0, 0, 0, 255, 0.5, 0.5));
-    AddNewObject(new Engine::UserInfo());
+    AddNewControlObject(new Engine::UserInfo());
 
     bgmInstance = AudioHelper::PlaySample("scoreboard.ogg", true, AudioHelper::BGMVolume);
 }

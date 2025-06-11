@@ -52,7 +52,7 @@ void FinalScoreBoardScene::Initialize() {
     btn->SetOnClickCallback(std::bind(&FinalScoreBoardScene::UpOnClick, this, 1));
     AddNewControlObject(btn);
     AddNewObject(new Engine::Label("PAGE UP", "pirulen.ttf", 12, halfW * 1 / 2 - 100, halfH * 3 / 2 - 37.5, 0, 0, 0, 255, 0.5, 0.5));
-    AddNewObject(new Engine::UserInfo());
+    AddNewControlObject(new Engine::UserInfo());
     bgmInstance = AudioHelper::PlaySample("scoreboard.ogg", true, AudioHelper::BGMVolume);
 }
 void FinalScoreBoardScene::Terminate() {
