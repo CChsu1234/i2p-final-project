@@ -5,14 +5,26 @@
 #include <iostream>
 #include <string>
 
+#include "Engine/GameEngine.hpp"
+#include "Engine/IScene.hpp"
+
 namespace Engine {
-    TextEditor::TextEditor(std::string img, std::string imgIn, const std::string &font, int fontSize, float x, float y, float w, float h, unsigned char r, unsigned char g, unsigned char b, unsigned char a, float anchorX, float anchorY, const std::string &text, int flag)
+    TextEditor::TextEditor(std::string img, std::string imgIn, const std::string &font, int fontSize, float x, float y, float w, float h, unsigned char r, unsigned char g, unsigned char b, unsigned char a, float anchorX, float anchorY, bool show, const std::string &text, int flag)
         : label(text, font, fontSize, x + 10, y + h / 2 - ((float) fontSize / 2.0), r, g, b, a, anchorX, anchorY, 0),
         ImageButton(img, imgIn, x, y, w, h) {
             TextLine = text;
             ShiftPressed = false;
             Editting = false;
+            showText = show;
             OnClickCallback = std::bind(&TextEditor::ToggleEditting, this);
+            if (show) {
+                toggleshow = nullptr;
+            } else {
+                toggleshow = new ImageButton(img, imgIn, x + w + 10 + h * 0.2, y + h * 0.2, h * 0.6, h * 0.6);
+                toggleshow->SetOnClickCallback(std::bind(&TextEditor::ToggleOnClick, this, 1));
+                IScene *currentScene = GameEngine::GetInstance().GetActiveScene();
+                currentScene->AddNewControlObject(toggleshow);
+            }
         }
     void TextEditor::ClearText() {
         TextLine = "";
@@ -95,14 +107,28 @@ namespace Engine {
             if (TextLine.length() > 0) {
                 DeleteText();
             }
-        } 
-        label.Text = TextLine;
+        }
+        if (showText) {
+            label.Text = TextLine;
+        } else {
+            label.Text = "";
+            for (int i = 0; i < TextLine.length(); i++) {
+                label.Text += "*";
+            }
+        }
     }
     void TextEditor::OnKeyUp(int keycode) {
         if (keycode == ALLEGRO_KEY_LSHIFT || keycode == ALLEGRO_KEY_RSHIFT) {
             ShiftPressed = false;
         }
-        label.Text = TextLine;
+        if (showText) {
+            label.Text = TextLine;
+        } else {
+            label.Text = "";
+            for (int i = 0; i < TextLine.length(); i++) {
+                label.Text += "*";
+            }
+        }
     }
     void TextEditor::Draw(void) const {
         ImageButton::Draw();
@@ -114,6 +140,17 @@ namespace Engine {
     void TextEditor::OnMouseDown(int button, int mx, int my) {
         if ((button & 1)) {
             Editting = mouseIn;
+        }
+    }
+    void TextEditor::ToggleOnClick(int stage) {
+        showText = !showText;
+        if (showText) {
+            label.Text = TextLine;
+        } else {
+            label.Text = "";
+            for (int i = 0; i < TextLine.length(); i++) {
+                label.Text += "*";
+            }
         }
     }
 }

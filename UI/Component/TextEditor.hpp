@@ -10,10 +10,13 @@ namespace Engine {
         std::string TextLine;
         bool ShiftPressed;
         bool Editting;
+        bool showText;
+        ImageButton *toggleshow;
         Label label;
     public:
-        explicit TextEditor(std::string img, std::string imaIn, const std::string &font, int fontsize, float x, float y, float w = 0, float h = 0, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255, float anchorX = 0, float anchorY = 0.5, const std::string &text = "", int flag = 0);
+        explicit TextEditor(std::string img, std::string imaIn, const std::string &font, int fontsize, float x, float y, float w = 0, float h = 0, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255, float anchorX = 0, float anchorY = 0.5, bool show = true, const std::string &text = "", int flag = 0);
         void ClearText();
+        void ToggleOnClick(int stage);
         void AddText(char text);
         void DeleteText(void);
         void OnMouseDown(int Button, int mx, int my) override;
@@ -25,8 +28,4 @@ namespace Engine {
     };
 }
 
-/*
-        explicit ImageButton(std::string img, std::string imgIn, float x, float y, float w = 0, float h = 0, float anchorX = 0, float anchorY = 0);
-        explicit Label(const std::string &text, const std::string &font, int fontSize, float x, float y, unsigned char r = 0, unsigned char g = 0, unsigned char b = 0, unsigned char a = 255, float anchorX = 0, float anchorY = 0, int flag = 0);
-*/
 #endif // TEXTEDITOR_HPP

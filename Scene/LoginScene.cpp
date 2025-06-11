@@ -18,7 +18,8 @@
 #include "UI/Component/TextEditor.hpp"
 #include "UI/Component/UserInfo.hpp"
 
-#define table Engine::GameEngine::GetInstance().GetUserTable()
+UserTable table = Engine::GameEngine::GetInstance().GetUserTable();
+User *currentUser = Engine::GameEngine::GetInstance().GetCurrentUser();
 
 Engine::TextEditor *username;
 Engine::TextEditor *userpwd;
@@ -33,7 +34,7 @@ void LoginScene::Initialize() {
     int halfH = h / 2;
     Engine::ImageButton *btn;
     AddNewControlObject(username = new Engine::TextEditor("win/dirt.png", "win/floor.png", "pirulen.ttf", 32, halfW - 400, halfH - 200, 800, 100, 0, 0, 0, 255, 0, 0.5));
-     AddNewControlObject(userpwd = new Engine::TextEditor("win/dirt.png", "win/floor.png", "pirulen.ttf", 32, halfW - 400, halfH, 800, 100, 0, 0, 0, 255, 0, 0.5));
+     AddNewControlObject(userpwd = new Engine::TextEditor("win/dirt.png", "win/floor.png", "pirulen.ttf", 32, halfW - 400, halfH, 800, 100, 0, 0, 0, 255, 0, 0.5, false));
     AddNewObject(LoginLog = new Engine::Label("", "pirulen.ttf", 48, halfW, halfH + 150, 255, 255, 255, 225, 0.5, 0.5));
 
 
