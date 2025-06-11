@@ -3,9 +3,6 @@
 #include <list>
 #include <set>
 #include <utility>
-#include <fstream> 
-#include <iostream>
-#include <string>
 
 #include "Engine/Triangle3D.hpp"
 
@@ -16,11 +13,10 @@ namespace Engine {
     protected:
         std::list<std::pair<bool, IObject3D *>>::iterator object3DIterator{};
         explicit IObject3D() = default;
-        //bool Selected;
+        bool Selected;
         bool Touched;
 
     public:
-        bool Selected;
         std::list<Triangle3D> Tris;
         inline static std::set<Triangle3D> Tris_Transformed{};
         bool Visible = true;
@@ -32,7 +28,6 @@ namespace Engine {
         virtual void Draw() const;
         virtual void CleanUp();
         virtual void Update(float deltaTime);
-        //virtual void read3DFile(std::ifstream& inputFile, Eigen::Vector3f center, int radius, ALLEGRO_COLOR color) {};
     };
 }
 #endif   // IOBJECT_HPP
