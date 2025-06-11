@@ -84,6 +84,8 @@ add_executable(2025_I2P2_TowerDefense
     Scene/PlayScene.hpp
     Scene/StageSelectScene.cpp
     Scene/StageSelectScene.hpp
+    Scene/FinalStartScene.cpp
+    Scene/FinalStartScene.hpp
     Scene/StartScene.cpp
     Scene/StartScene.hpp
     Scene/SettingsScene.cpp
@@ -101,6 +103,12 @@ add_executable(2025_I2P2_TowerDefense
     Scene/LoginScene.cpp
     Scene/LoginScene.hpp
 
+    Scene/EndScene.cpp
+    Scene/EndScene.hpp
+    Scene/FinalSelectScene.cpp
+    Scene/FinalSelectScene.hpp
+    
+    
     Turret/LaserTurret.cpp
     Turret/LaserTurret.hpp
     Turret/MachineGunTurret.cpp
@@ -140,6 +148,11 @@ add_executable(2025_I2P2_TowerDefense
     UI/Component/Userinfo.cpp
     UI/Component/UserInfo.hpp
     
+    UI/Component/TargetBall.cpp
+    UI/Component/TargetBall.hpp
+    UI/Component/RotatingCube.cpp
+    UI/Component/RotatingCube.hpp
+ 
     main.cpp
 )
 

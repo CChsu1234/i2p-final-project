@@ -1,0 +1,95 @@
+#include <allegro5/allegro_audio.h>
+#include <functional>
+#include <memory>
+#include <string>
+
+#include "Engine/AudioHelper.hpp"
+#include "Engine/GameEngine.hpp"
+#include "Engine/Point.hpp"
+#include "Engine/Resources.hpp"
+#include "FinalSelectScene.hpp"
+#include "TestScene.hpp"
+#include "UI/Component/ImageButton.hpp"
+#include "UI/Component/Label.hpp"
+#include "UI/Component/Slider.hpp"
+
+void FinalSelectScene::Initialize() {
+    int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
+    int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
+    int halfW = w / 2;
+    int halfH = h / 2;
+    Engine::ImageButton *btn;
+
+    Controller = new Engine::MouseKeyboard(true);
+    AddNewControlObject(Controller);
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 - 50, 800, 100);
+    btn->SetOnClickCallback(std::bind(&FinalSelectScene::PlayOnClick, this, 1));
+    AddNewControlObject(btn);
+    AddNewObject(new Engine::Label("Sixty Seconds Rush", "pirulen.ttf", 48, halfW, halfH / 2, 0, 0, 0, 255, 0.5, 0.5));
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 + 100, 800, 100);
+    btn->SetOnClickCallback(std::bind(&FinalSelectScene::PlayOnClick, this, 2));
+    AddNewControlObject(btn);
+    AddNewObject(new Engine::Label("Stage 2", "pirulen.ttf", 48, halfW, halfH / 2 + 150, 0, 0, 0, 255, 0.5, 0.5));
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH * 3 / 2 - 50, 800, 100);
+    btn->SetOnClickCallback(std::bind(&FinalSelectScene::BackOnClick, this, 1));
+    AddNewControlObject(btn);
+    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 3 / 2, 0, 0, 0, 255, 0.5, 0.5));
+
+    for (int i = 0; i<15;i++){
+        unsigned char r = rand() % 256;
+        unsigned char g = rand() % 256;
+        unsigned char b = rand() % 256;
+        ALLEGRO_COLOR decideColor = al_map_rgb(r, g, b);
+        double posX = -100.0f + 200.0f *((double)rand() / RAND_MAX);
+        double posY = -50.0f + 100.0f *((double)rand() / RAND_MAX);
+        cubeLifeTime[i] = rand() % 5;
+        AddNewControlObject3D(cube[i] = new Engine::RotatingCube(Eigen::Vector3f(posX, posY, -30), 3.0f, decideColor));
+    }
+
+}
+void FinalSelectScene::Terminate() {
+    IScene::Terminate();
+}
+void FinalSelectScene::BackOnClick(int stage) {
+    Engine::GameEngine::GetInstance().ChangeScene("finalStart");
+}
+void FinalSelectScene::PlayOnClick(int stage) {
+    TestScene *scene = dynamic_cast<TestScene *>(Engine::GameEngine::GetInstance().GetScene("test"));
+    Engine::GameEngine::GetInstance().ChangeScene("test");
+}
+
+void FinalSelectScene::OnKeyDown(int keyCode) {
+    IScene::OnKeyDown(keyCode);
+    if (keyCode == ALLEGRO_KEY_A){
+        Engine::GameEngine::GetInstance().ChangeScene("test");
+    }
+    else if (keyCode == ALLEGRO_KEY_S) {
+        Engine::GameEngine::GetInstance().ChangeScene("test2");
+    }
+    else if (keyCode == ALLEGRO_KEY_D){
+        Engine::GameEngine::GetInstance().ChangeScene("finalStart");
+    }
+}
+void FinalSelectScene::Update(float deltaTime){
+    IScene::Update(deltaTime);
+    
+    timeAccumulator += deltaTime;
+    if (timeAccumulator >= 5.0f) {
+        timeAccumulator -= 5.0f;
+        for (int i = 0; i<15;i++) change[i] = false;
+    }
+        
+
+    for (int i = 0; i < 15;i++){
+        if (timeAccumulator>= cubeLifeTime[i] && change[i] == false){
+            double posX = -100.0f + 200.0f *((double)rand() / RAND_MAX);
+            double posY = -50.0f + 100.0f *((double)rand() / RAND_MAX);
+            cube[i]->updateDraw(al_map_rgb(255, 255, 255), Eigen::Vector3f(posX, posY, -30));
+            change[i] = true;
+        }
+    }
+        
+}
