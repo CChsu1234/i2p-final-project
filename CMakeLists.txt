@@ -139,6 +139,8 @@ add_executable(2025_I2P2_TowerDefense
     UI/Component/CrossHair.hpp
     UI/Component/Userinfo.cpp
     UI/Component/UserInfo.hpp
+    UI/Component/TargetBall.cpp
+    UI/Component/TargetBall.hpp
     
     main.cpp
 )

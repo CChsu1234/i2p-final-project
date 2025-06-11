@@ -1,5 +1,6 @@
 #ifndef TESTSCENE_HPP
 #define TESTSCENE_HPP
+
 #include <allegro5/allegro_audio.h>
 #include <list>
 #include <memory>
@@ -8,13 +9,18 @@
 
 #include "Engine/IScene.hpp"
 #include "Engine/MouseKeyboard.hpp"
+#include "UI/Component/TestObject3D.hpp"
+#include "UI/Component/TestClick3D.hpp"
+#include "UI/Component/TargetBall.hpp"
 
 namespace Engine {
     class Group;
     class Image;
     class Label;
     class Sprite;
-}   // namespace Engine
+} // namespace Engine
+
+class TestClick3D;
 
 class TestScene final : public Engine::IScene {
 private:
@@ -32,7 +38,7 @@ public:
     int MapId;
     float ticks;
     float deathCountDown;
-    // Map tiles.
+
     Group *TileMapGroup;
     Group *GroundEffectGroup;
     Group *DebugIndicatorGroup;
@@ -47,17 +53,31 @@ public:
     Engine::Sprite *dangerIndicator;
     Engine::MouseKeyboard *Controller;
     std::list<std::pair<int, float>> enemyWaveData;
+    Engine::TestClick3D *target[3];
+
+    std::list<std::shared_ptr<TestClick3D>> Targets;
+    int totalShots = 0;
+    int score = 0;
+    int hitCount = 0;
+    int timeLeft = 60;
+    int hit = 0;
+
     explicit TestScene() = default;
     void Initialize() override;
     void Terminate() override;
     void Update(float deltaTime) override;
     void Draw() const override;
     void Hit();
+    void Miss();
+    void SpawnTarget();
+    void EndGame();
     int GetMoney() const;
     void EarnMoney(int money);
     void ReadEnemyWave();
     void ConstructUI();
     void UIBtnClicked(int id);
-    // void ModifyReadMapTiles();
+    void RespawnTarget(int i);
+    void OnMouseDown(int button, int x, int y);
 };
-#endif   // PLAYSCENE_HPP
+
+#endif // TESTSCENE_HPP
