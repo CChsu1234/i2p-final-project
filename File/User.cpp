@@ -14,14 +14,14 @@ std::istream &operator>>(std::istream &in, User &user) {
     int date;
     std::string yymmss;
     int year;
-    in >> user.name >> user.score >> day >> month >> date >> yymmss >> year;
+    in >> user.Name >> user.Hash >> user.Score >> day >> month >> date >> yymmss >> year;
     std::stringstream ss;
     ss << day << ' ' << month << ' ' << date << ' ' << yymmss << ' ' << year;
-    user.time = ss.str();
+    user.Time = ss.str();
     return in;
 }
 std::ostream &operator<<(std::ostream &out, User &user) {
-    out << user.name << ' ' << user.score << ' ' << user.time << '\n';
+    out << user.Name << ' ' << user.Hash << ' ' << user.Score << ' ' << user.Time << '\n';
     return out;
 }
 UserTable::UserTable(void) {
@@ -37,7 +37,7 @@ void UserTable::Update(void) {
 
     std::ifstream in;
 
-    in.open("Resource/scoreboard.txt");
+    in.open("Resource/finalscoreboard.txt");
 
     int now_user;
     User Useri;
@@ -74,15 +74,15 @@ void UserTable::Update(void) {
 void UserTable::Save(bool dontchange) {
 
     std::ofstream out;
-    out.open("Resource/scoreboard.txt");
+    out.open("Resource/finalscoreboard.txt");
 
     out << total_user << '\n';
 
     for (int i = 0; i < total_user; i++) {
         if (!dontchange) {
-            if (table[i].time == "--") {
+            if (table[i].Time == "--") {
                 std::time_t cur_time = std::time(nullptr);
-                table[i].time = std::asctime(std::localtime(&cur_time));
+                table[i].Time = std::asctime(std::localtime(&cur_time));
             }
         }
         out << table[i];
@@ -112,12 +112,12 @@ void UserTable::Save(bool dontchange) {
 }
 void UserTable::Sort(void) {
     std::sort(table, table + total_user, [](User u1, User u2) {
-        if (u1.name == "[]" && u2.name != "[]") {
+        if (u1.Name == "[]" && u2.Name != "[]") {
             return false;
-        } else if (u2.name == "[]" && u1.name != "[]") {
+        } else if (u2.Name == "[]" && u1.Name != "[]") {
             return true;
         }
-        return u1.score > u2.score;
+        return u1.Score > u2.Score;
     });
 }
 User& UserTable::operator[](int idx) {
@@ -142,8 +142,8 @@ void UserTable::AddNewUser(User newuser) {
 void UserTable::GiveName(std::string name) {
     if (name != "") {
         for (int i = 0; i < total_user; i++) {
-            if (table[i].name == "[]") {
-                table[i].name = name;
+            if (table[i].Name == "[]") {
+                table[i].Name = name;
             }
         }
     }

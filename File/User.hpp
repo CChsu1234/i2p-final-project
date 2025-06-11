@@ -5,13 +5,34 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <variant>
 
 
-typedef struct _User {
-    int score;
-    std::string name;
-    std::string time;
-} User;
+struct User {
+    int Score;
+    std::string Name;
+    std::size_t Hash;
+    std::string Time;
+
+    User() {}
+
+    User(std::string name, std::string password) {
+        Score = 0;
+        Name = name;
+        Time = "";
+        std::size_t hname = std::hash<std::string>{}(name);
+        std::size_t hpwd = std::hash<std::string>{}(password);
+        Hash = hname ^ (hpwd << 1);
+        std::time_t cur_time = std::time(nullptr);
+        Time = std::asctime(std::localtime(&cur_time));
+    }
+
+    bool operator==(const User& rhs) {
+        return (Name == rhs.Name && Hash == rhs.Hash);
+    }
+    friend std::istream &operator>>(std::istream &in, User &user);
+    friend std::ostream &operator<<(std::ostream &out, User &user);
+};
 
 class UserTable {
 private:

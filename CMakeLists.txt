@@ -90,12 +90,16 @@ add_executable(2025_I2P2_TowerDefense
     Scene/SettingsScene.hpp
     Scene/ScoreBoardScene.cpp
     Scene/ScoreBoardScene.hpp
+    Scene/FinalScoreBoardScene.cpp
+    Scene/FinalScoreBoardScene.hpp
     Scene/WinScene.cpp
     Scene/WinScene.hpp
     Scene/RecordScene.cpp
     Scene/RecordScene.hpp
     Scene/TestScene.cpp
     Scene/TestScene.hpp
+    Scene/LoginScene.cpp
+    Scene/LoginScene.hpp
 
     Turret/LaserTurret.cpp
     Turret/LaserTurret.hpp
@@ -133,8 +137,8 @@ add_executable(2025_I2P2_TowerDefense
     UI/Component/TestClick3D.hpp
     UI/Component/CrossHair.cpp
     UI/Component/CrossHair.hpp
-    UI/Component/TargetBall.cpp
-    UI/Component/TargetBall.hpp
+    UI/Component/Userinfo.cpp
+    UI/Component/UserInfo.hpp
     
     main.cpp
 )

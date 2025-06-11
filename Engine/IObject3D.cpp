@@ -1,9 +1,6 @@
 #include <list>
 #include <set>
 #include <iostream>
-#include <fstream> 
-#include <string>
-
 
 #include "IObject3D.hpp"
 #include "Resource/Eigen/Dense"
@@ -54,7 +51,5 @@ namespace Engine {
     void IObject3D::CleanUp() {
         Tris_Transformed.clear();
     }
-    
     void IObject3D::Update(float deltaTime) {}
-
 }
