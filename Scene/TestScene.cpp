@@ -55,8 +55,9 @@ void TestScene::Initialize() {
     AddNewObject(ShowScore = new Engine::Label("Score: 0", "pirulen.ttf", 15 , halfW- 100, 35 , 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(ShowHitRate = new Engine::Label("Hit Rate: -", "pirulen.ttf", 15 , halfW +30, 35 , 255, 255, 255, 255, 0.5, 0.5));
 
+    hitRateVariation.clear();
+    scoreVariation.clear();
     
-
     double posX0 = -20.0f + 40.0f *((double)rand() / RAND_MAX);
     double posY0 = -10.0f + 20.0f *((double)rand() / RAND_MAX);
     double posX1 = -20.0f + 40.0f *((double)rand() / RAND_MAX);
@@ -100,23 +101,6 @@ void TestScene::Update(float deltaTime) {
 void TestScene::Draw() const {
     IScene::Draw();
 }
-void TestScene::Hit() {
-
-}
-int TestScene::GetMoney() const {
-    return 0;
-}
-void TestScene::EarnMoney(int money) {
-
-}
-void TestScene::ReadEnemyWave() {
-
-}
-void TestScene::ConstructUI() {
-
-}
-void TestScene::UIBtnClicked(int id) {}
-
 void TestScene::EndGame() {
     auto& engine = Engine::GameEngine::GetInstance();
     auto endscene = dynamic_cast<EndScene*>(engine.GetScene("FinalEnd"));

@@ -40,6 +40,13 @@ static float spawnTimer = 0.0f;
 
 void SurvivalScene::Initialize() {
 
+    lives=5;
+    suvivalTime = 0;
+    spawnNum = 1;
+    spawnInterval = 3.0f;
+    redFlashTimer = 0.0f;
+    speed = 10.0f;
+
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
     int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
     int halfW = w / 2;
