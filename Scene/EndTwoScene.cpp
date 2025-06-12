@@ -15,7 +15,7 @@
 
 void EndTwoScene::Initialize() {
 
-    Controller = new Engine::MouseKeyboard(true);
+    Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
     
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
