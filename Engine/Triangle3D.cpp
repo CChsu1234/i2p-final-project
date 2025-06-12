@@ -131,7 +131,7 @@ namespace Engine {
     }
     bool Triangle3D::operator<(Triangle3D other) const {
         return (
-            (P[0](2) + P[1](2) + P[2](2)) > other.P[0](2) + other.P[1](2) + other.P[2](2)
+            (P[0](2) + P[1](2) + P[2](2)) < other.P[0](2) + other.P[1](2) + other.P[2](2)
         );
     }
 }
