@@ -262,11 +262,15 @@ namespace Engine {
         table.Sort();
         table.Save();
     }
-    User *GameEngine::GetCurrentUser() const {
-        return user;
+    void GameEngine::SaveTable() {
+        table.Sort();
+        table.Save();
     }
-    void GameEngine::SetCurrentUser(User *loginuser) {
-        user = loginuser;
+    int GameEngine::GetCurrentUser() const {
+        return userid;
+    }
+    void GameEngine::SetCurrentUser(int id) {
+        userid = id;
     }
     IScene *GameEngine::GetScene(const std::string &name) {
         if (scenes.count(name) == 0)

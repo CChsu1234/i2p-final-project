@@ -4,25 +4,46 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <map>
 #include "File/User.hpp"
 
 
 std::istream &operator>>(std::istream &in, User &user) {
-    // Fri May 16 14:25:00 2025
-    std::string day;
-    std::string month;
-    int date;
-    std::string yymmss;
-    int year;
-    in >> user.Name >> user.Hash >> user.Score >> day >> month >> date >> yymmss >> year;
-    std::stringstream ss;
-    ss << day << ' ' << month << ' ' << date << ' ' << yymmss << ' ' << year;
-    user.Time = ss.str();
+    in >> user.Name >> user.Hash >> user.id;
     return in;
 }
 std::ostream &operator<<(std::ostream &out, User &user) {
-    out << user.Name << ' ' << user.Hash << ' ' << user.Score << ' ' << user.Time << '\n';
+    out << user.Name << ' ' << user.Hash << ' ' << user.id << '\n';
     return out;
+}
+User::User() {
+    Score = 0;
+}
+User::User(std::string name, std::string password) {
+    Score = 0;
+    Name = name;
+    std::size_t hname = std::hash<std::string>{}(name);
+    std::size_t hpwd = std::hash<std::string>{}(password);
+    Hash = hname ^ (hpwd << 1);
+}
+void User::addNewRecord(int score) {
+    Score = std::max(Score, score);
+    record.emplace_back(score);
+}
+std::vector<float> User::GetRecord(int size) {
+    std::vector<float> retVec;
+    if (size <= record.size()) {
+        retVec.clear();
+        for (int i = 0; i < size; i++) {
+            retVec.emplace_back(record[record.size()- size + i]);
+        }
+        return retVec;
+    } else {
+        for (auto i : record) {
+            retVec.emplace_back(i);
+        }
+        return retVec;
+    }
 }
 UserTable::UserTable(void) {
     table = new User[capacity];
@@ -33,11 +54,12 @@ void UserTable::clearTable(void) {
     total_user = 0;
 }
 void UserTable::Update(void) {
+    std::map<int, int> id_to_i;
     clearTable();
 
     std::ifstream in;
 
-    in.open("Resource/finalscoreboard.txt");
+    in.open("Resource/user.txt");
 
     int now_user;
     User Useri;
@@ -45,7 +67,21 @@ void UserTable::Update(void) {
     in >> now_user;
     for (int i = 0; i < now_user; i++) {
         in >> Useri;
+        id_to_i.insert({Useri.id, i});
         AddNewUser(Useri);
+    }
+
+    in.close();
+
+    in.open("Resource/score.txt");
+
+    int n;
+    in >> n;
+    int score;
+    int id;
+    for (int i = 0; i < n; i++) {
+        in >> id >> score;
+        table[id_to_i[id]].addNewRecord(score);
     }
 
     in.close();
@@ -74,18 +110,26 @@ void UserTable::Update(void) {
 void UserTable::Save(bool dontchange) {
 
     std::ofstream out;
-    out.open("Resource/finalscoreboard.txt");
+    int n_record = 0;
+    out.open("Resource/user.txt");
 
     out << total_user << '\n';
 
     for (int i = 0; i < total_user; i++) {
-        if (!dontchange) {
-            if (table[i].Time == "--") {
-                std::time_t cur_time = std::time(nullptr);
-                table[i].Time = std::asctime(std::localtime(&cur_time));
-            }
-        }
         out << table[i];
+        n_record += table[i].record.size();
+    }
+
+    out.close();
+
+    out.open("Resource/score.txt");
+
+    out << n_record << '\n';
+
+    for (int i = 0; i < total_user; i++) {
+        for (int r : table[i].record) {
+            out << table[i].id << " " << r << '\n';
+        }
     }
 
     out.close();
@@ -112,16 +156,14 @@ void UserTable::Save(bool dontchange) {
 }
 void UserTable::Sort(void) {
     std::sort(table, table + total_user, [](User u1, User u2) {
-        if (u1.Name == "[]" && u2.Name != "[]") {
-            return false;
-        } else if (u2.Name == "[]" && u1.Name != "[]") {
-            return true;
-        }
         return u1.Score > u2.Score;
     });
 }
-User& UserTable::operator[](int idx) {
-    return table[idx];
+User& UserTable::operator[](int rank) {
+    if (rank >= 0 && rank < total_user) {
+        return table[rank];
+    }
+    return not_a_user;
 }
 int UserTable::size() {
     return total_user;
@@ -132,6 +174,14 @@ void UserTable::resizeTable(void) {
     table = new User[capacity];
     memcpy((void*) table, temp, total_user * sizeof(User));
     delete[] temp;
+}
+User& UserTable::at(int id) {
+    for (int i = 0; i < total_user; i++) {
+        if (table[i].id == id) {
+            return table[i];
+        }
+    }
+    return table[-1];
 }
 void UserTable::AddNewUser(User newuser) {
     if (total_user == capacity) {

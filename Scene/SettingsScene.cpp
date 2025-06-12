@@ -7,14 +7,18 @@
 #include "Engine/GameEngine.hpp"
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
+#include "Engine/MouseKeyboard.hpp"
 #include "PlayScene.hpp"
 #include "Scene/SettingsScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"
 #include "UI/Component/Slider.hpp"
+#include "UI/Animation/CubeBackGround.hpp"
 #include "File/Settings.hpp"
 
 void SettingsScene::Initialize() {
+    AddNewControlObject(new Engine::MouseKeyboard(false));
+    AddNewObject3D(new Engine::CubeBackGround());
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
     int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
     int halfW = w / 2;
@@ -48,7 +52,7 @@ void SettingsScene::Terminate() {
     IScene::Terminate();
 }
 void SettingsScene::BackOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("start");
+    Engine::GameEngine::GetInstance().ChangeScene("finalStart");
 }
 void SettingsScene::BGMSlideOnValueChanged(float value) {
     AudioHelper::ChangeSampleVolume(bgmInstance, value);

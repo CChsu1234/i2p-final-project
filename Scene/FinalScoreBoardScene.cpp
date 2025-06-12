@@ -9,21 +9,26 @@
 #include "Engine/GameEngine.hpp"
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
+#include "Engine/MouseKeyboard.hpp"
 #include "PlayScene.hpp"
 #include "Scene/FinalScoreBoardScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"
 #include "UI/Component/UserInfo.hpp"
+#include "UI/Component/LineChart.hpp"
+#include "UI/Animation/CubeBackGround.hpp"
 
 #define table Engine::GameEngine::GetInstance().GetUserTable()
+#define currentUserid Engine::GameEngine::GetInstance().GetCurrentUser()
 
 void FinalScoreBoardScene::Initialize() {
+    AddNewObject3D(new Engine::CubeBackGround());
+    AddNewControlObject(new Engine::MouseKeyboard(false));
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
     int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
     int halfW = w / 2;
     int halfH = h / 2;
     Engine::ImageButton *btn;
-
     table.Update();
     total_line = table.size();
 
@@ -52,6 +57,10 @@ void FinalScoreBoardScene::Initialize() {
     btn->SetOnClickCallback(std::bind(&FinalScoreBoardScene::UpOnClick, this, 1));
     AddNewControlObject(btn);
     AddNewObject(new Engine::Label("PAGE UP", "pirulen.ttf", 12, halfW * 1 / 2 - 100, halfH * 3 / 2 - 37.5, 0, 0, 0, 255, 0.5, 0.5));
+
+    if (currentUserid != -1) {
+        AddNewObject(new Engine::LineChart("History", halfW - 200, halfH - 200, 500, 200, table.at(currentUserid).GetRecord(10), "", "score"));
+    }
     
     AddNewControlObject(new Engine::UserInfo());
 
@@ -64,7 +73,7 @@ void FinalScoreBoardScene::Terminate() {
     IScene::Terminate();
 }
 void FinalScoreBoardScene::BackOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("login");
+    Engine::GameEngine::GetInstance().ChangeScene("finalStart");
 }
 void FinalScoreBoardScene::MovePage(int line) {
     if (total_line < PAGE_LINE) {

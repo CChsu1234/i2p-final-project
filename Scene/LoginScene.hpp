@@ -27,8 +27,8 @@ public:
     void LogoutOnClick(int stage);
     void OnKeyDown(int keycode) override;
     void Update(float deltaTime) override;
-    User *Login();
-    User *Signup();
+    int Login();
+    int Signup();
 };
 
 #endif

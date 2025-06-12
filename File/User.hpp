@@ -7,37 +7,37 @@
 #include <sstream>
 #include <variant>
 
+class UserTable;
 
-struct User {
-    int Score;
+class User {
+    friend class UserTable;
+private:
+public:
+    std::vector<int> record;
     std::string Name;
+    int id;
+    int Score = 0;
     std::size_t Hash;
-    std::string Time;
 
-    User() {}
+    User();
 
-    User(std::string name, std::string password) {
-        Score = 0;
-        Name = name;
-        Time = "";
-        std::size_t hname = std::hash<std::string>{}(name);
-        std::size_t hpwd = std::hash<std::string>{}(password);
-        Hash = hname ^ (hpwd << 1);
-        std::time_t cur_time = std::time(nullptr);
-        Time = std::asctime(std::localtime(&cur_time));
-    }
+    User(std::string name, std::string password);
 
-    bool operator==(const User& rhs) {
-        return (Name == rhs.Name && Hash == rhs.Hash);
-    }
+    bool operator==(const User& rhs) { return (Name == rhs.Name && Hash == rhs.Hash); }
+
+    bool sameName(const User& other) { return Name == other.Name; }
     friend std::istream &operator>>(std::istream &in, User &user);
     friend std::ostream &operator<<(std::ostream &out, User &user);
+    void addNewRecord(int score);
+    std::vector<float> GetRecord(int size);
 };
 
 class UserTable {
+    // friend class FinalScoreBoardScene;
 private:
     int total_user;
     User *table;
+    User not_a_user{"not_a_user", "not_a_user"};
     int capacity = 100;
     void resizeTable(void);
 public:
@@ -47,10 +47,12 @@ public:
     void Save(bool dontchange = false);
     void Sort(void);
     void AddNewUser(User newuser);
-    User& operator[](int idx);
+    User& operator[](int rank);
+    User& at(int id);
     int size (void);
     void GiveName(std::string name);
     friend std::istream &operator>>(std::istream &in, User &user);
     friend std::ostream &operator<<(std::ostream &out, User &user);
 };
+
 #endif

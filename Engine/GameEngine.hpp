@@ -44,7 +44,7 @@ namespace Engine {
         std::string nextScene{};
         // User
         UserTable table;
-        User *user = nullptr;
+        int userid = -1;
 
         /// <summary>
         /// Initialize allegro5 library. Creates game window & event queue,
@@ -136,12 +136,13 @@ namespace Engine {
         /// Add new user to table
         /// </summary>
         void AddNewUser(User newUser);
+        void SaveTable();
         /// <summary>
         /// Get current user.
         /// </summary>
         /// <returns>Pointer to current user.</returns>
-        User *GetCurrentUser() const;
-        void SetCurrentUser(User *loginuser);
+        int GetCurrentUser() const;
+        void SetCurrentUser(int id);
         /// <summary>
         /// Get scene by name.
         /// </summary>

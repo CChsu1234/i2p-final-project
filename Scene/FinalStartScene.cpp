@@ -12,6 +12,8 @@
 #include "UI/Component/Label.hpp"
 #include "UI/Component/Slider.hpp"
 
+#define currentUserid Engine::GameEngine::GetInstance().GetCurrentUser()
+
 // DONE HACKATHON-2 (1/3): You can imitate the 2 files: 'StartScene.hpp', 'StartScene.cpp' to implement your SettingsScene.
 void FinalStartScene::Initialize() {
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
@@ -20,7 +22,7 @@ void FinalStartScene::Initialize() {
     int halfH = h / 2;
     Engine::ImageButton *btn;
 
-    Controller = new Engine::MouseKeyboard(true);
+    Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
 
 
@@ -58,7 +60,11 @@ void FinalStartScene::Terminate() {
     IScene::Terminate();
 }
 void FinalStartScene::PlayOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("FinalSelect");
+    if (currentUserid != -1) {
+        Engine::GameEngine::GetInstance().ChangeScene("finalSelect");
+    } else {
+        Engine::GameEngine::GetInstance().ChangeScene("login");
+    }
 }
 
 void FinalStartScene::SettingsOnClick(int stage) {
@@ -66,7 +72,7 @@ void FinalStartScene::SettingsOnClick(int stage) {
 }
 
 void FinalStartScene::ScoreBoardOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("scoreboard");
+    Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
 }
 void FinalStartScene::OnKeyDown(int keyCode) {
     IScene::OnKeyDown(keyCode);
@@ -77,7 +83,7 @@ void FinalStartScene::OnKeyDown(int keyCode) {
         Engine::GameEngine::GetInstance().ChangeScene("settings");
     }
     else if (keyCode == ALLEGRO_KEY_D){
-        Engine::GameEngine::GetInstance().ChangeScene("scoreboard");
+        Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
     }
 }
 void FinalStartScene::Update(float deltaTime){

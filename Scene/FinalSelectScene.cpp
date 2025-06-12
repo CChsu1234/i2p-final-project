@@ -20,7 +20,7 @@ void FinalSelectScene::Initialize() {
     int halfH = h / 2;
     Engine::ImageButton *btn;
 
-    Controller = new Engine::MouseKeyboard(true);
+    Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
 
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 - 50, 800, 100);
