@@ -34,7 +34,6 @@ void ScoreBoardScene::Initialize() {
     for (int i = 0; i < PAGE_LINE; i++) {
         AddNewObject(scoreboard[i][0] = new Engine::Label((i < total_line) ? std::to_string(i + 1) + ". " + table[i].Name : "" , "pirulen.ttf", 28, halfW * 1 / 2 - 100, halfH +  50 * (i - PAGE_LINE / 2), 255, 255, 255, 255, 0, 0.5, 0));
         AddNewObject(scoreboard[i][1] = new Engine::Label((i < total_line) ? std::to_string(table[i].Score) : "" , "pirulen.ttf", 28, halfW - 100, halfH +  50 * (i - PAGE_LINE / 2), 255, 255, 255, 255, 0, 0.5, 0));
-        AddNewObject(scoreboard[i][2] = new Engine::Label((i < total_line) ? table[i].Time : "" , "pirulen.ttf", 20, halfW * 3 / 2 - 100, halfH +  50 * (i - PAGE_LINE / 2), 255, 255, 255, 255, 0, 0.5, 0));
     }
     current_head_line = 0;
 
@@ -90,7 +89,6 @@ void ScoreBoardScene::MovePage(int line) {
     for (int i = current_head_line; i < current_head_line + PAGE_LINE; i++) {
         scoreboard[i - current_head_line][0]->Text = (i < total_line) ? std::to_string(i + 1) + ". "+ table[i].Name : "" ;
         scoreboard[i - current_head_line][1]->Text = (i < total_line) ? std::to_string(table[i].Score) : "" ;
-        scoreboard[i - current_head_line][2]->Text = (i < total_line) ? table[i].Time : "" ;
     }
 }
 void ScoreBoardScene::UpOnClick(int line) {

@@ -8,20 +8,11 @@
 
 
 std::istream &operator>>(std::istream &in, User &user) {
-    // Fri May 16 14:25:00 2025
-    std::string day;
-    std::string month;
-    int date;
-    std::string yymmss;
-    int year;
-    in >> user.Name >> user.Hash >> user.Score >> day >> month >> date >> yymmss >> year;
-    std::stringstream ss;
-    ss << day << ' ' << month << ' ' << date << ' ' << yymmss << ' ' << year;
-    user.Time = ss.str();
+    in >> user.Name >> user.Hash >> user.Score;
     return in;
 }
 std::ostream &operator<<(std::ostream &out, User &user) {
-    out << user.Name << ' ' << user.Hash << ' ' << user.Score << ' ' << user.Time << '\n';
+    out << user.Name << ' ' << user.Hash << ' ' << user.Score << '\n';
     return out;
 }
 UserTable::UserTable(void) {
@@ -79,12 +70,6 @@ void UserTable::Save(bool dontchange) {
     out << total_user << '\n';
 
     for (int i = 0; i < total_user; i++) {
-        if (!dontchange) {
-            if (table[i].Time == "--") {
-                std::time_t cur_time = std::time(nullptr);
-                table[i].Time = std::asctime(std::localtime(&cur_time));
-            }
-        }
         out << table[i];
     }
 
