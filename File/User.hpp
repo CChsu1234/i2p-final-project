@@ -8,32 +8,31 @@
 #include <variant>
 
 
-struct User {
-    int Score;
+class User {
+public:
+    int id;
+    int Score = 0;
     std::string Name;
     std::size_t Hash;
+    std::vector<int> record;
 
-    User() {}
+    User();
 
-    User(std::string name, std::string password) {
-        Score = 0;
-        Name = name;
-        std::size_t hname = std::hash<std::string>{}(name);
-        std::size_t hpwd = std::hash<std::string>{}(password);
-        Hash = hname ^ (hpwd << 1);
-    }
+    User(std::string name, std::string password);
 
-    bool operator==(const User& rhs) {
-        return (Name == rhs.Name && Hash == rhs.Hash);
-    }
+    bool operator==(const User& rhs) { return (Name == rhs.Name && Hash == rhs.Hash); }
+
+    bool sameName(const User& other) { return Name == other.Name; }
     friend std::istream &operator>>(std::istream &in, User &user);
     friend std::ostream &operator<<(std::ostream &out, User &user);
+    void addNewRecord(int score);
 };
 
 class UserTable {
 private:
     int total_user;
     User *table;
+    User not_a_user{"not_a_user", "not_a_user"};
     int capacity = 100;
     void resizeTable(void);
 public:
@@ -43,10 +42,12 @@ public:
     void Save(bool dontchange = false);
     void Sort(void);
     void AddNewUser(User newuser);
-    User& operator[](int idx);
+    User& operator[](int rank);
+    User& at(int id);
     int size (void);
     void GiveName(std::string name);
     friend std::istream &operator>>(std::istream &in, User &user);
     friend std::ostream &operator<<(std::ostream &out, User &user);
 };
+
 #endif

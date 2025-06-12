@@ -19,7 +19,7 @@
 #include "UI/Component/UserInfo.hpp"
 
 #define table Engine::GameEngine::GetInstance().GetUserTable()
-User *currentUser = Engine::GameEngine::GetInstance().GetCurrentUser();
+int currentUser = Engine::GameEngine::GetInstance().GetCurrentUser();
 
 Engine::TextEditor *username;
 Engine::TextEditor *userpwd;
@@ -95,12 +95,12 @@ void LoginScene::OnKeyDown(int keycode) {
     IScene::OnKeyDown(keycode);
     if (Mode == LOGIN) {
         if (keycode == ALLEGRO_KEY_ENTER) {
-            User *loginUser = Login();
-            if (loginUser) {
+            int loginUserid = Login();
+            if (loginUserid != -1) {
                 username->ClearText();
                 userpwd->ClearText();
-                LoginLog->Text = "Login as " + loginUser->Name;
-                Engine::GameEngine::GetInstance().SetCurrentUser(loginUser);
+                LoginLog->Text = "Login as " + table.at(loginUserid).Name;
+                Engine::GameEngine::GetInstance().SetCurrentUser(loginUserid);
             } else {
                 LoginLog->Text = "Login fail";
             }
@@ -108,11 +108,11 @@ void LoginScene::OnKeyDown(int keycode) {
         }
     } else if(Mode == SIGNUP) {
         if (keycode == ALLEGRO_KEY_ENTER) {
-            User *signupuser = Signup();
-            if (!signupuser) {
+           int signupuserid = Signup();
+            if (signupuserid == -1) {
                 LoginLog->Text = "User already exist!";
             } else {
-                LoginLog->Text = "Sign up success: " + signupuser->Name + ", Pleaes Login Again";
+                LoginLog->Text = "Sign up success: " + table.at(signupuserid).Name + ", Pleaes Login Again";
                 LoginLogCountDown = 3.0f;
                 ToggleSignupLogin(1);
             }
@@ -128,7 +128,7 @@ void LoginScene::Update(float deltaTime) {
         LoginLog->Text = "";
     }
 }
-User *LoginScene::Login() {
+int LoginScene::Login() {
     std::string name = username->getTextLine();
     std::string pwd = userpwd->getTextLine();
 
@@ -136,14 +136,14 @@ User *LoginScene::Login() {
 
     for (int i = 0; i < table.size(); i++) {
         if (loginuser == table[i]) {
-            Engine::GameEngine::GetInstance().SetCurrentUser(&table[i]);
+            Engine::GameEngine::GetInstance().SetCurrentUser(table[i].id);
             Engine::GameEngine::GetInstance().ChangeScene("finalStart");
-            return &table[i];
+            return table[i].id;
         }
     }
-    return nullptr;
+    return -1;
 }
-User *LoginScene::Signup() {
+int LoginScene::Signup() {
     
     std::string name = username->getTextLine();
     std::string pwd = userpwd->getTextLine();
@@ -151,41 +151,42 @@ User *LoginScene::Signup() {
     User signupuser(name, pwd);
 
     for (int i = 0; i < table.size(); i++) {
-        if (signupuser == table[i]) {
-            return nullptr;
+        if (signupuser.sameName(table[i])) {
+            return -1;
         }
     }
+    signupuser.id = table.size();
     Engine::GameEngine::GetInstance().AddNewUser(signupuser);
 
     for (int i = 0; i < table.size(); i++) {
         if (signupuser == table[i]) {
-            return &table[i];
+            return table[i].id;
         }
     }
 
-    return nullptr;
+    return -1;
 }
 void LoginScene::LogoutOnClick(int stage) {
-    Engine::GameEngine::GetInstance().SetCurrentUser(nullptr);
+    Engine::GameEngine::GetInstance().SetCurrentUser(-1);
 }
 void LoginScene::LoginSignupOnClick(int stage) {
     if (Mode == LOGIN) {
-        User *loginUser = Login();
-        if (loginUser) {
+        int loginUserid = Login();
+        if (loginUserid != -1) {
             username->ClearText();
             userpwd->ClearText();
-            LoginLog->Text = "Login as " + loginUser->Name;
-            Engine::GameEngine::GetInstance().SetCurrentUser(loginUser);
+            LoginLog->Text = "Login as " + table.at(loginUserid).Name;
+            Engine::GameEngine::GetInstance().SetCurrentUser(loginUserid);
         } else {
             LoginLog->Text = "Login fail";
         }
         LoginLogCountDown = 3.0f;
     } else if(Mode == SIGNUP) {
-        User *signupuser = Signup();
-        if (!signupuser) {
+        int signupuserid = Signup();
+        if (signupuserid == -1) {
             LoginLog->Text = "User already exist!";
         } else {
-            LoginLog->Text = "Sign up success: " + signupuser->Name + ", Pleaes Login Again";
+            LoginLog->Text = "Sign up success: " + table.at(signupuserid).Name + ", Pleaes Login Again";
             LoginLogCountDown = 3.0f;
             ToggleSignupLogin(1);
         }

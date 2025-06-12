@@ -12,7 +12,7 @@
 #include "UI/Component/Label.hpp"
 #include "UI/Component/Slider.hpp"
 
-#define currentUser Engine::GameEngine::GetInstance().GetCurrentUser()
+#define currentUserid Engine::GameEngine::GetInstance().GetCurrentUser()
 
 // DONE HACKATHON-2 (1/3): You can imitate the 2 files: 'StartScene.hpp', 'StartScene.cpp' to implement your SettingsScene.
 void FinalStartScene::Initialize() {
@@ -60,7 +60,7 @@ void FinalStartScene::Terminate() {
     IScene::Terminate();
 }
 void FinalStartScene::PlayOnClick(int stage) {
-    if (currentUser) {
+    if (currentUserid != -1) {
         Engine::GameEngine::GetInstance().ChangeScene("finalSelect");
     } else {
         Engine::GameEngine::GetInstance().ChangeScene("login");

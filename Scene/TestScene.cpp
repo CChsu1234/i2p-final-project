@@ -36,8 +36,8 @@ Engine::Label *ShowScore;
 Engine::Label *ShowHitRate;
 float accumalateTime = 0.0f;
 
-
-#define currentUser Engine::GameEngine::GetInstance().GetCurrentUser()
+#define table Engine::GameEngine::GetInstance().GetUserTable()
+#define currentUserid Engine::GameEngine::GetInstance().GetCurrentUser()
 
 void TestScene::Initialize() {
 
@@ -74,7 +74,8 @@ void TestScene::Initialize() {
     timeLeft = 60;
 }
 void TestScene::Terminate() {
-    currentUser->Score = score;
+    table.at(currentUserid).addNewRecord(score);
+    std::cout << currentUserid << " " << score << std::endl;
     Engine::GameEngine::GetInstance().SaveTable();
     IScene::Terminate();
 }
