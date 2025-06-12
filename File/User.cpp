@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <filesystem>
+#include <sstream>
 #include "File/User.hpp"
 
 
@@ -58,6 +60,12 @@ void UserTable::Update(int mode) {
         mode = prevMode;
     } else {
         prevMode = mode;
+    }
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::stringstream Filename;
+    Filename << currentPath.filename();
+    if (Filename.str() == "\"build\"") {
+        std::filesystem::current_path("../");
     }
     std::map<int, int> id_to_i;
     clearTable();
@@ -127,6 +135,12 @@ std::string UserTable::GetMode() {
 }
 void UserTable::Save(bool dontchange) {
     int mode = prevMode;
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::stringstream Filename;
+    Filename << currentPath.filename();
+    if (Filename.str() == "\"build\"") {
+        std::filesystem::current_path("../");
+    }
 
     std::ofstream out;
     int n_record = 0;
