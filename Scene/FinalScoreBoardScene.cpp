@@ -9,15 +9,19 @@
 #include "Engine/GameEngine.hpp"
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
+#include "Engine/MouseKeyboard.hpp"
 #include "PlayScene.hpp"
 #include "Scene/FinalScoreBoardScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"
 #include "UI/Component/UserInfo.hpp"
+#include "UI/Animation/CubeBackGround.hpp"
 
 #define table Engine::GameEngine::GetInstance().GetUserTable()
 
 void FinalScoreBoardScene::Initialize() {
+    AddNewObject3D(new Engine::CubeBackGround());
+    AddNewControlObject(new Engine::MouseKeyboard(false));
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
     int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
     int halfW = w / 2;

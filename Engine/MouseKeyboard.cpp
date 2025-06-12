@@ -20,31 +20,47 @@ namespace Engine {
         Eye << 0.0f, 0.0f, 0.0f, 1.0f;
         thetaH = 180.0f;
         thetaV = 0.0f;
-        IObject::Visible = true;
+        Visible = true;
         // TODO change Visible to false
-        GameEngine::GetInstance().HideCursor();
+        if (Enable) {
+            GameEngine::GetInstance().HideCursor();
+        }
         inControl = true;
         for (int i = 0; i < 4; i++) {
             isKeyDown[i] = false;
         }
     }
     void MouseKeyboard::OnMouseDown(int Button, int mx, int my) {
-        if (!Enable) {
-            return;
+        if (Enable) {
+            inControl = true;
+            GameEngine::GetInstance().HideCursor();
         }
-        inControl = true;
-        GameEngine::GetInstance().HideCursor();
     }
     void MouseKeyboard::OnMouseMove(int mx, int my) {
-        if (!Enable) {
-            return;
-        }
-        if (inControl) {
+        if (Enable) {
+            if (inControl) {
+                float dx = mx - GameEngine::GetInstance().GetScreenSize().x / 2;
+                float dy = my - GameEngine::GetInstance().GetScreenSize().y / 2;
+                GameEngine::GetInstance().ResetMousePos();
+                thetaH -= dx / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // horizontal
+                thetaV -= dy / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // vertical
+                if (thetaV > 90.0f) {
+                    thetaV = 90.0f;
+                } else if (thetaV < -90.0f) {
+                    thetaV = -90.0f;
+                }
+                if (thetaH > 360.0f) {
+                    thetaH -= 360.0f;
+                } else if (thetaH < 0.0f) {
+                    thetaH += 360.0f;
+                }
+            }
+        } else {
             float dx = mx - GameEngine::GetInstance().GetScreenSize().x / 2;
             float dy = my - GameEngine::GetInstance().GetScreenSize().y / 2;
-            GameEngine::GetInstance().ResetMousePos();
-            thetaH -= dx / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // horizontal
-            thetaV -= dy / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 90.0f; // vertical
+            // GameEngine::GetInstance().ResetMousePos();
+            thetaH = 180.0f + dx / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 180.0f; // horizontal
+            thetaV = dy / (GameEngine::GetInstance().GetScreenSize().x) * 0.5 * 180.0f; // vertical
             if (thetaV > 90.0f) {
                 thetaV = 90.0f;
             } else if (thetaV < -90.0f) {
@@ -59,61 +75,58 @@ namespace Engine {
         // TODO Move Target
     }
     void MouseKeyboard::OnKeyDown(int keyCode) {
-        if (!Enable) {
-            return;
-        }
-        if (keyCode == ALLEGRO_KEY_ESCAPE) {
-            inControl = false;
-            GameEngine::GetInstance().ShowCursor();
-        }
-        if (keyCode == ALLEGRO_KEY_W) {
-            isKeyDown[UP] = true;
-        }
-        if (keyCode == ALLEGRO_KEY_A) {
-            isKeyDown[LEFT] = true;
-        }
-        if (keyCode == ALLEGRO_KEY_S) {
-            isKeyDown[DOWN] = true;
-        }
-        if (keyCode == ALLEGRO_KEY_D) {
-            isKeyDown[RIGHT] = true;
+        if (Enable) {
+            if (keyCode == ALLEGRO_KEY_ESCAPE) {
+                inControl = false;
+                GameEngine::GetInstance().ShowCursor();
+            }
+            if (keyCode == ALLEGRO_KEY_W) {
+                isKeyDown[UP] = true;
+            }
+            if (keyCode == ALLEGRO_KEY_A) {
+                isKeyDown[LEFT] = true;
+            }
+            if (keyCode == ALLEGRO_KEY_S) {
+                isKeyDown[DOWN] = true;
+            }
+            if (keyCode == ALLEGRO_KEY_D) {
+                isKeyDown[RIGHT] = true;
+            }
         }
     }
     void MouseKeyboard::OnKeyUp(int keyCode) {
-        if (!Enable) {
-            return;
-        }
-        if (keyCode == ALLEGRO_KEY_W) {
-            isKeyDown[UP] = false;
-        } else if (keyCode == ALLEGRO_KEY_A) {
-            isKeyDown[LEFT] = false;
-        } else if (keyCode == ALLEGRO_KEY_S) {
-            isKeyDown[DOWN] = false;
-        } else if (keyCode == ALLEGRO_KEY_D) {
-            isKeyDown[RIGHT] = false;
+        if (Enable) {
+            if (keyCode == ALLEGRO_KEY_W) {
+                isKeyDown[UP] = false;
+            } else if (keyCode == ALLEGRO_KEY_A) {
+                isKeyDown[LEFT] = false;
+            } else if (keyCode == ALLEGRO_KEY_S) {
+                isKeyDown[DOWN] = false;
+            } else if (keyCode == ALLEGRO_KEY_D) {
+                isKeyDown[RIGHT] = false;
+            }
         }
     }
     void MouseKeyboard::Update(float deltaTime) {
-        if (!Enable) {
-            return;
-        }
-        float x = sin((thetaH) * M_PI / 180.0f) * v;
-        float z = cos((thetaH) * M_PI / 180.0f) * v;
-        if (isKeyDown[UP]) {
-            Eye(0) += x;
-            Eye(2) += z;
-        }
-        if (isKeyDown[DOWN]) {
-            Eye(0) -= x;
-            Eye(2) -= z;
-        }
-        if (isKeyDown[LEFT]) {
-            Eye(0) += z;
-            Eye(2) -= x;
-        }
-        if (isKeyDown[RIGHT]) {
-            Eye(0) -= z;
-            Eye(2) += x;
+        if (Enable) {
+            float x = sin((thetaH) * M_PI / 180.0f) * v;
+            float z = cos((thetaH) * M_PI / 180.0f) * v;
+            if (isKeyDown[UP]) {
+                Eye(0) += x;
+                Eye(2) += z;
+            }
+            if (isKeyDown[DOWN]) {
+                Eye(0) -= x;
+                Eye(2) -= z;
+            }
+            if (isKeyDown[LEFT]) {
+                Eye(0) += z;
+                Eye(2) -= x;
+            }
+            if (isKeyDown[RIGHT]) {
+                Eye(0) -= z;
+                Eye(2) += x;
+            }
         }
         // std::cout << thetaH << std::endl;
         SetModelViewMatrix(thetaH, thetaV, Eye);

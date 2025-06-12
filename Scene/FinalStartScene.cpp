@@ -20,7 +20,7 @@ void FinalStartScene::Initialize() {
     int halfH = h / 2;
     Engine::ImageButton *btn;
 
-    Controller = new Engine::MouseKeyboard(true);
+    Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
 
 

@@ -43,7 +43,6 @@ namespace Engine {
         }
     }
     void IObject3D::Draw() const {
-
         for (auto it = Tris_Transformed.begin(); it != Tris_Transformed.end(); ++it) {
             it->Draw();
         }
