@@ -25,7 +25,8 @@ public:
     explicit FinalSelectScene() = default;
     void Initialize() override;
     void Terminate() override;
-    void PlayOnClick(int stage);
+    void Play1OnClick(int stage);
+    void Play2OnClick(int stage);
     void ScoreboardOnClick();
     void BackOnClick(int stage);
     void OnKeyDown(int keyCode) override;

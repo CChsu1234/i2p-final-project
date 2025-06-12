@@ -253,6 +253,9 @@ namespace Engine {
         /// </summary>
         /// <returns>A linked-list of all controls contained.</returns>
         std::list<IControl *> GetControls();
+        std::list<std::pair<bool, IControl*>>::iterator GetControlIterator(IControl* ptr) ;
+        std::list<std::pair<bool, IObject3D*>>::iterator GetObject3DIterator(IObject3D* ptr);
+        
     };
 }
 #endif   // GROUP_HPP
