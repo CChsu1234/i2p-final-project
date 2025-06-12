@@ -75,7 +75,7 @@ void LoginScene::Terminate() {
     IScene::Terminate();
 }
 void LoginScene::BackOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
+    Engine::GameEngine::GetInstance().ChangeScene("finalStart");
 }
 void LoginScene::ToggleSignupLogin(int stage) {
     Mode = (Mode + 1) % 2;
@@ -136,6 +136,8 @@ User *LoginScene::Login() {
 
     for (int i = 0; i < table.size(); i++) {
         if (loginuser == table[i]) {
+            Engine::GameEngine::GetInstance().SetCurrentUser(&table[i]);
+            Engine::GameEngine::GetInstance().ChangeScene("finalStart");
             return &table[i];
         }
     }

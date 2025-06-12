@@ -33,7 +33,7 @@ namespace Engine {
             Point rectSize(50, 150);
             if (Collider::IsPointInRect(pnt, rectPos, rectSize)) {
                 if (currentUser) {
-                    GameEngine::GetInstance().ChangeScene("finalscoreboard");
+                    GameEngine::GetInstance().ChangeScene("login");
                 } else {
                     GameEngine::GetInstance().ChangeScene("login");
                 }

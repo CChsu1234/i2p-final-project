@@ -37,7 +37,6 @@ Engine::Label *ShowHitRate;
 float accumalateTime = 0.0f;
 
 
-#define currentUser Engine::GameEngine::GetInstance().GetCurrentUser()
 
 void TestScene::Initialize() {
 
@@ -74,20 +73,15 @@ void TestScene::Initialize() {
     timeLeft = 60;
 }
 void TestScene::Terminate() {
-    currentUser->Score = score;
-    Engine::GameEngine::GetInstance().SaveTable();
     IScene::Terminate();
 }
 void TestScene::Update(float deltaTime) {
-    // std::cout<<"update"<<std::endl;
+    std::cout<<"update"<<std::endl;
     IScene::Update(deltaTime);
     accumalateTime += deltaTime;
     if (accumalateTime >= 1.0f) {
         accumalateTime -= 1.0f;
         timeLeft -= 1;
-        scoreVariation.push_back(score);
-        if (totalShots) hitRateVariation.push_back(100 * hitCount / totalShots);
-        else hitRateVariation.push_back(0);
     }
     if (timeLeft<=0) EndGame();
     ShowTimer->Text = "Time: " + std::to_string(timeLeft);
@@ -121,10 +115,7 @@ void TestScene::EndGame() {
     auto endscene = dynamic_cast<EndScene*>(engine.GetScene("FinalEnd"));
     if (endscene) {
         endscene->score = score;
-        if (totalShots) endscene->rate = (int) 100 * hitCount / totalShots;
-        else endscene->rate = 0;
-        endscene->hitRateVariation = hitRateVariation;
-        endscene->scoreVariation = scoreVariation;
+        endscene->rate = (int) 100 * hitCount / totalShots;
     }
     Engine::GameEngine::GetInstance().ChangeScene("FinalEnd");
 }

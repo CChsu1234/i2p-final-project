@@ -262,6 +262,10 @@ namespace Engine {
         table.Sort();
         table.Save();
     }
+    void GameEngine::SaveTable() {
+        table.Sort();
+        table.Save();
+    }
     User *GameEngine::GetCurrentUser() const {
         return user;
     }

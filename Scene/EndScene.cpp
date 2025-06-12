@@ -15,7 +15,7 @@ Engine::RotatingCube* cube;
 
 void EndScene::Initialize() {
 
-    Controller = new Engine::MouseKeyboard(true);
+    Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
     
     int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
@@ -45,7 +45,7 @@ void EndScene::Terminate() {
 void EndScene::BackOnClick(int stage) {
     // Change to select scene.
     auto& engine = Engine::GameEngine::GetInstance();
-    Engine::GameEngine::GetInstance().ChangeScene("FinalStart");
+    Engine::GameEngine::GetInstance().ChangeScene("finalStart");
 }
 
 void EndScene::OnKeyDown(int keyCode){

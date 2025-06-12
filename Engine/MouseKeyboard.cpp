@@ -24,6 +24,8 @@ namespace Engine {
         // TODO change Visible to false
         if (Enable) {
             GameEngine::GetInstance().HideCursor();
+        } else {
+            GameEngine::GetInstance().ShowCursor();
         }
         inControl = true;
         for (int i = 0; i < 4; i++) {

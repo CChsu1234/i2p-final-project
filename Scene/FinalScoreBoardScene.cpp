@@ -68,7 +68,7 @@ void FinalScoreBoardScene::Terminate() {
     IScene::Terminate();
 }
 void FinalScoreBoardScene::BackOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("login");
+    Engine::GameEngine::GetInstance().ChangeScene("finalStart");
 }
 void FinalScoreBoardScene::MovePage(int line) {
     if (total_line < PAGE_LINE) {
