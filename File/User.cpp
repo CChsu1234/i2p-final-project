@@ -30,6 +30,21 @@ void User::addNewRecord(int score) {
     Score = std::max(Score, score);
     record.emplace_back(score);
 }
+std::vector<float> User::GetRecord(int size) {
+    std::vector<float> retVec;
+    if (size <= record.size()) {
+        retVec.clear();
+        for (int i = 0; i < size; i++) {
+            retVec.emplace_back(record[record.size()- size + i]);
+        }
+        return retVec;
+    } else {
+        for (auto i : record) {
+            retVec.emplace_back(i);
+        }
+        return retVec;
+    }
+}
 UserTable::UserTable(void) {
     table = new User[capacity];
     Update();

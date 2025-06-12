@@ -7,14 +7,17 @@
 #include <sstream>
 #include <variant>
 
+class UserTable;
 
 class User {
+    friend class UserTable;
+private:
 public:
+    std::vector<int> record;
+    std::string Name;
     int id;
     int Score = 0;
-    std::string Name;
     std::size_t Hash;
-    std::vector<int> record;
 
     User();
 
@@ -26,9 +29,11 @@ public:
     friend std::istream &operator>>(std::istream &in, User &user);
     friend std::ostream &operator<<(std::ostream &out, User &user);
     void addNewRecord(int score);
+    std::vector<float> GetRecord(int size);
 };
 
 class UserTable {
+    // friend class FinalScoreBoardScene;
 private:
     int total_user;
     User *table;

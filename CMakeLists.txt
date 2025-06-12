@@ -155,6 +155,8 @@ add_executable(2025_I2P2_TowerDefense
     UI/Component/UserInfo.hpp
     UI/Component/RotatingCube.cpp
     UI/Component/RotatingCube.hpp
+    UI/Component/LineChart.cpp
+    UI/Component/LineChart.hpp
  
     main.cpp
 )
