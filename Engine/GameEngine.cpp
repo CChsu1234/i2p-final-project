@@ -271,7 +271,9 @@ namespace Engine {
         table.Sort();
         table.Save();
     }
-    void GameEngine::SaveTable() {
+    void GameEngine::SaveScore(int score, int mode) {
+        table.Update(mode);
+        table.at(userid).addNewRecord(score);
         table.Sort();
         table.Save();
     }

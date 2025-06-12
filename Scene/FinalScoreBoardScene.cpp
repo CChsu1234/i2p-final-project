@@ -29,9 +29,10 @@ void FinalScoreBoardScene::Initialize() {
     int halfH = h / 2;
     Engine::ImageButton *btn;
     table.Update();
+    std::string TITLE = table.GetMode();
     total_line = table.size();
 
-    AddNewObject(new Engine::Label("Score Board", "pirulen.ttf", 48, halfW, halfH / 4 - 10, 255, 255, 255, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label(TITLE, "pirulen.ttf", 48, halfW, halfH / 4 - 10, 255, 255, 255, 255, 0.5, 0.5));
 
     AddNewObject(new Engine::Label("Name", "pirulen.ttf", 16, halfW * 1 / 4 - 100, halfH + 50 * (-1 - PAGE_LINE / 2), 255, 255, 255, 255, 0, 0.5, 0));
     AddNewObject(new Engine::Label("Score", "pirulen.ttf", 16, halfW * 1 / 2 - 100, halfH + 50 * (-1 - PAGE_LINE / 2), 255, 255, 255, 255, 0, 0.5, 0));

@@ -35,6 +35,9 @@ static Engine::Label *ShowLife;
 static float accumalateTime = 0.0f;
 static float spawnTimer = 0.0f;
 
+#define table Engine::GameEngine::GetInstance().GetUserTable()
+#define currentUserid Engine::GameEngine::GetInstance().GetCurrentUser()
+
 
 void SurvivalScene::Initialize() {
 
@@ -74,6 +77,7 @@ void SurvivalScene::Initialize() {
     AddNewControlObject3D(targets[2]);
 }
 void SurvivalScene::Terminate() {
+    Engine::GameEngine::GetInstance().SaveScore(suvivalTime, 2);
     IScene::Terminate();
 }
 

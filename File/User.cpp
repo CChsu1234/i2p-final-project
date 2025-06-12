@@ -53,7 +53,12 @@ UserTable::UserTable(void) {
 void UserTable::clearTable(void) {
     total_user = 0;
 }
-void UserTable::Update(void) {
+void UserTable::Update(int mode) {
+    if (mode == -1) {
+        mode = prevMode;
+    } else {
+        prevMode = mode;
+    }
     std::map<int, int> id_to_i;
     clearTable();
 
@@ -73,7 +78,11 @@ void UserTable::Update(void) {
 
     in.close();
 
-    in.open("Resource/score.txt");
+    std::string filename = "Resource/score" + std::to_string(mode) + ".txt";
+
+    std::cout << filename << std::endl;
+
+    in.open(filename);
 
     int n;
     in >> n;
@@ -82,6 +91,7 @@ void UserTable::Update(void) {
     for (int i = 0; i < n; i++) {
         in >> id >> score;
         table[id_to_i[id]].addNewRecord(score);
+        std::cout << id << " " << score << std::endl;
     }
 
     in.close();
@@ -107,7 +117,16 @@ void UserTable::Update(void) {
 
     Sort();
 }
+std::string UserTable::GetMode() {
+    if (prevMode == 1) {
+        return "SIXTY SECOND RUSH";
+    } else if (prevMode == 2) {
+        return "SURVIVAL";
+    }
+    return "UNKNOWN";
+}
 void UserTable::Save(bool dontchange) {
+    int mode = prevMode;
 
     std::ofstream out;
     int n_record = 0;
@@ -122,7 +141,9 @@ void UserTable::Save(bool dontchange) {
 
     out.close();
 
-    out.open("Resource/score.txt");
+    std::string filename = "Resource/score" + std::to_string(mode) + ".txt";
+
+    out.open(filename);
 
     out << n_record << '\n';
 
