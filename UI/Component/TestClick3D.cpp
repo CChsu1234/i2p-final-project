@@ -9,8 +9,8 @@
 #define M_PI 3.14159265358979323846
 
 namespace Engine {
-    TestClick3D::TestClick3D(const Eigen::Vector3f& center, float halfSize, ALLEGRO_COLOR allegroColor) :Position(center), Color(allegroColor), HalfSize(halfSize) {
-        
+    TestClick3D::TestClick3D(const Eigen::Vector3f& center, float halfSize, ALLEGRO_COLOR allegroColor) :Position(center), Color(allegroColor), halfSize(halfSize) {
+        //std::cout<<"created"<<std::endl;
         // Step 1: Define cube vertices centered at origin
         Eigen::Vector4f vertices[8] = {
             {-halfSize, -halfSize, -halfSize, 1.0f}, // 0
@@ -70,10 +70,10 @@ namespace Engine {
     }
 
         void TestClick3D::updateDraw(const Eigen::Vector3f& center) {
+            if (!visible) return;
+            //std::cout<< "Drawing cube at" << "(" <<Position.x()<< ", "<< Position.y()<< ", " << Position.z()<< ")" << std::endl;
             Position = center;
             Tris.clear();  // Step 1: Clear previous triangles
-
-            float halfSize = 1.0f; // Or store `halfSize` as a member variable if needed
 
         // Step 2: Define cube vertices at origin
             Eigen::Vector4f vertices[8] = {

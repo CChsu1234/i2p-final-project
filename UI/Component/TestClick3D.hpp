@@ -15,7 +15,8 @@ namespace Engine {
         virtual void OnMouseDown(int Button, int mx, int my) override;
         Eigen::Vector3f Position;
         ALLEGRO_COLOR Color;
-        float HalfSize;
+        float halfSize;
+        bool visible = true;
     };
 }
 

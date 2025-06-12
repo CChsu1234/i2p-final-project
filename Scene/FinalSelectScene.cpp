@@ -24,19 +24,19 @@ void FinalSelectScene::Initialize() {
     AddNewControlObject(Controller);
 
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 - 50, 800, 100);
-    btn->SetOnClickCallback(std::bind(&FinalSelectScene::PlayOnClick, this, 1));
+    btn->SetOnClickCallback(std::bind(&FinalSelectScene::Play1OnClick, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Sixty Seconds Rush", "pirulen.ttf", 48, halfW, halfH / 2, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Sixty Seconds Rush", "pirulen.ttf", 46, halfW, halfH / 2, 0, 0, 0, 255, 0.5, 0.5));
 
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 + 100, 800, 100);
-    btn->SetOnClickCallback(std::bind(&FinalSelectScene::PlayOnClick, this, 2));
+    btn->SetOnClickCallback(std::bind(&FinalSelectScene::Play2OnClick, this, 2));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Stage 2", "pirulen.ttf", 48, halfW, halfH / 2 + 150, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Survive Cube Assault", "pirulen.ttf", 46, halfW, halfH / 2 + 150, 0, 0, 0, 255, 0.5, 0.5));
 
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH * 3 / 2 - 50, 800, 100);
     btn->SetOnClickCallback(std::bind(&FinalSelectScene::BackOnClick, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 3 / 2, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 46, halfW, halfH * 3 / 2, 0, 0, 0, 255, 0.5, 0.5));
 
     for (int i = 0; i<15;i++){
         unsigned char r = rand() % 256;
@@ -56,9 +56,13 @@ void FinalSelectScene::Terminate() {
 void FinalSelectScene::BackOnClick(int stage) {
     Engine::GameEngine::GetInstance().ChangeScene("finalStart");
 }
-void FinalSelectScene::PlayOnClick(int stage) {
+void FinalSelectScene::Play1OnClick(int stage) {
     TestScene *scene = dynamic_cast<TestScene *>(Engine::GameEngine::GetInstance().GetScene("test"));
     Engine::GameEngine::GetInstance().ChangeScene("test");
+}
+void FinalSelectScene::Play2OnClick(int stage) {
+    TestScene *scene = dynamic_cast<TestScene *>(Engine::GameEngine::GetInstance().GetScene("test"));
+    Engine::GameEngine::GetInstance().ChangeScene("survival");
 }
 
 void FinalSelectScene::OnKeyDown(int keyCode) {
@@ -67,7 +71,7 @@ void FinalSelectScene::OnKeyDown(int keyCode) {
         Engine::GameEngine::GetInstance().ChangeScene("test");
     }
     else if (keyCode == ALLEGRO_KEY_S) {
-        Engine::GameEngine::GetInstance().ChangeScene("test2");
+        Engine::GameEngine::GetInstance().ChangeScene("survival");
     }
     else if (keyCode == ALLEGRO_KEY_D){
         Engine::GameEngine::GetInstance().ChangeScene("finalStart");

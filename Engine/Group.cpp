@@ -189,4 +189,18 @@ namespace Engine {
             list.push_back(it.second);
         return list;
     }
+
+    std::list<std::pair<bool, IControl*>>::iterator Group::GetControlIterator(IControl* ptr) {
+        return std::find_if(controls.begin(), controls.end(),
+            [ptr](const std::pair<bool, IControl*>& p) {
+            return p.second == ptr;
+        });
+    }
+
+    std::list<std::pair<bool, IObject3D*>>::iterator Group::GetObject3DIterator(IObject3D* ptr) {
+        return std::find_if(object3ds.begin(), object3ds.end(),
+            [ptr](const std::pair<bool, IObject3D*>& p) {
+                return p.second == ptr;
+            });
+    }
 }

@@ -102,8 +102,10 @@ add_executable(2025_I2P2_TowerDefense
     Scene/TestScene.hpp
     Scene/LoginScene.cpp
     Scene/LoginScene.hpp
-    # Scene/SixtySecond.cpp
-    # Scene/SixtySecond.hpp
+    Scene/SurvivalScene.cpp
+    Scene/SurvivalScene.hpp
+    Scene/EndTwoScene.cpp
+    Scene/EndTwoScene.hpp
 
     Scene/EndScene.cpp
     Scene/EndScene.hpp

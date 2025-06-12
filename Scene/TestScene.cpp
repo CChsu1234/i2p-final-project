@@ -81,6 +81,9 @@ void TestScene::Update(float deltaTime) {
     if (accumalateTime >= 1.0f) {
         accumalateTime -= 1.0f;
         timeLeft -= 1;
+        scoreVariation.push_back(score);
+        if (totalShots) hitRateVariation.push_back(100 * hitCount / totalShots);
+        else hitRateVariation.push_back(0);
     }
     if (timeLeft<=0) EndGame();
     ShowTimer->Text = "Time: " + std::to_string(timeLeft);
@@ -114,7 +117,10 @@ void TestScene::EndGame() {
     auto endscene = dynamic_cast<EndScene*>(engine.GetScene("FinalEnd"));
     if (endscene) {
         endscene->score = score;
-        endscene->rate = (int) 100 * hitCount / totalShots;
+        if (totalShots) endscene->rate = (int) 100 * hitCount / totalShots;
+        else endscene->rate = 0;
+        endscene->hitRateVariation = hitRateVariation;
+        endscene->scoreVariation = scoreVariation;
     }
     Engine::GameEngine::GetInstance().ChangeScene("FinalEnd");
 }

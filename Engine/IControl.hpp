@@ -20,6 +20,7 @@ namespace Engine {
         explicit IControl() = default;
 
     public:
+        std::list<std::pair<bool, IControl*>>::iterator GetControlIterator(IControl* ptr) ;
         /// <summary>
         /// The default virtual destructor to support polymorphism destruction.
         /// </summary>
