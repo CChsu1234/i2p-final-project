@@ -74,6 +74,14 @@ void SurvivalScene::Terminate() {
 
 void SurvivalScene::Draw() const {
     IScene::Draw();
+    if (redFlashTimer > 0) {
+        float alpha = redFlashTimer / redFlashDuration;
+        ALLEGRO_COLOR redOverlay = al_map_rgba_f(1.0, 0.0, 0.0, 0.3f * alpha);
+        al_draw_filled_rectangle(0, 0,
+            Engine::GameEngine::GetInstance().GetScreenSize().x,
+            Engine::GameEngine::GetInstance().GetScreenSize().y,
+            redOverlay);
+    }
 }
 
 void SurvivalScene::OnMouseDown(int button, int x, int y) {
@@ -90,6 +98,10 @@ void SurvivalScene::OnMouseDown(int button, int x, int y) {
 }
 void SurvivalScene::Update(float deltaTime) {
     IScene::Update(deltaTime);
+
+    if (redFlashTimer > 0)
+        redFlashTimer -= deltaTime;
+
     if (lives <= 0) {
         EndGame();
         return;
@@ -127,6 +139,7 @@ void SurvivalScene::Update(float deltaTime) {
 
         if ((tg->Position - targetPos).norm() < 1.0f) {
             lives--;
+            redFlashTimer = redFlashDuration; 
             ShowLife->Text = "Lives: " + std::to_string(lives);
             tg->visible = false;
             tg->Position = Eigen::Vector3f(0, 0, -100000);

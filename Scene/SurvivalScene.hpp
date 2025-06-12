@@ -25,6 +25,8 @@ public:
     int suvivalTime = 0;
     float spawnNum = 1;
     float spawnInterval = 5.0f;
+    float redFlashTimer = 0.0f;
+    const float redFlashDuration = 0.2f;
     Engine::MouseKeyboard *Controller;
 
     std::vector<Engine::TestClick3D*> targets;
