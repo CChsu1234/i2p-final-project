@@ -40,9 +40,12 @@ private:
     User not_a_user{"not_a_user", "not_a_user"};
     int capacity = 100;
     void resizeTable(void);
+    int prevMode = 1;
 public:
+    enum GAMEMODE { SIXTYSECOND = 1, SURVIVAL = 2 };
     UserTable(void);
-    void Update(void);
+    void Update(int mode = -1);
+    std::string GetMode();
     void clearTable();
     void Save(bool dontchange = false);
     void Sort(void);

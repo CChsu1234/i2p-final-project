@@ -136,7 +136,7 @@ namespace Engine {
         /// Add new user to table
         /// </summary>
         void AddNewUser(User newUser);
-        void SaveTable();
+        void SaveScore(int score, int mode = -1);
         /// <summary>
         /// Get current user.
         /// </summary>

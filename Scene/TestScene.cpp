@@ -73,9 +73,7 @@ void TestScene::Initialize() {
     timeLeft = 60;
 }
 void TestScene::Terminate() {
-    table.at(currentUserid).addNewRecord(score);
-    std::cout << currentUserid << " " << score << std::endl;
-    Engine::GameEngine::GetInstance().SaveTable();
+    Engine::GameEngine::GetInstance().SaveScore(score, 1);
     IScene::Terminate();
 }
 void TestScene::Update(float deltaTime) {
