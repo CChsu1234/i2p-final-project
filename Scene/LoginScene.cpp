@@ -11,7 +11,6 @@
 #include "Engine/GameEngine.hpp"
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
-#include "Scene/PlayScene.hpp"
 #include "Scene/FinalScoreBoardScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"

@@ -19,8 +19,6 @@
 #include "Engine/MouseKeyboard.hpp"
 #include "TestScene.hpp"
 #include "EndScene.hpp"
-#include "UI/Animation/DirtyEffect.hpp"
-#include "UI/Animation/Plane.hpp"
 #include "UI/Component/Label.hpp"
 #include "UI/Component/TestObject3D.hpp"
 #include "UI/Component/TestClick3D.hpp"

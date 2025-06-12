@@ -14,32 +14,6 @@ file(COPY allegro_monolith-5.2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(2025_I2P2_TowerDefense
 
-    File/User.cpp
-    File/User.hpp
-    File/Settings.cpp
-    File/Settings.hpp
-
-    Bullet/Bullet.cpp
-    Bullet/Bullet.hpp
-    Bullet/FireBullet.cpp
-    Bullet/FireBullet.hpp
-    Bullet/LaserBullet.cpp
-    Bullet/LaserBullet.hpp
-    Bullet/RocketBullet.cpp
-    Bullet/RocketBullet.hpp
-
-    # DONE HACKATHON-3 (3/3): Add the new enemy source files here
-    Enemy/Enemy.cpp
-    Enemy/Enemy.hpp
-    Enemy/SoldierEnemy.cpp
-    Enemy/SoldierEnemy.hpp
-    Enemy/TankEnemy.cpp
-    Enemy/TankEnemy.hpp
-    Enemy/PlaneEnemy.cpp
-    Enemy/PlaneEnemy.hpp
-    Enemy/TankyEnemy.cpp
-    Enemy/TankyEnemy.hpp
-
     Engine/Allegro5Exception.cpp
     Engine/Allegro5Exception.hpp
     Engine/AudioHelper.cpp
@@ -76,28 +50,18 @@ add_executable(2025_I2P2_TowerDefense
     Engine/Transform.hpp
     Engine/MouseKeyboard.cpp
     Engine/MouseKeyboard.hpp
+
+    File/User.cpp
+    File/User.hpp
+    File/Settings.cpp
+    File/Settings.hpp
     
-    # DONE HACKATHON-2 (3/3): Add the new scene source files here
-    Scene/LoseScene.cpp
-    Scene/LoseScene.hpp
-    Scene/PlayScene.cpp
-    Scene/PlayScene.hpp
-    Scene/StageSelectScene.cpp
-    Scene/StageSelectScene.hpp
     Scene/FinalStartScene.cpp
     Scene/FinalStartScene.hpp
-    Scene/StartScene.cpp
-    Scene/StartScene.hpp
     Scene/SettingsScene.cpp
     Scene/SettingsScene.hpp
-    Scene/ScoreBoardScene.cpp
-    Scene/ScoreBoardScene.hpp
     Scene/FinalScoreBoardScene.cpp
     Scene/FinalScoreBoardScene.hpp
-    Scene/WinScene.cpp
-    Scene/WinScene.hpp
-    Scene/RecordScene.cpp
-    Scene/RecordScene.hpp
     Scene/TestScene.cpp
     Scene/TestScene.hpp
     Scene/LoginScene.cpp
@@ -106,32 +70,11 @@ add_executable(2025_I2P2_TowerDefense
     Scene/SurvivalScene.hpp
     Scene/EndTwoScene.cpp
     Scene/EndTwoScene.hpp
-
     Scene/EndScene.cpp
     Scene/EndScene.hpp
     Scene/FinalSelectScene.cpp
     Scene/FinalSelectScene.hpp
     
-    
-    Turret/LaserTurret.cpp
-    Turret/LaserTurret.hpp
-    Turret/MachineGunTurret.cpp
-    Turret/MachineGunTurret.hpp
-    Turret/RocketTurret.cpp
-    Turret/RocketTurret.hpp
-    Turret/Turret.cpp
-    Turret/Turret.hpp
-    Turret/TurretButton.cpp
-    Turret/TurretButton.hpp
-    Turret/Shovel.cpp
-    Turret/Shovel.hpp
-
-    UI/Animation/DirtyEffect.cpp
-    UI/Animation/DirtyEffect.hpp
-    UI/Animation/ExplosionEffect.cpp
-    UI/Animation/ExplosionEffect.hpp
-    UI/Animation/Plane.cpp
-    UI/Animation/Plane.hpp
     UI/Animation/CubeBackGround.cpp
     UI/Animation/CubeBackGround.hpp
 

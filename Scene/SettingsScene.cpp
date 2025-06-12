@@ -8,7 +8,6 @@
 #include "Engine/Point.hpp"
 #include "Engine/Resources.hpp"
 #include "Engine/MouseKeyboard.hpp"
-#include "PlayScene.hpp"
 #include "Scene/SettingsScene.hpp"
 #include "UI/Component/ImageButton.hpp"
 #include "UI/Component/Label.hpp"
