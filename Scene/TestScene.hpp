@@ -54,6 +54,10 @@ public:
     Engine::MouseKeyboard *Controller;
     Engine::TestClick3D* target[3];
     std::list<std::pair<int, float>> enemyWaveData;
+    
+    std::vector<float> hitRateVariation;
+    std::vector<int> scoreVariation;
+
     explicit TestScene() = default;
     void Initialize() override;
     void Terminate() override;

@@ -12,6 +12,8 @@ private:
 public:
     int score;
     float rate;
+    std::vector<float> hitRateVariation;
+    std::vector<int> scoreVariation;
     explicit EndScene() = default;
     void Initialize() override;
     void Terminate() override;

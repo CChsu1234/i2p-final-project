@@ -113,10 +113,11 @@ void SurvivalScene::Update(float deltaTime) {
     if (accumalateTime >= 1.0f) {
         accumalateTime -= 1.0f;
         suvivalTime += 1;
+        speed += suvivalTime*0.02;
         spawnInterval *= 0.95f; 
         if (spawnInterval < 0.5f) spawnInterval = 0.5f;
     }
-
+    
     const int maxTargets = 30;
     if (spawnTimer >= spawnInterval && targets.size() < maxTargets) {
         spawnTimer = 0;
@@ -134,7 +135,7 @@ void SurvivalScene::Update(float deltaTime) {
         }
 
         Eigen::Vector3f dir = (targetPos - tg->Position).normalized();
-        tg->Position += dir * deltaTime * 10.0f; 
+        tg->Position += dir * deltaTime * speed; 
         tg->updateDraw(tg->Position);
 
         if ((tg->Position - targetPos).norm() < 1.0f) {
