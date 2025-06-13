@@ -6,7 +6,7 @@ namespace Engine {
             unsigned char r = rand() % 256;
             unsigned char g = rand() % 256;
             unsigned char b = rand() % 256;
-            ALLEGRO_COLOR decideColor = al_map_rgba(r, g, b, 225);
+            ALLEGRO_COLOR decideColor = al_map_rgba(r, g, b, 255);
             double posX = -100.0f + 200.0f *((double)rand() / RAND_MAX);
             double posY = -50.0f + 100.0f *((double)rand() / RAND_MAX);
             cubeLifeTime[i] = rand() % 5;
@@ -36,7 +36,11 @@ namespace Engine {
             if (timeAccumulator>= cubeLifeTime[i] && change[i] == false){
                 double posX = -100.0f + 200.0f *((double)rand() / RAND_MAX);
                 double posY = -50.0f + 100.0f *((double)rand() / RAND_MAX);
-                cube[i]->updateDraw(al_map_rgb(255, 255, 255), Eigen::Vector3f(posX, posY, -30));
+                unsigned char r = rand() % 256;
+                unsigned char g = rand() % 256;
+                unsigned char b = rand() % 256;
+                ALLEGRO_COLOR decideColor = al_map_rgba(r, g, b, 255);
+                cube[i]->updateDraw(decideColor, Eigen::Vector3f(posX, posY, -30));
                 change[i] = true;
             }
         }
