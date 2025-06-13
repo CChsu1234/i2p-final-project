@@ -26,7 +26,7 @@ void FinalSelectScene::Initialize() {
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 - 50, 800, 100);
     btn->SetOnClickCallback(std::bind(&FinalSelectScene::Play1OnClick, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Sixty Seconds Rush", "pirulen.ttf", 46, halfW, halfH / 2, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Sixty-Second Rush", "pirulen.ttf", 46, halfW, halfH / 2, 0, 0, 0, 255, 0.5, 0.5));
 
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 + 100, 800, 100);
     btn->SetOnClickCallback(std::bind(&FinalSelectScene::Play2OnClick, this, 2));
