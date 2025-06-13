@@ -19,7 +19,7 @@ void FinalSelectScene::Initialize() {
     int halfW = w / 2;
     int halfH = h / 2;
     Engine::ImageButton *btn;
-
+  
     Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
 

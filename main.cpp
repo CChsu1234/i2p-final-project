@@ -12,7 +12,7 @@
 #include "Scene/LoginScene.hpp"
 #include "Scene/EndScene.hpp"
 #include "Scene/EndTwoScene.hpp"
-#include "File/Settings.hpp"
+
 
 int main(int argc, char **argv) {
 
@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
 	game.AddNewScene("lose", new LoseScene());
 	game.AddNewScene("win", new WinScene());
     */
+    
     game.AddNewScene("test", new TestScene());
     game.AddNewScene("settings", new SettingsScene());
     game.AddNewScene("finalscoreboard", new FinalScoreBoardScene());
@@ -40,9 +41,8 @@ int main(int argc, char **argv) {
     game.AddNewScene("finalendtwo", new EndTwoScene());
 
     // DONE HACKATHON-1 (1/1): Change the start scene
-    Settings settings;
-	game.Start("login", 60, 1600, 832);
 
-    settings.Save();
+	game.Start("finalStart", 60, 1600, 832);
+
 	return 0;
 }

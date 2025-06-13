@@ -15,6 +15,14 @@ namespace Engine {
         InnerLine(true, 1.0f, 4, 2, 2),
         OuterLine(false, 0.35f, 2, 2, 10) {
     }
+    CrossHair::CrossHair(unsigned char r, unsigned char g, unsigned char b) :
+        IObject(),
+        R(r), G(g), B(b),
+        OutLine(false, 0.5f, 1),
+        CenterDot(false, 1.0f, 1),
+        InnerLine(true, 1.0f, 4, 2, 2),
+        OuterLine(false, 0.35f, 2, 2, 10){}
+    
     CrossHair::CrossHair(unsigned char r, unsigned char g, unsigned char b, bool ol, float olOpacity, int olThickness, bool cd, float cdOpacity, int cdThickness, bool in, float inOpacity, int inLength, int inThickness, int inOffset, bool out, float outOpacity, int outLength, int outThickness, int outOffset) :
         IObject(),
         R(r), G(g), B(b),

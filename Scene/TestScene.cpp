@@ -47,7 +47,7 @@ void TestScene::Initialize() {
     Controller = new Engine::MouseKeyboard(true);
     AddNewControlObject(Controller);
     Engine::CrossHair *crosshair;
-    AddNewObject(crosshair = new Engine::CrossHair());
+    AddNewObject(crosshair = new Engine::CrossHair(r, b, g));
 
     AddNewObject(ShowTimer = new Engine::Label("Time: 60", "pirulen.ttf", 15 , halfW - 50, 10 , 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(ShowScore = new Engine::Label("Score: 0", "pirulen.ttf", 15 , halfW- 100, 35 , 255, 255, 255, 255, 0.5, 0.5));
@@ -79,6 +79,7 @@ void TestScene::Terminate() {
 void TestScene::Update(float deltaTime) {
     // std::cout<<"update"<<std::endl;
     IScene::Update(deltaTime);
+    if (timeLeft<=0) EndGame();
     accumalateTime += deltaTime;
     if (accumalateTime >= 1.0f) {
         accumalateTime -= 1.0f;

@@ -21,6 +21,7 @@ namespace Engine {
 class SurvivalScene final : public Engine::IScene {
 
 public:
+    unsigned char r = 0, b = 255, g = 255; 
     int lives=5;
     int suvivalTime = 0;
     float spawnNum = 1;
