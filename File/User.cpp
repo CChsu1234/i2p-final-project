@@ -80,8 +80,6 @@ void UserTable::Update(int mode) {
 
     std::string filename = "Resource/score" + std::to_string(mode) + ".txt";
 
-    std::cout << filename << std::endl;
-
     in.open(filename);
 
     int n;
@@ -91,7 +89,6 @@ void UserTable::Update(int mode) {
     for (int i = 0; i < n; i++) {
         in >> id >> score;
         table[id_to_i[id]].addNewRecord(score);
-        std::cout << id << " " << score << std::endl;
     }
 
     in.close();
