@@ -22,9 +22,9 @@ void EndTwoScene::Initialize() {
     int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
     int halfW = w / 2;
     int halfH = h / 2;
-
+    AddNewObject(new Engine::Label("Survive Cube Assualt", "pirulen.ttf",50, halfW, halfH / 4 + 20, 255, 255, 255, 255, 0.5, 0.5));
     std::string scoreText = "Your Survival Time: " + std::to_string(survivalTime);
-    AddNewObject(new Engine::Label("Cube Sniper", "pirulen.ttf",50, halfW, halfH / 4 + 20, 255, 255, 255, 255, 0.5, 0.5));
+    //AddNewObject(new Engine::Label("Cube Sniper", "pirulen.ttf",50, halfW, halfH / 4 + 20, 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(new Engine::Label(scoreText , "pirulen.ttf", 30, halfW, halfH / 4 + 100, 255, 255, 255, 255, 0.5, 0.5));
     
     Engine::ImageButton *btn;
