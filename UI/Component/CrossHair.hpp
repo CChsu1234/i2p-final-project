@@ -54,6 +54,7 @@ namespace Engine {
         Component OuterLine;
     public:
         CrossHair();
+        CrossHair(unsigned char r, unsigned char g, unsigned char b);
         CrossHair(unsigned char r, unsigned char g, unsigned char b, bool ol, float olOpacity, int olThickness, bool cd, float cdOpacity, int cdThickness, bool in, float inOpacity, int inLength, int inThickness, int inOffset, bool out, float outOpacity, int outLength, int outThickness, int outOffset);
         void SetCrossHair(unsigned char r, unsigned char g, unsigned char b, bool ol, float olOpacity, int olThickness, bool cd, float cdOpacity, int cdThickness, bool in, float inOpacity, int inLength, int inThickness, int inOffset, bool out, float outOpacity, int outLength, int outThickness, int outOffset);
         void Draw() const override;

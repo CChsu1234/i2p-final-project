@@ -28,6 +28,7 @@ public:
     int totalShots = 0;
     int score = 0;
     int timeLeft = 60;
+    unsigned char r = 0, b = 255, g = 255; 
     
     Engine::MouseKeyboard *Controller;
     Engine::TestClick3D* target[3];

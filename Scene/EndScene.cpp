@@ -25,7 +25,7 @@ void EndScene::Initialize() {
 
     std::string scoreText = "Your Score: " + std::to_string(score);
     std::string rateText = "Your Hit Rate: " + std::to_string(rate) + "%";
-    AddNewObject(new Engine::Label("Cube Sniper", "pirulen.ttf",50, halfW, halfH / 4 + 20, 255, 255, 255, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Sixty Second Rush", "pirulen.ttf",50, halfW, halfH / 4 + 20, 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(new Engine::Label(scoreText , "pirulen.ttf", 30, halfW, halfH / 4 + 80, 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(new Engine::Label(rateText , "pirulen.ttf", 30, halfW, halfH / 4 + 120, 255, 255, 255, 255, 0.5, 0.5));
     Engine::ImageButton *btn;

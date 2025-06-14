@@ -5,20 +5,19 @@
 #include <memory>
 
 #include "Engine/IScene.hpp"
-#include "File/Settings.hpp"
 
 class SettingsScene final : public Engine::IScene {
 private:
     std::shared_ptr<ALLEGRO_SAMPLE_INSTANCE> bgmInstance;
-    Settings settings;
+
 
 public:
     explicit SettingsScene() = default;
     void Initialize() override;
     void Terminate() override;
     void BackOnClick(int stage);
-    void BGMSlideOnValueChanged(float value);
-    void SFXSlideOnValueChanged(float value);
+    void BlueOnClick(int stage);
+    void RedOnClick(int stage);
 };
 
 #endif   // SettingsScene_HPP
