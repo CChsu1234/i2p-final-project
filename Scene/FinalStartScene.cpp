@@ -41,7 +41,7 @@ void FinalStartScene::Initialize() {
     btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW + 50,halfH * 3 / 2  + 10 , 400, 100);
     btn->SetOnClickCallback(std::bind(&FinalStartScene::ScoreBoardOnClick, this, 2));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Score Board", "pirulen.ttf", 38, halfW + 250, halfH * 3 / 2  + 10 +50, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("1v1 battle", "pirulen.ttf", 38, halfW + 250, halfH * 3 / 2  + 10 +50, 0, 0, 0, 255, 0.5, 0.5));
 
 
 
@@ -59,6 +59,7 @@ void FinalStartScene::Initialize() {
 void FinalStartScene::Terminate() {
     IScene::Terminate();
 }
+
 void FinalStartScene::PlayOnClick(int stage) {
     if (currentUserid != -1) {
         Engine::GameEngine::GetInstance().ChangeScene("finalSelect");
@@ -72,7 +73,7 @@ void FinalStartScene::SettingsOnClick(int stage) {
 }
 
 void FinalStartScene::ScoreBoardOnClick(int stage) {
-    Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
+    Engine::GameEngine::GetInstance().ChangeScene("wait");
 }
 void FinalStartScene::OnKeyDown(int keyCode) {
     IScene::OnKeyDown(keyCode);
@@ -83,7 +84,7 @@ void FinalStartScene::OnKeyDown(int keyCode) {
         Engine::GameEngine::GetInstance().ChangeScene("settings");
     }
     else if (keyCode == ALLEGRO_KEY_D){
-        Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
+        Engine::GameEngine::GetInstance().ChangeScene("wait");
     }
 }
 void FinalStartScene::Update(float deltaTime){
