@@ -107,6 +107,8 @@ namespace Engine {
             if (TextLine.length() > 0) {
                 DeleteText();
             }
+        } else if (keycode == ALLEGRO_KEY_FULLSTOP) {
+            AddText('.');
         }
         if (showText) {
             label.Text = TextLine;

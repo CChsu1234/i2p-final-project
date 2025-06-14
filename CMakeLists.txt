@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.27)
+
 project(2025_I2P2_TowerDefense)
 
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(.)
 include_directories(Resource)
+include_directories(Resource/enet/include)
+
 
 file(COPY Resource/audios DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY Resource/fonts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
@@ -13,6 +16,15 @@ file(COPY Resource DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY allegro_monolith-5.2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(2025_I2P2_TowerDefense
+
+    Resource/enet/callbacks.c
+    Resource/enet/compress.c
+    Resource/enet/host.c
+    Resource/enet/list.c
+    Resource/enet/packet.c
+    Resource/enet/peer.c
+    Resource/enet/protocol.c
+    Resource/enet/win32.c
 
     Engine/Allegro5Exception.cpp
     Engine/Allegro5Exception.hpp
@@ -50,6 +62,12 @@ add_executable(2025_I2P2_TowerDefense
     Engine/Transform.hpp
     Engine/MouseKeyboard.cpp
     Engine/MouseKeyboard.hpp
+    Engine/NetworkManager.cpp
+    Engine/NetworkManager.hpp
+    Engine/Server.cpp
+    Engine/Server.hpp
+    Engine/Client.cpp
+    Engine/Client.hpp
 
     File/User.cpp
     File/User.hpp
@@ -74,6 +92,10 @@ add_executable(2025_I2P2_TowerDefense
     Scene/EndScene.hpp
     Scene/FinalSelectScene.cpp
     Scene/FinalSelectScene.hpp
+    Scene/MultiPlayer.cpp
+    Scene/MultiPlayer.hpp
+    Scene/WaitScene.cpp
+    Scene/WaitScene.hpp
     
     UI/Animation/CubeBackGround.cpp
     UI/Animation/CubeBackGround.hpp
@@ -107,8 +129,8 @@ add_executable(2025_I2P2_TowerDefense
 IF (WIN32)
     target_include_directories(2025_I2P2_TowerDefense PUBLIC C:/allegro/include)
     target_link_directories(2025_I2P2_TowerDefense PUBLIC C:/allegro/lib)
-    target_compile_options(2025_I2P2_TowerDefense PUBLIC ${ALLEGRO5_CFLAGS_OTHER})
-    target_link_libraries(2025_I2P2_TowerDefense liballegro_monolith)
+    target_compile_options(2025_I2P2_TowerDefense PUBLIC -IResource/enet/include ${ALLEGRO5_CFLAGS_OTHER})
+    target_link_libraries(2025_I2P2_TowerDefense liballegro_monolith winmm ws2_32)
 ELSE()
     find_package(PkgConfig)
     pkg_check_modules(ALLEGRO5 REQUIRED allegro-5 allegro_main-5 allegro_font-5 allegro_dialog-5 allegro_primitives-5 allegro_image-5 allegro_ttf-5 allegro_audio-5 allegro_acodec-5)
