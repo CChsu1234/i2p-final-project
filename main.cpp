@@ -37,6 +37,7 @@ int main(int argc, char **argv) {
 	game.AddNewScene("lose", new LoseScene());
 	game.AddNewScene("win", new WinScene());
     */
+    
     game.AddNewScene("test", new TestScene());
     game.AddNewScene("settings", new SettingsScene());
     game.AddNewScene("finalscoreboard", new FinalScoreBoardScene());
@@ -53,6 +54,5 @@ int main(int argc, char **argv) {
     Settings settings;
 	game.Start("wait", 60, 1600, 832);
 
-    settings.Save();
 	return 0;
 }

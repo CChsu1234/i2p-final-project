@@ -19,24 +19,26 @@ void FinalSelectScene::Initialize() {
     int halfW = w / 2;
     int halfH = h / 2;
     Engine::ImageButton *btn;
-
+  
     Controller = new Engine::MouseKeyboard(false);
     AddNewControlObject(Controller);
 
-    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 - 50, 800, 100);
+    AddNewObject(new Engine::Label("Select your mode.", "pirulen.ttf", 50, halfW, 70, 255, 255, 255, 255, 0.5, 0.5));
+    
+    btn = new Engine::ImageButton("stage-select/Game1button.png", "stage-select/Game1button.png", halfW - 450, 150, 400, 400);
     btn->SetOnClickCallback(std::bind(&FinalSelectScene::Play1OnClick, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Sixty Seconds Rush", "pirulen.ttf", 46, halfW, halfH / 2, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("<Sixty Seconds Rush>", "pirulen.ttf", 26, w/4+105, 600, 255, 255, 255, 255, 0.5, 0.5));
 
-    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH / 2 + 100, 800, 100);
+    btn = new Engine::ImageButton("stage-select/Game2button.png", "stage-select/Game2button.png", halfW + 50, 150, 400, 400);
     btn->SetOnClickCallback(std::bind(&FinalSelectScene::Play2OnClick, this, 2));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Survive Cube Assault", "pirulen.ttf", 46, halfW, halfH / 2 + 150, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("<Survive Cube Assault>", "pirulen.ttf", 26, w*3/4-105, 600, 255, 255, 255, 255, 0.5, 0.5));
 
-    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 400, halfH * 3 / 2 - 50, 800, 100);
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 300, halfH * 3 / 2 + 40, 600, 100);
     btn->SetOnClickCallback(std::bind(&FinalSelectScene::BackOnClick, this, 1));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 46, halfW, halfH * 3 / 2, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Back", "pirulen.ttf", 46, halfW, halfH * 3 / 2 + 90, 0, 0, 0, 255, 0.5, 0.5));
 
     for (int i = 0; i<15;i++){
         unsigned char r = rand() % 256;

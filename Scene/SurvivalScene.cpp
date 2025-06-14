@@ -56,7 +56,7 @@ void SurvivalScene::Initialize() {
     Controller = new Engine::MouseKeyboard(true);
     AddNewControlObject(Controller);
     Engine::CrossHair *crosshair;
-    AddNewObject(crosshair = new Engine::CrossHair());
+    AddNewObject(crosshair = new Engine::CrossHair(r, b, g));
 
     AddNewObject(ShowTime = new Engine::Label("Time: 60", "pirulen.ttf", 15 , halfW - 50, 10 , 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(ShowLife = new Engine::Label("Lives: 5", "pirulen.ttf", 15 , halfW- 50, 35 , 255, 255, 255, 255, 0.5, 0.5));

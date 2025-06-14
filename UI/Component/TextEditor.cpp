@@ -20,10 +20,10 @@ namespace Engine {
             if (show) {
                 toggleshow = nullptr;
             } else {
-                toggleshow = new ImageButton(img, imgIn, x + w + 10 + h * 0.2, y + h * 0.2, h * 0.6, h * 0.6);
+                toggleshow = new ImageButton("win/veryvisible.png", "win/veryvisible.png", x + w + 10 + h * 0.2, y + h * 0.2, h * 0.6, h * 0.6);
                 toggleshow->SetOnClickCallback(std::bind(&TextEditor::ToggleOnClick, this, 1));
                 IScene *currentScene = GameEngine::GetInstance().GetActiveScene();
-                currentScene->AddNewControlObject(toggleshow);
+                currentScene->AddNewControlObject(toggleshow); 
             }
         }
     void TextEditor::ClearText() {
