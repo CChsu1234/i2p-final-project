@@ -19,6 +19,7 @@ public:
     void Terminate() override;
     void OnKeyDown(int keyCode) override;
     void BackOnClick(int stage);
+    void ScoreBoardOnClick(int stage);
 };
 
 #endif   // LOSESCENE_HPP

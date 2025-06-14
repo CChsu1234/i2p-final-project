@@ -29,10 +29,16 @@ void EndScene::Initialize() {
     AddNewObject(new Engine::Label(scoreText , "pirulen.ttf", 30, halfW, halfH / 4 + 80, 255, 255, 255, 255, 0.5, 0.5));
     AddNewObject(new Engine::Label(rateText , "pirulen.ttf", 30, halfW, halfH / 4 + 120, 255, 255, 255, 255, 0.5, 0.5));
     Engine::ImageButton *btn;
-    btn = new Engine::ImageButton("win/dirt.png", "win/floor.png", halfW - 200, halfH * 7 / 4 - 50, 400, 100);
+
+    btn = new Engine::ImageButton("stage-select/dirt.png", "stage-select/floor.png", halfW - 200, halfH * 7 / 4 - 230 , 400, 100);
+    btn->SetOnClickCallback(std::bind(&EndScene::ScoreBoardOnClick, this, 2));
+    AddNewControlObject(btn);
+    AddNewObject(new Engine::Label("Score Board", "pirulen.ttf", 40, halfW,  halfH * 7 / 4 - 180, 0, 0, 0, 255, 0.5, 0.5));
+
+    btn = new Engine::ImageButton("win/dirt.png", "win/floor.png", halfW - 200, halfH * 7 / 4 - 100, 400, 100);
     btn->SetOnClickCallback(std::bind(&EndScene::BackOnClick, this, 2));
     AddNewControlObject(btn);
-    AddNewObject(new Engine::Label("Start Again", "pirulen.ttf", 40, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
+    AddNewObject(new Engine::Label("Start Again", "pirulen.ttf", 40, halfW, halfH * 7 / 4 - 50, 0, 0, 0, 255, 0.5, 0.5));
     AddNewObject3D(cube = new Engine::RotatingCube(Eigen::Vector3f(0, 0, -40), 5.0f, al_map_rgb(255, 255, 255)));
     //bgmInstance = AudioHelper::PlaySample("astronomia.ogg", false, AudioHelper::BGMVolume, PlayScene::DangerTime);
 }
@@ -53,4 +59,8 @@ void EndScene::OnKeyDown(int keyCode){
     if (keyCode == ALLEGRO_KEY_A){
         Engine::GameEngine::GetInstance().ChangeScene("finalStart");
     }
+}
+
+void EndScene::ScoreBoardOnClick(int stage) {
+    Engine::GameEngine::GetInstance().ChangeScene("finalscoreboard");
 }
