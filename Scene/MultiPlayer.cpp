@@ -77,6 +77,8 @@ void MultiPlayer::Update(float deltaTime) {
         std::cout << myTotalBall << std::endl;
 
         if (myTotalBall + delta == 10 || myTotalBall + delta == 0) {
+            if (myTotalBall + delta == 10) Host->SendRecv((char*)"win", 4);
+            else if (myTotalBall + delta == 0) Host->SendRecv((char*)"lose", 5);
             EndGame();
         }
 
@@ -89,6 +91,10 @@ void MultiPlayer::Update(float deltaTime) {
             opponentTotalBall = nowOpponentTotalBall; 
         }
         Host->SendRecv((char*)std::to_string(myTotalBall).c_str(), sizeof(std::to_string(myTotalBall).length() + 1));
+
+        if (!strcmp(Host->read(), "win") || !strcmp(Host->read(), "lose")) {
+            EndGame();
+        }
         // std::cout<<"update"<<std::endl;
         IScene::Update(deltaTime);
         accumalateTime += deltaTime;
