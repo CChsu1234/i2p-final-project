@@ -192,9 +192,9 @@ namespace Engine {
     }
     void GameEngine::draw() {
         SetTransformMatrix();
-        activeScene->CleanUp();
         activeScene->Transform();
         activeScene->Draw();
+        activeScene->CleanUp();
         al_flip_display();
     }
     void GameEngine::destroy() {

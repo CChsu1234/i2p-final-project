@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <filesystem>
+#include <sstream>
 #include "File/User.hpp"
 
 
@@ -59,6 +61,12 @@ void UserTable::Update(int mode) {
     } else {
         prevMode = mode;
     }
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::stringstream Filename;
+    Filename << currentPath.filename();
+    if (Filename.str() == "\"build\"") {
+        std::filesystem::current_path("../");
+    }
     std::map<int, int> id_to_i;
     clearTable();
 
@@ -80,8 +88,6 @@ void UserTable::Update(int mode) {
 
     std::string filename = "Resource/score" + std::to_string(mode) + ".txt";
 
-    std::cout << filename << std::endl;
-
     in.open(filename);
 
     int n;
@@ -91,7 +97,6 @@ void UserTable::Update(int mode) {
     for (int i = 0; i < n; i++) {
         in >> id >> score;
         table[id_to_i[id]].addNewRecord(score);
-        std::cout << id << " " << score << std::endl;
     }
 
     in.close();
@@ -127,6 +132,12 @@ std::string UserTable::GetMode() {
 }
 void UserTable::Save(bool dontchange) {
     int mode = prevMode;
+    std::filesystem::path currentPath = std::filesystem::current_path();
+    std::stringstream Filename;
+    Filename << currentPath.filename();
+    if (Filename.str() == "\"build\"") {
+        std::filesystem::current_path("../");
+    }
 
     std::ofstream out;
     int n_record = 0;

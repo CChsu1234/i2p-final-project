@@ -12,9 +12,17 @@
 #include "Scene/LoginScene.hpp"
 #include "Scene/EndScene.hpp"
 #include "Scene/EndTwoScene.hpp"
-
+#include "Scene/WaitScene.hpp"
+#include "Scene/MultiPlayer.hpp"
+#include "File/Settings.hpp"
 
 int main(int argc, char **argv) {
+    if (enet_initialize() != 0) {
+        std::cout << "An error occurred while initializing ENet." << std::endl;
+    } else {
+        std::cout << "initialize success!" << std::endl;
+    }
+    atexit(enet_deinitialize);
 
 	Engine::LOG::SetConfig(true);
 	Engine::GameEngine& game = Engine::GameEngine::GetInstance();
@@ -39,10 +47,12 @@ int main(int argc, char **argv) {
     game.AddNewScene("finalSelect", new FinalSelectScene());
     game.AddNewScene("survival", new SurvivalScene());
     game.AddNewScene("finalendtwo", new EndTwoScene());
+    game.AddNewScene("multiplayer", new MultiPlayer());
+    game.AddNewScene("wait", new WaitScene());
 
     // DONE HACKATHON-1 (1/1): Change the start scene
-
-	game.Start("finalStart", 60, 1600, 832);
+    Settings settings;
+	game.Start("wait", 60, 1600, 832);
 
 	return 0;
 }
